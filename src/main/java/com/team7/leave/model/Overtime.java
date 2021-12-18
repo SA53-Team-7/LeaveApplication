@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,9 @@ public class Overtime {
 	private Double hours;
 	private LocalDate DateTime;
 	private String status;
+	
+	@ManyToOne
+	private Employee employee;
 	
 	public Overtime(Double hours, LocalDate dateTime, String status) {
 		super();

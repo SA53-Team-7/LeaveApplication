@@ -27,7 +27,9 @@ public class LeaveApplication {
 	private String status;
 	private String managerComments;
 	
-	// Bi-directional association with LeaveType
+	@ManyToOne
+	private Employee employee;
+	
 	@ManyToOne
 	private LeaveType leavetype;
 	

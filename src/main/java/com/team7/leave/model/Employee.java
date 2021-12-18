@@ -33,15 +33,12 @@ public class Employee {
 	private Integer otHours;
 	private String managedBy;
 	
-	// Uni-directional association with Leave Application
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<LeaveApplication> leaveList = new HashSet<LeaveApplication>();
 	
-	// Uni-directional association with Overtime
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Overtime> overtimeList = new HashSet<Overtime>();
 	
-	// Bi-directional association with UserType
 	@ManyToOne
 	private UserType usertype;
 
