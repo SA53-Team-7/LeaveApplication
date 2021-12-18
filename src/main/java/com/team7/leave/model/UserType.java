@@ -28,7 +28,6 @@ public class UserType {
 	@OneToMany(mappedBy="usertype", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Employee> userList = new HashSet<Employee>();
 		
-	
 	public UserType(String description, Integer leaveAnnualTotal) {
 		super();
 		this.description = description;
