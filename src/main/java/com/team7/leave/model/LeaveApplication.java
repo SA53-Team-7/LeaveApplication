@@ -1,0 +1,46 @@
+package com.team7.leave.model;
+
+import java.time.LocalDate;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+public class LeaveApplication {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer leaveId;
+	private Integer employeeId;
+	private LocalDate dateFrom;
+	private LocalDate dateTo;
+	private String reason;
+	private String memo;
+	private Integer leaveTypeId;
+	private String status;
+	private String managerComments;
+	
+	// Bi-directional association with LeaveType
+	@ManyToOne
+	private LeaveType leavetype;
+	
+	public LeaveApplication(Integer employeeId, LocalDate dateFrom, LocalDate dateTo, String reason, String handoverMemo,
+			Integer leaveTypeId, String status, String managerComments) {
+		super();
+		this.employeeId = employeeId;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
+		this.reason = reason;
+		this.memo = handoverMemo;
+		this.leaveTypeId = leaveTypeId;
+		this.status = status;
+		this.managerComments = managerComments;
+	}
+}
