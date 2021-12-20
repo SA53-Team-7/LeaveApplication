@@ -25,7 +25,7 @@ public class Employee {
 
 	private String name;
 	private String email;
-	private String type;
+	// private String type;
 	private String username;
 	private String password;
 	private Integer leaveMedicalLeft;
@@ -42,17 +42,32 @@ public class Employee {
 	@ManyToOne
 	private UserType usertype;
 
-	public Employee(String name, String email, String type, String username, String password, Integer leaveMedicalLeft,
-			Integer leaveAnnualLeft, Integer otHours, String managedBy) {
+	public Employee(String name, String email, String username, String password, Integer leaveMedicalLeft,
+			Integer leaveAnnualLeft, Integer otHours, String managedBy, Set<LeaveApplication> leaveList,
+			Set<Overtime> overtimeList, UserType usertype) {
 		super();
 		this.name = name;
 		this.email = email;
-		this.type = type;
 		this.username = username;
 		this.password = password;
 		this.leaveMedicalLeft = leaveMedicalLeft;
 		this.leaveAnnualLeft = leaveAnnualLeft;
 		this.otHours = otHours;
 		this.managedBy = managedBy;
+		this.leaveList = leaveList;
+		this.overtimeList = overtimeList;
+		this.usertype = usertype;
 	}
+
+	/*
+	 * public Employee(String name, String email, String type, String username,
+	 * String password, Integer leaveMedicalLeft, Integer leaveAnnualLeft, Integer
+	 * otHours, String managedBy, Set<LeaveApplication> leaveList, Set<Overtime>
+	 * overtimeList, UserType usertype) { super(); this.name = name; this.email =
+	 * email; // this.type = type; this.username = username; this.password =
+	 * password; this.leaveMedicalLeft = leaveMedicalLeft; this.leaveAnnualLeft =
+	 * leaveAnnualLeft; this.otHours = otHours; this.managedBy = managedBy;
+	 * this.leaveList = leaveList; this.overtimeList = overtimeList; this.usertype =
+	 * usertype; }
+	 */
 }

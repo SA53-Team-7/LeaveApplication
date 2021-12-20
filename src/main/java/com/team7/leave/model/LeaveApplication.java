@@ -23,7 +23,7 @@ public class LeaveApplication {
 	private LocalDate dateTo;
 	private String reason;
 	private String memo;
-	private Integer leaveTypeId;
+	// private Integer leaveTypeId;
 	private String status;
 	private String managerComments;
 	
@@ -32,17 +32,28 @@ public class LeaveApplication {
 	
 	@ManyToOne
 	private LeaveType leavetype;
-	
-	public LeaveApplication(Integer employeeId, LocalDate dateFrom, LocalDate dateTo, String reason, String handoverMemo,
-			Integer leaveTypeId, String status, String managerComments) {
+
+	public LeaveApplication(Integer employeeId, LocalDate dateFrom, LocalDate dateTo, String reason, String memo,
+			String status, String managerComments, Employee employee, LeaveType leavetype) {
 		super();
 		this.employeeId = employeeId;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.reason = reason;
-		this.memo = handoverMemo;
-		this.leaveTypeId = leaveTypeId;
+		this.memo = memo;
 		this.status = status;
 		this.managerComments = managerComments;
+		this.employee = employee;
+		this.leavetype = leavetype;
 	}
+	
+	/*
+	 * public LeaveApplication(Integer employeeId, LocalDate dateFrom, LocalDate
+	 * dateTo, String reason, String memo, Integer leaveTypeId, String status,
+	 * String managerComments, Employee employee, LeaveType leavetype) { super();
+	 * this.employeeId = employeeId; this.dateFrom = dateFrom; this.dateTo = dateTo;
+	 * this.reason = reason; this.memo = memo; this.leaveTypeId = leaveTypeId;
+	 * this.status = status; this.managerComments = managerComments; this.employee =
+	 * employee; this.leavetype = leavetype; }
+	 */
 }
