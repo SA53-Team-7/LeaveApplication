@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,9 @@ public class UserType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer typeId;
+	@NotBlank
 	private String type;
+	@Min(14)
 	private Integer leaveAnnualTotal;
 
 	// Bi-directional association with Employee
