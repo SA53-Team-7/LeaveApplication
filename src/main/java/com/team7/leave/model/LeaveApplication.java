@@ -3,12 +3,16 @@ package com.team7.leave.model;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.team7.leave.helper.LeaveApplicationStatusEnum;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +32,8 @@ public class LeaveApplication {
 	private String reason;
 	private String memo;
 	// private Integer leaveTypeId;
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private LeaveApplicationStatusEnum status;
 	private String managerComments;
 	
 	@ManyToOne
@@ -37,7 +42,7 @@ public class LeaveApplication {
 	@ManyToOne
 	private LeaveType leavetype;
 
-	public LeaveApplication(LocalDate dateFrom, LocalDate dateTo, String reason, String memo, String status,
+	public LeaveApplication(LocalDate dateFrom, LocalDate dateTo, String reason, String memo, LeaveApplicationStatusEnum status,
 			String managerComments, Employee employee, LeaveType leavetype) {
 		super();
 		this.dateFrom = dateFrom;
