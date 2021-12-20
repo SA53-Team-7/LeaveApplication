@@ -27,10 +27,17 @@ public class LeaveType {
 	// Bi-directional association with LeaveApplication
 	@OneToMany(mappedBy="leavetype", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<LeaveApplication> leaveList = new HashSet<LeaveApplication>();
-	
-	public LeaveType(String type, String description) {
+
+	public LeaveType(String type, String description, Set<LeaveApplication> leaveList) {
 		super();
 		this.type = type;
 		this.description = description;
+		this.leaveList = leaveList;
 	}
+	
+//	public LeaveType(String type, String description) {
+//		super();
+//		this.type = type;
+//		this.description = description;
+//	}	
 }

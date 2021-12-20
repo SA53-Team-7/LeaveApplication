@@ -19,16 +19,22 @@ public class Overtime {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer overtimeId;
 	private Double hours;
-	private LocalDate DateTime;
+	private LocalDate dateTime;
 	private String status;
 	
 	@ManyToOne
 	private Employee employee;
-	
-	public Overtime(Double hours, LocalDate dateTime, String status) {
+
+	public Overtime(Double hours, LocalDate dateTime, String status, Employee employee) {
 		super();
 		this.hours = hours;
-		DateTime = dateTime;
+		this.dateTime = dateTime;
 		this.status = status;
-	}	
+		this.employee = employee;
+	}
+	
+	/*
+	 * public Overtime(Double hours, LocalDate dateTime, String status) { super();
+	 * this.hours = hours; DateTime = dateTime; this.status = status; }
+	 */	
 }
