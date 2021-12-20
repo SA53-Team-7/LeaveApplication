@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PublicHoliday {
 	@Id
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateFrom;
 	private String name;
 	// private LocalDate dateTo;
