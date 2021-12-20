@@ -15,8 +15,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class LeaveType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +32,50 @@ public class LeaveType {
 		this.description = description;
 		this.leaveList = leaveList;
 	}
+
+	public LeaveType() {
+		super();
+	}
+
+	public Integer getLeaveTypeId() {
+		return leaveTypeId;
+	}
+
+	public void setLeaveTypeId(Integer leaveTypeId) {
+		this.leaveTypeId = leaveTypeId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Set<LeaveApplication> getLeaveList() {
+		return leaveList;
+	}
+
+	public void setLeaveList(Set<LeaveApplication> leaveList) {
+		this.leaveList = leaveList;
+	}
+
+	@Override
+	public String toString() {
+		return "LeaveType [leaveTypeId=" + leaveTypeId + ", type=" + type + ", description=" + description
+				+ ", leaveList=" + leaveList + "]";
+	}
+	
+	
 	
 //	public LeaveType(String type, String description) {
 //		super();

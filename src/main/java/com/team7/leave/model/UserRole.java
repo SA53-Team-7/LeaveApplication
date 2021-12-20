@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
 @Entity
 public class UserRole {
 	@Id
@@ -21,6 +19,25 @@ public class UserRole {
 		this.roleId = roleId;
 		this.description = description;
 	}
+	public UserRole() {
+		super();
+	}
+	public Integer getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	@Override
+	public String toString() {
+		return "UserRole [roleId=" + roleId + ", description=" + description + "]";
+	}
 	
-
+	
 }

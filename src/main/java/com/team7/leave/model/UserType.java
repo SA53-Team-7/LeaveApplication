@@ -15,8 +15,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class UserType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +32,48 @@ public class UserType {
 		this.leaveAnnualTotal = leaveAnnualTotal;
 		this.userList = userList;
 	}
+
+	public UserType() {
+		super();
+	}
+
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Integer getLeaveAnnualTotal() {
+		return leaveAnnualTotal;
+	}
+
+	public void setLeaveAnnualTotal(Integer leaveAnnualTotal) {
+		this.leaveAnnualTotal = leaveAnnualTotal;
+	}
+
+	public Set<Employee> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(Set<Employee> userList) {
+		this.userList = userList;
+	}
+
+	@Override
+	public String toString() {
+		return "UserType [typeId=" + typeId + ", type=" + type + ", leaveAnnualTotal=" + leaveAnnualTotal
+				+ ", userList=" + userList + "]";
+	}
+	
+	
 }

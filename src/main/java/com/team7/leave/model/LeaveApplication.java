@@ -14,8 +14,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class LeaveApplication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,4 +47,90 @@ public class LeaveApplication {
 		this.employee = employee;
 		this.leavetype = leavetype;
 	}
+
+	public LeaveApplication() {
+		super();
+	}
+
+	public Integer getLeaveId() {
+		return leaveId;
+	}
+
+	public void setLeaveId(Integer leaveId) {
+		this.leaveId = leaveId;
+	}
+
+	public LocalDate getDateFrom() {
+		return dateFrom;
+	}
+
+	public void setDateFrom(LocalDate dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+
+	public LocalDate getDateTo() {
+		return dateTo;
+	}
+
+	public void setDateTo(LocalDate dateTo) {
+		this.dateTo = dateTo;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getManagerComments() {
+		return managerComments;
+	}
+
+	public void setManagerComments(String managerComments) {
+		this.managerComments = managerComments;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public LeaveType getLeavetype() {
+		return leavetype;
+	}
+
+	public void setLeavetype(LeaveType leavetype) {
+		this.leavetype = leavetype;
+	}
+
+	@Override
+	public String toString() {
+		return "LeaveApplication [leaveId=" + leaveId + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", reason="
+				+ reason + ", memo=" + memo + ", status=" + status + ", managerComments=" + managerComments
+				+ ", employee=" + employee + ", leavetype=" + leavetype + "]";
+	}
+	
+	
+
 }
