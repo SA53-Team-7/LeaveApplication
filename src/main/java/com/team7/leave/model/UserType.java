@@ -21,16 +21,19 @@ public class UserType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userTypeId;
+	private String type;
 	private String description;
 	private Integer leaveAnnualTotal;
 
 	// Bi-directional association with Employee
 	@OneToMany(mappedBy="usertype", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Employee> userList = new HashSet<Employee>();
-		
-	public UserType(String description, Integer leaveAnnualTotal) {
+
+	public UserType(String type, String description, Integer leaveAnnualTotal, Set<Employee> userList) {
 		super();
+		this.type = type;
 		this.description = description;
 		this.leaveAnnualTotal = leaveAnnualTotal;
+		this.userList = userList;
 	}
 }
