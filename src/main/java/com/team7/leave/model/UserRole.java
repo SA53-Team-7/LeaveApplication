@@ -14,24 +14,22 @@ import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
-public class UserType {
+@Entity
+public class UserRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer typeId;
-	private String type;
-	private Integer leaveAnnualTotal;
-
+	private Integer roleId;
+	private String description;
+	
 	// Bi-directional association with Employee
-	@OneToMany(mappedBy="usertype", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	private Set<Employee> userList = new HashSet<Employee>();
+	@OneToMany(mappedBy="roletype", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private Set<Employee> roleList = new HashSet<Employee>();
 
-	public UserType(String type, Integer leaveAnnualTotal, Set<Employee> userList) {
+	public UserRole(String description, Set<Employee> roleList) {
 		super();
-		this.type = type;
-		this.leaveAnnualTotal = leaveAnnualTotal;
-		this.userList = userList;
+		this.description = description;
+		this.roleList = roleList;
 	}
 }

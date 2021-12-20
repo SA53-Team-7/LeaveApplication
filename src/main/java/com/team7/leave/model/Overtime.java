@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +21,7 @@ public class Overtime {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer overtimeId;
 	private Double hours;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateTime;
 	private String status;
 	

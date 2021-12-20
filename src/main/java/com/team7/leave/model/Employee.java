@@ -22,7 +22,6 @@ public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer employeeId;
-
 	private String name;
 	private String email;
 	// private String type;
@@ -41,6 +40,9 @@ public class Employee {
 	
 	@ManyToOne
 	private UserType usertype;
+	
+	@ManyToOne
+	private UserRole roletype;
 
 	public Employee(String name, String email, String username, String password, Integer leaveMedicalLeft,
 			Integer leaveAnnualLeft, Integer otHours, String managedBy, Set<LeaveApplication> leaveList,
