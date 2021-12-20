@@ -20,7 +20,7 @@ public class LeaveApplication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer leaveId;
-	private Integer employeeId;
+	// private Integer employeeId;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateFrom;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -37,10 +37,9 @@ public class LeaveApplication {
 	@ManyToOne
 	private LeaveType leavetype;
 
-	public LeaveApplication(Integer employeeId, LocalDate dateFrom, LocalDate dateTo, String reason, String memo,
-			String status, String managerComments, Employee employee, LeaveType leavetype) {
+	public LeaveApplication(LocalDate dateFrom, LocalDate dateTo, String reason, String memo, String status,
+			String managerComments, Employee employee, LeaveType leavetype) {
 		super();
-		this.employeeId = employeeId;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.reason = reason;
@@ -50,14 +49,4 @@ public class LeaveApplication {
 		this.employee = employee;
 		this.leavetype = leavetype;
 	}
-	
-	/*
-	 * public LeaveApplication(Integer employeeId, LocalDate dateFrom, LocalDate
-	 * dateTo, String reason, String memo, Integer leaveTypeId, String status,
-	 * String managerComments, Employee employee, LeaveType leavetype) { super();
-	 * this.employeeId = employeeId; this.dateFrom = dateFrom; this.dateTo = dateTo;
-	 * this.reason = reason; this.memo = memo; this.leaveTypeId = leaveTypeId;
-	 * this.status = status; this.managerComments = managerComments; this.employee =
-	 * employee; this.leavetype = leavetype; }
-	 */
 }
