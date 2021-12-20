@@ -44,7 +44,7 @@ public class StaffController {
 		ModelAndView mav = new ModelAndView(); 	
 		leave.setEmployee(usession.getEmployee());
 		leave.setStatus(LeaveApplicationStatusEnum.APPLIED); //
-		mav.setViewName("forward:/leave/history");
+		mav.setViewName("redirect:/staff/leave/history");
 		laService.createLeaveApplication(leave); 
 		return mav; 
 	}

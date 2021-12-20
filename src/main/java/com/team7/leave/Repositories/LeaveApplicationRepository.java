@@ -9,6 +9,6 @@ import com.team7.leave.model.LeaveApplication;
 
 public interface LeaveApplicationRepository extends JpaRepository<LeaveApplication, Integer> {
 	
-	@Query(value = "Select * from leave_application where YEAR(date_from) = :year  and employee_employee_id = :employeeId", nativeQuery=true)
+	@Query(value = "Select * from leave_application where YEAR(date_from) >= :year  and employee_employee_id = :employeeId", nativeQuery=true)
 	ArrayList<LeaveApplication> findAllLeaveAppByEmpId(Integer employeeId, Integer year);
 }
