@@ -9,12 +9,32 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EmployeeSession implements Serializable {
+public class EmployeeSession {
 	
 	private static final long serialVersionUID = 1L;
 	private Employee employee = null;
 	private ArrayList<Employee> subordinates = null;
+	public EmployeeSession() {
+		super();
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	public ArrayList<Employee> getSubordinates() {
+		return subordinates;
+	}
+	public void setSubordinates(ArrayList<Employee> subordinates) {
+		this.subordinates = subordinates;
+	}
+	@Override
+	public String toString() {
+		return "EmployeeSession [employee=" + employee + ", subordinates=" + subordinates + "]";
+	}
+	
+	
 }

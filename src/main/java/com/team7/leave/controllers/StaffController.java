@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team7.leave.helper.EmployeeSession;
 import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.LeaveApplication;
 import com.team7.leave.model.LeaveType;
@@ -40,9 +41,10 @@ public class StaffController {
 	// Creates new leave application
 	@RequestMapping(value = "/leave/create", method = RequestMethod.POST) 
 	public ModelAndView createLeaveApplication(@ModelAttribute LeaveApplication leave, HttpSession session) { 
-		UserSession usession = (UserSession) session.getAttribute("usession");
+		// UserSession usession = (UserSession) session.getAttribute("usession");
+		EmployeeSession empSession = (EmployeeSession) session.getAttribute("emSession");
 		ModelAndView mav = new ModelAndView(); 	
-		leave.setEmployee(usession.getEmployee());
+		leave.setEmployee(empSession.getEmployee());
 		leave.setStatus(LeaveApplicationStatusEnum.APPLIED); //
 		mav.setViewName("redirect:/staff/leave/history");
 		laService.createLeaveApplication(leave); 
@@ -52,12 +54,13 @@ public class StaffController {
 	// View personal leave history
 	@GetMapping(value = "/leave/history")
 	public String viewAllLeaveApplication(Model model, HttpSession session) {
-		UserSession usession = (UserSession) session.getAttribute("usession");
-		if (usession.getEmployee() != null) {
+		// UserSession usession = (UserSession) session.getAttribute("usession");
+		EmployeeSession empSession = (EmployeeSession) session.getAttribute("emSession");
+		if (empSession.getEmployee() != null) {
 			LocalDate currDate = LocalDate.now();
 			Integer year = currDate.getYear();
-			if (laService.viewAllLeaveApplications(usession.getEmployee().getEmployeeId(), year).size() > 0) {
-				model.addAttribute("leavehistory", laService.viewAllLeaveApplications(usession.getEmployee().getEmployeeId(), year));
+			if (laService.viewAllLeaveApplications(empSession.getEmployee().getEmployeeId(), year).size() > 0) {
+				model.addAttribute("leavehistory", laService.viewAllLeaveApplications(empSession.getEmployee().getEmployeeId(), year));
 			}
 			return "leave-history";
 		}

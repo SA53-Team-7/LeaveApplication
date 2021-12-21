@@ -1,5 +1,6 @@
 package com.team7.leave.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.team7.leave.model.LeaveApplication;
@@ -15,4 +16,7 @@ public interface LeaveApplicationService {
 	LeaveApplication updateLeaveApplication(LeaveApplication leaveapp);
 	
 	void deleteLeaveApplication(LeaveApplication leaveapp);
+	
+	ArrayList<LeaveApplication> findLeaveApplicationByEmployeeId(Integer eid);
+	LeaveApplication findLeaveApplicationById(Integer id);
 }

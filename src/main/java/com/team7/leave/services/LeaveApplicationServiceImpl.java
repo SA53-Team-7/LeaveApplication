@@ -1,5 +1,6 @@
 package com.team7.leave.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,15 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 	public void deleteLeaveApplication(LeaveApplication leaveapp) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Transactional
+	public ArrayList<LeaveApplication> findLeaveApplicationByEmployeeId(Integer eid){
+		return larepo.findLeaveApplicationByEmployeeId(eid);
+	}
+	
+	@Transactional
+	public LeaveApplication findLeaveApplicationById(Integer id) {
+		return larepo.findLeaveApplicationById(id);
 	}
 }

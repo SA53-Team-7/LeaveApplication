@@ -65,6 +65,7 @@ public class CommonController {
 			session.setAttribute("emName", em.getName());
 						
 			return "welcome";
+
 		}
 		
 	}

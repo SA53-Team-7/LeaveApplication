@@ -16,8 +16,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +56,143 @@ public class Employee {
 		this.overtimeList = overtimeList;
 		this.usertype = usertype;
 	}
+
+
+	public Employee() {
+		super();
+	}
+
+
+
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+
+
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public Integer getLeaveMedicalLeft() {
+		return leaveMedicalLeft;
+	}
+
+
+	public void setLeaveMedicalLeft(Integer leaveMedicalLeft) {
+		this.leaveMedicalLeft = leaveMedicalLeft;
+	}
+
+
+	public Integer getLeaveAnnualLeft() {
+		return leaveAnnualLeft;
+	}
+
+
+	public void setLeaveAnnualLeft(Integer leaveAnnualLeft) {
+		this.leaveAnnualLeft = leaveAnnualLeft;
+	}
+
+
+	public Integer getOtHours() {
+		return otHours;
+	}
+
+
+	public void setOtHours(Integer otHours) {
+		this.otHours = otHours;
+	}
+
+
+	public String getManagedBy() {
+		return managedBy;
+	}
+
+
+	public void setManagedBy(String managedBy) {
+		this.managedBy = managedBy;
+	}
+
+
+	public Set<LeaveApplication> getLeaveList() {
+		return leaveList;
+	}
+
+
+	public void setLeaveList(Set<LeaveApplication> leaveList) {
+		this.leaveList = leaveList;
+	}
+
+
+	public Set<Overtime> getOvertimeList() {
+		return overtimeList;
+	}
+
+
+	public void setOvertimeList(Set<Overtime> overtimeList) {
+		this.overtimeList = overtimeList;
+	}
+
+
+	public UserType getUsertype() {
+		return usertype;
+	}
+
+
+	public void setUsertype(UserType usertype) {
+		this.usertype = usertype;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", name=" + name + ", email=" + email + ", username=" + username
+				+ ", password=" + password + ", leaveMedicalLeft=" + leaveMedicalLeft + ", leaveAnnualLeft="
+				+ leaveAnnualLeft + ", otHours=" + otHours + ", managedBy=" + managedBy + ", leaveList=" + leaveList
+				+ ", overtimeList=" + overtimeList + ", usertype=" + usertype + "]";
+	}
+	
+	
 
 	/*
 	 * public Employee(String name, String email, String type, String username,

@@ -10,9 +10,10 @@ import com.team7.leave.model.Employee;
 public interface EmployeeService {
 	
 	Employee authenticate(String username, String password);
-	
 
 	ArrayList<Employee> findSubordinates(Integer emId);
+
+	ArrayList<Employee> findAll();
 
 
 }
