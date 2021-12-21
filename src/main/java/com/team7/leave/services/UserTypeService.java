@@ -2,8 +2,6 @@ package com.team7.leave.services;
 
 import java.util.ArrayList;
 
-import javax.validation.Valid;
-
 import com.team7.leave.model.UserType;
 
 public interface UserTypeService {
