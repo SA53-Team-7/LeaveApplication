@@ -45,6 +45,7 @@ public class CommonController {
 		else {
 			Employee em = emService.authenticate(employee.getUsername(), employee.getPassword());
 			emSession.setEmployee(em);
+			session.setAttribute("emSession", emSession);
 		}
 		
 		return "welcome";
