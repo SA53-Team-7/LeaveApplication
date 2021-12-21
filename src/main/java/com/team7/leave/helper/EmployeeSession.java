@@ -10,8 +10,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@Data
 public class EmployeeSession {
 	
+	private static final long serialVersionUID = 1L;
 	private Employee employee = null;
 	private ArrayList<Employee> subordinates = null;
 	public EmployeeSession() {

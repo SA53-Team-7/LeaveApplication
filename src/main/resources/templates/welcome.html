@@ -1,1 +1,21 @@
-welcome
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout.html :: html_head" />
+
+<body>
+	<div th:replace="fragments/layout.html :: menu" />
+	<div th:replace="fragments/layout.html :: header" />
+
+	<h1 th:text="${employee.name}">EmployeeName</h1>
+	<p th:text="${session.emId}"></p>
+	<p th:text="${session.emType}"></p>
+	<p th:each="item: ${session.subordinates}" th:text="${item}"></p>
+
+
+
+	<h3>Welcome! I don't know what pages to show ~~~</h3>
+
+</body>
+
+</html>
