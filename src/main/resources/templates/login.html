@@ -4,8 +4,40 @@
 <body>
 	<div th:replace="fragments/layout.html :: menu"/>
 	<div th:replace="fragments/layout.html :: header"/> 
-	
-	</div>
+		<form action="#" th:object="${employee}" th:action="@{'/home/authenticate'}">
+		<table class="framed">
+			<tr>
+				<td><span th:text="#{fieldLabel.username}">Username</span></td>
+				<td colspan="3">
+					<fieldset>
+						<input type="text" th:field="*{username}">
+						<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<td><span th:text="#{fieldLabel.password}">Password</span></td>
+				<td colspan="3">
+					<fieldset> <input type="password" th:field="*{password}">
+						<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+					</fieldset>
+				</td>
+
+			</tr>
+			<tr>
+				<td colspan="4">&nbsp;</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="submit" />
+				</td>
+				<td>
+					<input type="reset" />
+				</td>
+			</tr>
+		</table>
+	</form>
 </body>
 
 </html>

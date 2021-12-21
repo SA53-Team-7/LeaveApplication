@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+
+<body>
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
+	<h3>User Type List page</h3>
+	<a th:href="@{/admin/usertype/create}" ><input type="button" th:value="#{caption.addusertype}"/></a>
+
+	<div th:if="${not #lists.isEmpty(userTypeList)}">
+		<table>
+
+			<tr class="listHeading">
+
+				<th><span th:text="#{fieldLabel.usertype}"></span></th>
+				<th><span th:text="#{fieldLabel.leaveannualtotal}"></span></th>
+				<th><span th:text="#{caption.edit}"></span></th>
+				<th><span th:text="#{caption.delete}"></span></th>
+			</tr>
+			<tr th:each="userType : ${userTypeList}" class="listRecord">
+				<td align="left" th:text="${userType.type}">User Type</td>
+				<td align="left" th:text="${userType.leaveAnnualTotal}">Total Annual Leave</td>
+				<td><a th:href="@{/admin/usertype/edit/}+${userType.typeId}" >
+				<input type="button" th:value="#{caption.edit}"/></a>
+				</td>
+				<td><a th:href="@{/admin/usertype/delete/}+${userType.typeId}" >
+				<input type="button" th:value="#{caption.delete}"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>
