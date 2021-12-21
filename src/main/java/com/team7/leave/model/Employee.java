@@ -1,7 +1,6 @@
 package com.team7.leave.model;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,8 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -44,10 +41,6 @@ public class Employee {
 	@ManyToOne
 	private UserType usertype;
 	
-
-	@ManyToMany(targetEntity = UserRole.class, cascade = {CascadeType.ALL, CascadeType.PERSIST}, fetch=FetchType.EAGER)
-	@JoinTable(name="employee_role")
-	private List<UserRole> roleSet;
 
 	public Employee(String name, String email, String username, String password, Integer leaveMedicalLeft,
 			Integer leaveAnnualLeft, Integer otHours, String managedBy, Set<LeaveApplication> leaveList,
