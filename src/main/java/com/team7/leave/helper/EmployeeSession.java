@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EmployeeSession {
+public class EmployeeSession implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private Employee employee = null;
 	private ArrayList<Employee> subordinates = null;
 }

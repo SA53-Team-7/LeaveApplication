@@ -7,6 +7,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.team7.leave.model.Employee;
+import com.team7.leave.model.UserType;
 
 @Component
 public class EmployeeValidator implements Validator{
@@ -22,9 +23,9 @@ public class EmployeeValidator implements Validator{
 		Employee em = (Employee) target;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, 
-				"username", "error.user.username.empOrSpace", "Username must not be empty or cantain space");
+				"employee.username", "error.user.username.empOrSpace", "Username must not be empty or cantain space");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, 
-				"password", "error.user.password.empOrSpace", "Password must not be empty or cantain space");
+				"employee.password", "error.user.password.empOrSpace", "Password must not be empty or cantain space");
 		System.out.println(em.toString());
 		
 	}
