@@ -19,4 +19,6 @@ public interface LeaveApplicationService {
 	
 	ArrayList<LeaveApplication> findLeaveApplicationByEmployeeId(Integer eid);
 	LeaveApplication findLeaveApplicationById(Integer id);
+	
+	ArrayList<LeaveApplication> findPendingLeaveApplicationByEmployeeId(Integer eid);
 }

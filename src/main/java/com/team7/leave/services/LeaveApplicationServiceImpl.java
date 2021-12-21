@@ -59,4 +59,9 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 	public LeaveApplication findLeaveApplicationById(Integer id) {
 		return larepo.findLeaveApplicationById(id);
 	}
+	
+	@Transactional
+	public ArrayList<LeaveApplication> findPendingLeaveApplicationByEmployeeId(Integer eid){
+		return larepo.findPendingLeaveApplicationByEmployeeId(eid);
+	}
 }

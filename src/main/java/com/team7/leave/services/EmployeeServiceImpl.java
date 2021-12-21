@@ -14,25 +14,25 @@ import com.team7.leave.model.Employee;
 public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
-	private EmployeeRepository erepo;
+	private EmployeeRepository emRepo;
 	
 	@Transactional
 	public Employee authenticate(String username, String password) {
 		
-		Employee em =  erepo.findEmployeeByUsernameAndPassword(username, password);
+		Employee em =  emRepo.findEmployeeByUsernameAndPassword(username, password);
 		return em;
 	}
 	
-  @Transactional 
+	@Transactional 
 	public ArrayList<Employee> findSubordinates(Integer emId){
 	
 		ArrayList<Employee> subs = emRepo.findSubordinatesByEmployeeId(emId);
 		return subs;
-
+	}
     
 	@Transactional 
 	public ArrayList<Employee> findAll(){
-		return (ArrayList<Employee>) erepo.findAll();
+		return (ArrayList<Employee>) emRepo.findAll();
 
 	}
 }

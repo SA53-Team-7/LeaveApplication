@@ -21,6 +21,7 @@ import com.team7.leave.services.EmployeeService;
 import com.team7.leave.services.LeaveApplicationService;
 
 @Controller
+@RequestMapping("/manager")
 public class ManagerController {
 	
 	@Autowired
@@ -31,6 +32,18 @@ public class ManagerController {
 	
 	@Autowired
 	LeaveApplicationService lService;
+	
+	@GetMapping("/leave")
+	public String listPending(Model model) {
+		HashMap<Employee, ArrayList<LeaveApplication>> submap = new HashMap<Employee, ArrayList<LeaveApplication>>();
+		ArrayList<Employee> emps = (ArrayList<Employee>) erepo.findAll();
+		for (Employee emp : emps) {
+			ArrayList<LeaveApplication> la = (ArrayList) lService.findPendingLeaveApplicationByEmployeeId(emp.getEmployeeId());
+			submap.put(emp, la);
+		}
+		model.addAttribute("submap", submap);
+		return "manager-leave-pending";
+	}
 	
 	@GetMapping("/list-hist")
 	public String listhistory(Model model) {
