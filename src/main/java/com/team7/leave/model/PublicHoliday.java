@@ -11,8 +11,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@NoArgsConstructor
 public class PublicHoliday {
 	@Id
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -25,4 +23,25 @@ public class PublicHoliday {
 		this.dateFrom = dateFrom;
 		this.name = name;
 	}
+	public PublicHoliday() {
+		super();
+	}
+	public LocalDate getDateFrom() {
+		return dateFrom;
+	}
+	public void setDateFrom(LocalDate dateFrom) {
+		this.dateFrom = dateFrom;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@Override
+	public String toString() {
+		return "PublicHoliday [dateFrom=" + dateFrom + ", name=" + name + "]";
+	}
+	
+	
 }
