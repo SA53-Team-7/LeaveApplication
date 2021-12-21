@@ -10,7 +10,10 @@ import com.team7.leave.model.LeaveApplication;
 
 public interface LeaveApplicationRepository extends JpaRepository<LeaveApplication, Integer> {
 	
-	//@Query("SELECT l from LeaveApplication l WHERE l.employeeId = :eid")
-	//ArrayList<LeaveApplication> findLeaveApplicationByEmployeeId(@Param("eid") String eid);
+	@Query("SELECT l from LeaveApplication l WHERE l.employee IN (SELECT e from Employee e WHERE e.employeeId= :eid)")
+	ArrayList<LeaveApplication> findLeaveApplicationByEmployeeId(@Param("eid") Integer eid);
+	
+	@Query("SELECT l from LeaveApplication l WHERE l.leaveId=:id")
+	LeaveApplication findLeaveApplicationById(@Param("id") Integer id);
 	
 }
