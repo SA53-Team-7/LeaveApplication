@@ -12,13 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Length;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 public class Employee {
@@ -26,17 +19,13 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "employeeid")
 	private Integer employeeId;
-	@NotEmpty
-	@Size(min=3, max=10)
+
 	private String name;
-	@NotEmpty
+
 	private String email;
-	// private String type;
-	@NotEmpty
-	@Size(min=3, max=10)
+
 	private String username;
-	@NotEmpty
-	@Length(max=20)
+
 	@Column(name = "password")
 	private String password;
 	private Integer leaveMedicalLeft;

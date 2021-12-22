@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.team7.leave.model.Employee;
+import com.team7.leave.model.LeaveApplication;
 
 @Service
 public interface EmployeeService {
@@ -25,6 +26,4 @@ public interface EmployeeService {
 	Employee get(int id);
 
 	Page<Employee> listAll(Integer pageNum, String sortField, String sortDir, String keyword);
-
-
 }
