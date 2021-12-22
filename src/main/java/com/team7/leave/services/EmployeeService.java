@@ -17,8 +17,6 @@ public interface EmployeeService {
 
 	ArrayList<Employee> findAll();
 	
-	Employee updateEmployee(Employee emp);
-
 	ArrayList<String> findAllEmployeeNames();
 
 	void save(Employee employee);

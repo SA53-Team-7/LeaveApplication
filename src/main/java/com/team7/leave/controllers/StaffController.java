@@ -159,6 +159,7 @@ public class StaffController {
 		}
 		leave.setStatus(LeaveApplicationStatusEnum.CANCEL);
 		laService.updateLeaveApplication(leave);
+		eService.save(emp);
 		return mav;
 	}
 }
