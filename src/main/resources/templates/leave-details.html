@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout.html :: html_head" />
+
+<body>
+	<h1>Leave Details</h1>
+	<table style="border: 1px solid black">
+	<tr>
+		<td style="text-align:left">Leave Type</td>
+		<td style="text-align:left" th:text="${leave.leavetype.description}">Leave Type</td>
+	</tr>
+	<tr>
+		<td style="text-align:left">Start Date</td>
+		<td style="text-align:left" th:text="${leave.dateFrom}">Start Date</td>
+	</tr>
+	<tr>
+		<td style="text-align:left">End Date</td>
+		<td style="text-align:left" th:text="${leave.dateTo}">End Date</td>
+	</tr>
+	<tr>
+		<td style="text-align:left">Status</td>
+		<td style="text-align:left" th:text="${leave.status}">Status</td>
+	</tr>
+	<tr>
+		<td style="text-align:left">Reason</td>
+		<td style="text-align:left" th:text="${leave.reason}">Reason</td>
+	</tr>
+	<tr>
+		<td style="text-align:left">Work Dissemination & Contact Detail</td>
+		<td style="text-align:left" th:text="${leave.memo}">Work Dissemination & Contact Detail</td>
+	</tr>
+	<tr>
+		<td>
+			<div th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
+				<a th:href="@{/staff/leave/update/}+${leave.leaveId}">Update</a>
+			</div>
+		</td>
+		<td>
+			<div
+				th:if="${#strings.equals(leave.status, 'APPROVED')}">
+				<a th:href="@{/staff/leave/cancel/}+${leave.leaveId}">Cancel</a>
+			</div>
+		</td>
+		<td>
+			<div th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
+				<a th:href="@{/staff/leave/delete/}+${leave.leaveId}">Delete</a>
+			</div>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
