@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team7.leave.helper.EmployeeSession;
 import com.team7.leave.helper.LeaveApplicationStatusEnum;
+import com.team7.leave.model.Employee;
 import com.team7.leave.model.LeaveApplication;
 import com.team7.leave.model.LeaveType;
 import com.team7.leave.services.LeaveApplicationService;
@@ -55,13 +55,16 @@ public class StaffController {
 	@RequestMapping(value = "/leave/create", method = RequestMethod.POST)
 	public ModelAndView createLeaveApplication(@Valid @ModelAttribute("leave") LeaveApplication leave,
 			BindingResult bResult, HttpSession session) {
-		EmployeeSession empSession = (EmployeeSession) session.getAttribute("emSession");
+		
+		Employee emp = (Employee) session.getAttribute("emObj");
+		
 		if (bResult.hasErrors()) {
 			List<LeaveType> leavetypes = laService.findAllLeaveType();
 			return new ModelAndView("leave-new", "leavetypes", leavetypes);
 		}
+		
 		ModelAndView mav = new ModelAndView();
-		leave.setEmployee(empSession.getEmployee());
+		leave.setEmployee(emp);
 		leave.setStatus(LeaveApplicationStatusEnum.APPLIED);
 		mav.setViewName("redirect:/staff/leave/history");
 		laService.createLeaveApplication(leave);
@@ -71,13 +74,14 @@ public class StaffController {
 	// View all personal leave history
 	@GetMapping(value = "/leave/history")
 	public String viewAllLeaveApplication(Model model, HttpSession session) {
-		EmployeeSession empSession = (EmployeeSession) session.getAttribute("emSession");
-		if (empSession.getEmployee() != null) {
+		Employee emp = (Employee) session.getAttribute("emObj");
+		
+		if (emp != null) {
 			LocalDate currDate = LocalDate.now();
 			Integer year = currDate.getYear();
-			if (laService.viewAllLeaveApplications(empSession.getEmployee().getEmployeeId(), year).size() > 0) {
+			if (laService.viewAllLeaveApplications(emp.getEmployeeId(), year).size() > 0) {
 				model.addAttribute("leavehistory",
-						laService.viewAllLeaveApplications(empSession.getEmployee().getEmployeeId(), year));
+						laService.viewAllLeaveApplications(emp.getEmployeeId(), year));
 			}
 			return "leave-history";
 		}
@@ -108,14 +112,16 @@ public class StaffController {
 	@RequestMapping(value = "/leave/update/{id}", method = RequestMethod.POST)
 	public ModelAndView updateLeaveApplication(@Valid @ModelAttribute("leave") LeaveApplication leave,
 			BindingResult bResult, HttpSession session, @PathVariable Integer id) {
-		EmployeeSession empSession = (EmployeeSession) session.getAttribute("emSession");
+		
+		Employee emp = (Employee) session.getAttribute("emObj");
+
 		if (bResult.hasErrors()) {
 			List<LeaveType> leavetypes = laService.findAllLeaveType();
 			return new ModelAndView("leave-update", "leavetypes", leavetypes);
 		}
 		ModelAndView mav = new ModelAndView();
 		leave.setStatus(LeaveApplicationStatusEnum.UPDATED);
-		leave.setEmployee(empSession.getEmployee());
+		leave.setEmployee(emp);
 		mav.setViewName("redirect:/staff/leave/history");
 		laService.updateLeaveApplication(leave);
 		return mav;
