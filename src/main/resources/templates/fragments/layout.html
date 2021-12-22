@@ -39,12 +39,12 @@
 					<div class="dropdown">
 						<button class="dropbtn"> Staff Menu<i class="fa fa-caret-down"></i></button>
 						<div class="dropdown-content">
-							<a th:href="@{/}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit Leave
+							<a th:href="@{/staff/leave/create}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit Leave
 								Application</a>
 							<a th:href="@{/}" th:utext="#{staff.subnav.manageLeaveApplication}">Manage Leave
 								Application</a>
 							<a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
-							<a th:href="@{/}" th:utext="#{staff.subnav.viewPersonalLeaveHistory}">View Personal Leave
+							<a th:href="@{/staff/leave/history}" th:utext="#{staff.subnav.viewPersonalLeaveHistory}">View Personal Leave
 								History</a>
 						</div>
 					</div>
