@@ -50,10 +50,10 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		return larepo.saveAndFlush(leaveapp);
 	}
 
-	@Override
-	public LeaveApplication findLeaveApplicationById(Integer leaveId) {
-		return larepo.findById(leaveId).orElse(null);
-	}
+//	@Override
+//	public LeaveApplication findLeaveApplicationById(Integer leaveId) {
+//		return larepo.findById(leaveId).orElse(null);
+//	}
 
 	@Override
 	public Integer getNumberOfDaysDeducted(LocalDate fromDate, LocalDate endDate) {
