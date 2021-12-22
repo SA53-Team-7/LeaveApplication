@@ -2,7 +2,7 @@
 
 <head th:fragment="html_head" id="html_head">
 	<meta charset="ISO-8859-1">
-	<title>Course Application Tracking System - CATS</title>
+	<title>Leave Application</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
@@ -35,7 +35,7 @@
 					<div class="subnav">
 						<button class="subnavbtn"> Admin Menu<i class="fa fa-caret-down"></i></button>
 						<div class="subnav-content">
-							<a th:href="@{/}" th:utext="#{admin.subnav.manageLeaveType}">Manage Leave Types</a>
+							<a th:href="@{/admin/leavetype/list}" th:utext="#{admin.subnav.manageLeaveType}">Manage Leave Types</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.manageLeaveEntitlement}">Manage Leave
 								Entitlement</a>

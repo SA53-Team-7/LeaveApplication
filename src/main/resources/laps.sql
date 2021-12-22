@@ -5,6 +5,8 @@ VALUES
 (2,"staff",18),
 (3,"manager",18);
 
+-- for login page ↓
+
 INSERT INTO laps.employee
 VALUES
 (1, "first@gmail.com", 10, 5, "pupu", "bob", 20, "bob", "bob", 1)
@@ -31,3 +33,11 @@ VALUES
 ("2021-08-09", "National Day"),
 ("2021-11-04", "Deepavali"),
 ("2021-12-25", "Christmas Day");
+
+-- for manage leave type ↓
+
+INSERT INTO leave_type
+VALUES
+(1, "for annual leave", "annual leave")
+(2, "for medical leave", "medical leave")
+(3, "for compensation leave", "compensation leave")
