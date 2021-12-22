@@ -61,14 +61,12 @@ public class StaffController {
 			BindingResult bResult, HttpSession session) {
 		
 		Employee emp = (Employee) session.getAttribute("emObj");
-		leave.setEmployee(emp);
-		
 		if (bResult.hasErrors()) {
 			List<LeaveType> leavetypes = laService.findAllLeaveType();
 			return new ModelAndView("leave-new", "leavetypes", leavetypes);
 		}
-		
 		ModelAndView mav = new ModelAndView();
+		leave.setEmployee(emp);
 		leave.setStatus(LeaveApplicationStatusEnum.APPLIED);
 		mav.setViewName("redirect:/staff/leave/history");
 		laService.createLeaveApplication(leave);
@@ -149,9 +147,9 @@ public class StaffController {
 		Employee emp = leave.getEmployee();
 		Integer duration = laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 		
-		if (leave.getLeavetype().getDescription().equalsIgnoreCase("Annual")) {
+		if (leave.getLeavetype().getType().equalsIgnoreCase("annual leave")) {
 			emp.setLeaveAnnualLeft(emp.getLeaveAnnualLeft() + duration);
-		} else if (leave.getLeavetype().getDescription().equalsIgnoreCase("Medical")) {
+		} else if (leave.getLeavetype().getType().equalsIgnoreCase("medical leave")) {
 			emp.setLeaveMedicalLeft(emp.getLeaveMedicalLeft() + duration);
 		} else {
 			int hours = duration * 8;
