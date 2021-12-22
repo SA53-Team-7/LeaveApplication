@@ -23,6 +23,7 @@ import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Employee;
 import com.team7.leave.model.LeaveApplication;
 import com.team7.leave.model.LeaveType;
+import com.team7.leave.services.EmployeeService;
 import com.team7.leave.services.LeaveApplicationService;
 import com.team7.leave.validators.LeaveApplicationValidator;
 
@@ -35,6 +36,9 @@ public class StaffController {
 
 	@Autowired
 	private LeaveApplicationValidator laValidator;
+	
+	@Autowired
+	private EmployeeService eService;
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -57,6 +61,7 @@ public class StaffController {
 			BindingResult bResult, HttpSession session) {
 		
 		Employee emp = (Employee) session.getAttribute("emObj");
+		leave.setEmployee(emp);
 		
 		if (bResult.hasErrors()) {
 			List<LeaveType> leavetypes = laService.findAllLeaveType();
@@ -64,7 +69,6 @@ public class StaffController {
 		}
 		
 		ModelAndView mav = new ModelAndView();
-		leave.setEmployee(emp);
 		leave.setStatus(LeaveApplicationStatusEnum.APPLIED);
 		mav.setViewName("redirect:/staff/leave/history");
 		laService.createLeaveApplication(leave);
@@ -142,6 +146,17 @@ public class StaffController {
 	public ModelAndView cancelLeaveApplication(@PathVariable Integer id) {
 		ModelAndView mav = new ModelAndView("redirect:/staff/leave/history");
 		LeaveApplication leave = laService.findLeaveApplicationById(id);
+		Employee emp = leave.getEmployee();
+		Integer duration = laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
+		
+		if (leave.getLeavetype().getDescription().equalsIgnoreCase("Annual")) {
+			emp.setLeaveAnnualLeft(emp.getLeaveAnnualLeft() + duration);
+		} else if (leave.getLeavetype().getDescription().equalsIgnoreCase("Medical")) {
+			emp.setLeaveMedicalLeft(emp.getLeaveMedicalLeft() + duration);
+		} else {
+			int hours = duration * 8;
+			emp.setOtHours(emp.getOtHours() + hours);
+		}
 		leave.setStatus(LeaveApplicationStatusEnum.CANCEL);
 		laService.updateLeaveApplication(leave);
 		return mav;
