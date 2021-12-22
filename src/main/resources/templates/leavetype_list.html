@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+
+<body>
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
+	<h3>Leave Type List page</h3>
+	<a th:href="@{/admin/leavetype/create}" ><input type="button" th:value="#{caption.addleavetype}"/></a>
+
+	<div th:if="${not #lists.isEmpty(leaveTypeList)}">
+		<table>
+
+			<tr class="listHeading">
+
+				<th><span th:text="#{fieldLabel.leavetype}"></span></th>
+				<th><span th:text="#{fieldLabel.description}"></span></th>
+				<th><span th:text="#{caption.edit}"></span></th>
+				<th><span th:text="#{caption.delete}"></span></th>
+			</tr>
+			<tr th:each="leaveType : ${leaveTypeList}" class="listRecord">
+				<td align="left" th:text="${leaveType.type}">Leave Type</td>
+				<td align="left" th:text="${leaveType.description}">Description</td>
+				<td><a th:href="@{/admin/leavetype/edit/}+${leaveType.leaveTypeId}">
+						<input type="button" th:value="#{caption.edit}" /></a>
+				</td>
+				<td><a th:href="@{/admin/leavetype/delete/}+${leaveType.leaveTypeId}">
+						<input type="button" th:value="#{caption.delete}" /></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
