@@ -13,21 +13,6 @@
 			<a th:href="@{/about}">Leave Application Processing System</a>
 			<a th:href="@{/home}">Home</a>
 			<a th:href="@{/about}">About</a>
-<<<<<<< HEAD
-			<div th:if="${session.usession?.user}">
-				<div th:each="role : ${session.usession.user.roleSet}">
-					<div th:if="${role.roleId == 'manager'}">
-						<div class="dropdown">
-							<button class="dropbtn">
-								Manager Menu <i class="fa fa-caret-down"></i>
-							</button>
-							<div class="dropdown-content">
-								<a th:href="@{/manager/pending}"
-									th:utext="#{menu.coursesForApproval}">Pending Approvals</a> <a
-									th:href="@{/list-hist}"
-									th:utext="#{menu.EmployeeHistory}">Employee History</a>
-							</div>
-=======
       
 <!--			<div th:if="${session.emType != null}">
         
@@ -37,11 +22,10 @@
 						<div class="dropdown-content">
 							<a th:href="@{/}" th:utext="#{manager.subnav.viewApplivation}">View Applications for
 								Approval</a>
-							<a th:href="@{/}" th:utext="#{manager.subnav.viewHistory}">View Employee Leave History</a>
+							<a th:href="@{/manager/list-hist}" th:utext="#{manager.subnav.viewHistory}">View Employee Leave History</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.processLeave}">Approve/ Reject Leave</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.processCompensation}">Approve/ Reject
 								Compensation Claim</a>
->>>>>>> refs/remotes/origin/main
 						</div>
 					</div>
 <!--				</div>-->
@@ -52,7 +36,7 @@
 						<button class="dropbtn"> Admin Menu<i class="fa fa-caret-down"></i></button>
 						<div class="dropdown-content">
 							<a th:href="@{/}" th:utext="#{admin.subnav.manageLeaveType}">Manage Leave Types</a>
-							<a th:href="@{/}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a>
+							<a th:href="@{/admin/employee/list}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a>
 							<a th:href="@{/admin/usertype/list}" th:utext="#{manager.subnav.manageLeaveEntitlement}">Manage Leave
 								Entitlement</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.manageApprovalHierarchy}">Manage Approval

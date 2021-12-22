@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ public class ManagerController {
 	
 	@Autowired
 	EmployeeRepository erepo;
+	
+	@Autowired
+	LeaveApplication lrepo;
 	
 	@Autowired
 	EmployeeService eService;
@@ -71,6 +75,9 @@ public class ManagerController {
 		la.setManagerComments(comment);
 		if(decision.equalsIgnoreCase(LeaveApplicationStatusEnum.APPROVED.toString())) {
 			la.setStatus(LeaveApplicationStatusEnum.APPROVED);
+			Integer days = lService.getNumberOfDaysDeducted(la.getDateFrom(), la.getDateTo());
+			Integer remaining = la.getEmployee().getLeaveAnnualLeft() - days;
+			la.getEmployee().setLeaveAnnualLeft(remaining);
 		}
 		else {
 			la.setStatus(LeaveApplicationStatusEnum.REJECTED);
