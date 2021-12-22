@@ -14,15 +14,14 @@ public interface LeaveApplicationService {
 	
 	List<LeaveApplication> viewAllLeaveApplications(Integer employeeId, Integer year);
 	
-	LeaveApplication findLeaveApplicationById(Integer leaveId);
+	// LeaveApplication findLeaveApplicationById(Integer leaveId);
 	
 	LeaveApplication updateLeaveApplication(LeaveApplication leaveapp);
 	
 	Integer getNumberOfDaysDeducted(LocalDate fromDate, LocalDate endDate);
-	
-  void deleteLeaveApplication(LeaveApplication leaveapp);
-	
+		
 	ArrayList<LeaveApplication> findLeaveApplicationByEmployeeId(Integer eid);
+	
 	LeaveApplication findLeaveApplicationById(Integer id);
 	
 	ArrayList<LeaveApplication> findPendingLeaveApplicationByEmployeeId(Integer eid);
