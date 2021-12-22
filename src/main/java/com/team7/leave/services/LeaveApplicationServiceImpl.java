@@ -2,6 +2,7 @@ package com.team7.leave.services;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,5 +77,20 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 		
 		// return count of bizDays
 		return bizDays.size();
+	}
+	
+	@Transactional
+	public ArrayList<LeaveApplication> findLeaveApplicationByEmployeeId(Integer eid){
+		return larepo.findLeaveApplicationByEmployeeId(eid);
+	}
+	
+	@Transactional
+	public LeaveApplication findLeaveApplicationById(Integer id) {
+		return larepo.findLeaveApplicationById(id);
+	}
+	
+	@Transactional
+	public ArrayList<LeaveApplication> findPendingLeaveApplicationByEmployeeId(Integer eid){
+		return larepo.findPendingLeaveApplicationByEmployeeId(eid);
 	}
 }

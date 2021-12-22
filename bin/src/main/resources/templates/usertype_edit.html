@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+
+<body>
+
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
+	<h3>Edit User Type Page</h3>
+
+	<form action="#" th:action="@{/admin/usertype/edit/}+${userType.typeId}" th:object="${userType}" method="post">
+		<table>
+			<tbody>
+			<td><input type="hidden" th:field="*{typeId}" /></td>
+				<tr>
+					<td><span th:text="#{fieldLabel.usertype}"></span></td>
+					<td><input type="text" th:field="*{type}" /></td>
+					<td th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.leaveannualtotal}"></span></td>
+					<td><input type="text" th:field="*{leaveAnnualTotal}" /></td>
+					<td th:if="${#fields.hasErrors('leaveAnnualTotal')}" th:errors="*{leaveAnnualTotal}"></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Update" class="blcass" /></td>
+					<td><input type="button" value="Cancel" onclick="history.back(-1)"><td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+
+</body>
+
+</html>

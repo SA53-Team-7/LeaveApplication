@@ -1,6 +1,7 @@
 package com.team7.leave.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.team7.leave.model.LeaveApplication;
@@ -18,4 +19,11 @@ public interface LeaveApplicationService {
 	LeaveApplication updateLeaveApplication(LeaveApplication leaveapp);
 	
 	Integer getNumberOfDaysDeducted(LocalDate fromDate, LocalDate endDate);
+	
+  void deleteLeaveApplication(LeaveApplication leaveapp);
+	
+	ArrayList<LeaveApplication> findLeaveApplicationByEmployeeId(Integer eid);
+	LeaveApplication findLeaveApplicationById(Integer id);
+	
+	ArrayList<LeaveApplication> findPendingLeaveApplicationByEmployeeId(Integer eid);
 }
