@@ -4,6 +4,8 @@
 <head th:replace="fragments/layout.html :: html_head" />
 
 <body>
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
 	<h1>Employee Leave History</h1>
 	<div th:if="${not #lists.isEmpty(leavehistory)}">
 		<table style=" border: 1;">
