@@ -27,6 +27,11 @@ public class CommonController {
 	private EmployeeService emService;
 	
 	@GetMapping("/")
+	public String index() {
+		return "redirect:/login";
+	}
+	
+	@GetMapping("/login")
 	public String getLoginPage(Model model) {
 		Employee employee = new Employee();
 		model.addAttribute("employee", employee);
@@ -63,10 +68,19 @@ public class CommonController {
 			session.setAttribute("emType", em.getUsertype().getType());
 			session.setAttribute("subordinates", subordinatesIdList);
 			session.setAttribute("emName", em.getName());
-						
+			session.setAttribute("emObj", em);
+			
 			return "welcome";
 
 		}
 		
+	}
+	
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/";
+
 	}
 }

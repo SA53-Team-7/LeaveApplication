@@ -3,28 +3,28 @@
 
 <head th:replace="fragments/layout.html :: html_head" />
 
-<body>
+<body style="text-align:center;">
 	<div th:replace="fragments/layout.html :: menu"/>
 	<div th:replace="fragments/layout.html :: header"/> 
 	<h3>New User Type Page</h3>
 	<form action="#" th:action="@{'/admin/usertype/create'}" th:object="${userType}" method="post">
-		<table>
+		<table style="margin-left:auto; margin-right:auto;">
 			<tbody>
 				<tr>
-					<td><input type="text" th:placeholder="#{fieldLabel.usertype}" th:field="*{type}" /></td>
-				</tr>
-				<tr>
+					<td ><span th:text="#{fieldLabel.usertype}"></span></td>
+					<td ><input type="text" th:placeholder="#{fieldLabel.usertype}" th:field="*{type}" /></td>
 					<td th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></td>
 				</tr>
 				<tr>
+					<td><span th:text="#{fieldLabel.leaveannualtotal}"></span></td>
 					<td><input type="text" th:placeholder="#{fieldLabel.leaveannualtotal}" th:field="*{leaveAnnualTotal}" /></td>
-				</tr>
-				<tr>
 					<td th:if="${#fields.hasErrors('leaveAnnualTotal')}" th:errors="*{leaveAnnualTotal}"></td>
 				</tr>
 				<tr>
+				    <td></td>
 					<td><input type="submit" value="Create" style="float:left"/>
 					<input type="button" value="Cancel" style="float:right" onclick="history.back(-1)"></td>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>

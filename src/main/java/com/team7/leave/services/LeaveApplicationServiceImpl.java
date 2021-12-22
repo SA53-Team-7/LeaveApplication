@@ -1,7 +1,11 @@
 package com.team7.leave.services;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +23,9 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 	
 	@Autowired
 	LeaveApplicationRepository larepo;
+	
+	@Autowired
+	PublicHolidayService phService;
 		
 	@Override
 	public List<LeaveType> findAllLeaveType() {
@@ -40,14 +47,36 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 
 	@Override
 	public LeaveApplication updateLeaveApplication(LeaveApplication leaveapp) {
-		// TODO Auto-generated method stub
-		return null;
+		return larepo.saveAndFlush(leaveapp);
 	}
 
+//	@Override
+//	public LeaveApplication findLeaveApplicationById(Integer leaveId) {
+//		return larepo.findById(leaveId).orElse(null);
+//	}
+
 	@Override
-	public void deleteLeaveApplication(LeaveApplication leaveapp) {
-		// TODO Auto-generated method stub
+	public Integer getNumberOfDaysDeducted(LocalDate fromDate, LocalDate endDate) {
+		// get list of calendar days
+		List<LocalDate> offDays = fromDate.datesUntil(endDate.plusDays(1)).collect(Collectors.toList());
 		
+		// If leave period is more than 14 days, include weekends/PH
+		if (ChronoUnit.DAYS.between(fromDate, endDate) + 1 > 14) {
+			return offDays.size();
+		}
+
+		// If leave period is less than 15 days, exclude weekends/PH
+		// get list of working days from offDays
+		ArrayList<LocalDate> bizDays = new ArrayList<LocalDate>();
+
+		for (LocalDate d : offDays) {
+			if (phService.isWorkingDay(d)) {
+				bizDays.add(d);
+			}
+		}
+		
+		// return count of bizDays
+		return bizDays.size();
 	}
 	
 	@Transactional
@@ -58,5 +87,10 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 	@Transactional
 	public LeaveApplication findLeaveApplicationById(Integer id) {
 		return larepo.findLeaveApplicationById(id);
+	}
+	
+	@Transactional
+	public ArrayList<LeaveApplication> findPendingLeaveApplicationByEmployeeId(Integer eid){
+		return larepo.findPendingLeaveApplicationByEmployeeId(eid);
 	}
 }

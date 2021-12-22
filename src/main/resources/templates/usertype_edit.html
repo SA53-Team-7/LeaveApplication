@@ -2,30 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout.html :: html_head"/>
 
-<body>
+<body style="text-align:center;">
 
 	<div th:replace="fragments/layout.html :: menu"/>
 	<div th:replace="fragments/layout.html :: header"/> 
 	<h3>Edit User Type Page</h3>
 
 	<form action="#" th:action="@{/admin/usertype/edit/}+${userType.typeId}" th:object="${userType}" method="post">
-		<table>
+		<table style="margin-left:auto; margin-right:auto;">
 			<tbody>
 			<td><input type="hidden" th:field="*{typeId}" /></td>
 				<tr>
 					<td><span th:text="#{fieldLabel.usertype}"></span></td>
-					<td><input type="text" th:field="*{type}" /></td>
+					<td><input type="text" th:placeholder="#{fieldLabel.usertype}" th:field="*{type}" /></td>
 					<td th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></td>
 				</tr>
 				<tr>
 					<td><span th:text="#{fieldLabel.leaveannualtotal}"></span></td>
-					<td><input type="text" th:field="*{leaveAnnualTotal}" /></td>
+					<td><input type="text" th:placeholder="#{fieldLabel.leaveannualtotal}" th:field="*{leaveAnnualTotal}" /></td>
 					<td th:if="${#fields.hasErrors('leaveAnnualTotal')}" th:errors="*{leaveAnnualTotal}"></td>
 				</tr>
 				<tr>
-					<td><input type="submit" value="Update" class="blcass" /></td>
-					<td><input type="button" value="Cancel" onclick="history.back(-1)"><td>
-					<td></td>
+				    <td></td>
+					<td><input type="submit" value="Update" style="float:left"/>
+					<input type="button" value="Cancel" style="float:right" onclick="history.back(-1)"></td>
 					<td></td>
 				</tr>
 			</tbody>

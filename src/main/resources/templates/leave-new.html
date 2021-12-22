@@ -19,10 +19,12 @@
 			<tr>
 				<td>Start Date</td>
 				<td><input type="text" th:field="*{dateFrom}" placeholder="YYYY-MM-DD"/></td>
+				<td th:if="${#fields.hasErrors('dateFrom')}" th:errors="*{dateFrom}"></td>
 			</tr>
 			<tr>
 				<td>End Date</td>
 				<td><input type="text" th:field="*{dateTo}" placeholder="YYYY-MM-DD"/></td>
+				<td th:if="${#fields.hasErrors('dateTo')}" th:errors="*{dateTo}"></td>
 			</tr>
 			<tr>
 				<td>Reason</td>
@@ -30,9 +32,12 @@
 					<textarea th:field="*{reason}"
 					rows="2" cols="50"></textarea>
 				</td>
+				<td th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></td>
 			</tr>
 			<tr>
-				<td>Memo</td>
+			</tr>
+			<tr>
+				<td>Work Dissemination & Contact Detail</td>
 				<td>
 				<textarea th:field="*{memo}" placeholder="Enter work dissemination and contact details (if staff is going overseas)"
 					rows="8" cols="50"></textarea>
