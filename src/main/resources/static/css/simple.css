@@ -128,10 +128,8 @@ td
 {
 	color: #669;
 	padding: 9px 8px 0px 8px;
-	font-size: 14px;
-	text-align: center;
+	
 }
-
 tbody tr:hover td
 {
 	color: #009;

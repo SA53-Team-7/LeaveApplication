@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout.html :: html_head"/>
 
-<body style="text-align:center;">
+<body>
 
 	<div th:replace="fragments/layout.html :: menu"/>
 	<div th:replace="fragments/layout.html :: header"/> 
 	<h3>Edit User Type Page</h3>
 
 	<form action="#" th:action="@{/admin/usertype/edit/}+${userType.typeId}" th:object="${userType}" method="post">
-		<table style="margin-left:auto; margin-right:auto;">
+		<table>
 			<tbody>
 			<td><input type="hidden" th:field="*{typeId}" /></td>
 				<tr>
