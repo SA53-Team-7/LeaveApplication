@@ -2,7 +2,7 @@
 
 <head th:fragment="html_head" id="html_head">
 	<meta charset="ISO-8859-1">
-	<title>Course Application Tracking System - CATS</title>
+	<title>Leave Application Processing System - LAPS</title>
 	<link rel="stylesheet" th:href="@{/css/simple.css}" />
 </head>
 
@@ -10,16 +10,16 @@
 	<div th:fragment="menu" id="menu">
 		<!-- Navigation -->
 		<nav class="navbar">
-			<a th:href="@{/about}">Leave Application</a>
+			<a th:href="@{/about}">Leave Application Processing System</a>
 			<a th:href="@{/home}">Home</a>
 			<a th:href="@{/about}">About</a>
       
-			<div th:if="${session.emType != null}">
+<!--			<div th:if="${session.emType != null}">
         
-				<div th:if="${session.emType == 'manager'}">
-					<div class="subnav">
-						<button class="subnavbtn"> Manager Menu<i class="fa fa-caret-down"></i></button>
-						<div class="subnav-content">
+				<div th:if="${session.emType == 'manager'}">-->
+					<div class="dropdown">
+						<button class="dropbtn"> Manager Menu<i class="fa fa-caret-down"></i></button>
+						<div class="dropdown-content">
 							<a th:href="@{/}" th:utext="#{manager.subnav.viewApplivation}">View Applications for
 								Approval</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.viewHistory}">View Employee Leave History</a>
@@ -28,27 +28,27 @@
 								Compensation Claim</a>
 						</div>
 					</div>
-				</div>
+<!--				</div>-->
 
 
-				<div th:if="${session.emType == 'admin'}">
-					<div class="subnav">
-						<button class="subnavbtn"> Admin Menu<i class="fa fa-caret-down"></i></button>
-						<div class="subnav-content">
+<!--				<div th:if="${session.emType == 'admin'}">-->
+					<div class="dropdown">
+						<button class="dropbtn"> Admin Menu<i class="fa fa-caret-down"></i></button>
+						<div class="dropdown-content">
 							<a th:href="@{/}" th:utext="#{admin.subnav.manageLeaveType}">Manage Leave Types</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a>
-							<a th:href="@{/}" th:utext="#{manager.subnav.manageLeaveEntitlement}">Manage Leave
+							<a th:href="@{/admin/usertype/list}" th:utext="#{manager.subnav.manageLeaveEntitlement}">Manage Leave
 								Entitlement</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.manageApprovalHierarchy}">Manage Approval
 								Hierarchy</a>
 						</div>
 					</div>
-				</div>
+<!--				</div>-->
         
-				<div th:if="${session.emType != null}">
-					<div class="subnav">
-						<button class="subnavbtn"> Staff Menu<i class="fa fa-caret-down"></i></button>
-						<div class="subnav-content">
+<!--				<div th:if="${session.emType != null}">-->
+					<div class="dropdown">
+						<button class="dropbtn"> Staff Menu<i class="fa fa-caret-down"></i></button>
+						<div class="dropdown-content">
 							<a th:href="@{/}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit Leave
 								Application</a>
 							<a th:href="@{/}" th:utext="#{staff.subnav.manageLeaveApplication}">Manage Leave
@@ -58,7 +58,7 @@
 								History</a>
 						</div>
 					</div>
-			</div>
+<!--			</div>-->
         
      </div>
 		</nav>
