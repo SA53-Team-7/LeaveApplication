@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+
+<body>
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
+	<div>
+		<h3>Employee List page</h3>
+		<a th:href="@{/admin/employee/load}">Add
+			Employee</a>
+	</div>
+	</div>
+	&nbsp;&nbsp;
+	<div>
+	<div>
+		<form th:action="@{/admin/employee/page/1}" >
+   			<input type="hidden" name="sortField" th:value="${sortField}"/>
+    		<input type="hidden" name="sortDir" th:value="${sortDir}"/>
+    		Search: <input type="text" name="keyword" th:value="${keyword}" required />
+    		&nbsp;
+   			<input type="submit" value="Submit" />
+    		&nbsp;
+    		<input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+		</form>
+	<div>
+		<table th:unless="${#lists.isEmpty(employees)}" border="1 pt">
+			<table style="border: 1;">
+				<tr>
+					<th>
+					   <a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=employeeId&sortDir=' + ${reverseSortDir}}">
+					  Employee Id
+					   </a>
+					</th>
+					<th>
+						<a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=username&sortDir=' + ${reverseSortDir}}">
+						User Name
+						</a>
+					</th>
+					<th>
+						<a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=password&sortDir=' + ${reverseSortDir}}">
+						Password
+						</a>
+					</th>
+					<th>
+						<a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+						Name
+						</a>
+					</th>
+					<th>
+						<a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=managedBy&sortDir=' + ${reverseSortDir}}">
+						Managed by
+						</a>
+					</th>
+					<th>
+						<a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+						Email
+						</a>
+					</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+				<tr th:each="employee:${employees}">
+					<td align="center" th:text="${employee.employeeId}">Employee Id</td>
+					<td align="center" th:text="${employee.username}">User Name</td>
+					<td align="center" th:text="${employee.password}">Password</td>
+					<td align="center" th:text="${employee.name}">Name</td>
+					<td align="center" th:text="${employee.managedBy}">Managed by</td>
+					<td align="center" th:text="${employee.email}">Email</td>
+					<td><a href="employeeForm.html" th:href="@{/admin/employee/editload/}+${employee.employeeId}"
+						>Edit</a></td> 
+					<td><a href="employeeForm.html" th:href="@{/admin/employee/delete/}+${employee.employeeId}"
+						>Delete</a></td>
+		 		</tr>
+			</table>
+	</div>
+	&nbsp;
+	<div>
+		<i>Sorted by [[${sortField}]] in [[${sortDir}]] order</i>
+	</div>
+	&nbsp;
+	<div>
+		Total Number of Employees: [[${totalEmployees}]] - Page [[${currentPage}]] of [[${totalPages}]]
+		&nbsp;&nbsp;&nbsp;
+		
+		<a th:if="${currentPage > 1}" th:href="@{'/admin/employee/page/1'+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a>
+		<span th:unless="${currentPage > 1}">First</span>
+		&nbsp;&nbsp;
+		
+		<a th:if="${currentPage > 1}" th:href="@{'/admin/employee/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+		<span th:unless="${currentPage > 1}">Previous</span>
+		&nbsp;&nbsp;
+		
+		<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+			<a th:if="${i != currentPage}" th:href="@{'/admin/employee/page/'+${i}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} }">[[${i}]]</a> 
+			<span th:unless="${i != currentPage}">[[${i}]]</span>
+			&nbsp;&nbsp;
+		</span >
+		
+		<a th:if="${currentPage < totalPages}" th:href="@{'/admin/employee/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+		<span th:unless="${currentPage < totalPages}">Next</span>
+		&nbsp;&nbsp;
+		
+		<a th:if="${currentPage < totalPages}" th:href="@{'/admin/employee/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+		<span th:unless="${currentPage < totalPages}">Last</span>
+		
+	</div >
+	<script type="text/javascript">
+		function clearSearch(){
+			window.location = '/admin/employee/list' ;
+		}
+	</script>
+</body>
+
+</html>
