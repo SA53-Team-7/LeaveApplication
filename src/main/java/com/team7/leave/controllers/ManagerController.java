@@ -50,6 +50,7 @@ public class ManagerController {
 		return "manager-leave-pending";
 	}
 	
+	// List all employees' leave history
 	@GetMapping("/list-hist")
 	public String listhistory(Model model) {
 		HashMap<Employee, ArrayList<LeaveApplication>> submap = new HashMap<Employee, ArrayList<LeaveApplication>>();
@@ -62,6 +63,7 @@ public class ManagerController {
 		return "managers-emp-history";
 	}
 	
+	// Link to accept and approve page
 	@RequestMapping(value = "/leave/display/{id}", method = RequestMethod.GET)
 	public String updateStatus(@PathVariable Integer id, Model model) {
 		com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
@@ -69,15 +71,22 @@ public class ManagerController {
 		return "managers-approval";
 	}
 	
+	// Update status and comment
 	@RequestMapping(value = "/leave/update/{id}", method = RequestMethod.POST)
 	public String changeStatus(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision, @RequestParam(value="comment") String comment) {
 		com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
 		la.setManagerComments(comment);
 		if(decision.equalsIgnoreCase(LeaveApplicationStatusEnum.APPROVED.toString())) {
-			la.setStatus(LeaveApplicationStatusEnum.APPROVED);
 			Integer days = lService.getNumberOfDaysDeducted(la.getDateFrom(), la.getDateTo());
 			Integer remaining = la.getEmployee().getLeaveAnnualLeft() - days;
 			la.getEmployee().setLeaveAnnualLeft(remaining);
+			if(remaining<0) {
+				la.setStatus(LeaveApplicationStatusEnum.REJECTED);
+				la.setManagerComments("Rejected. The number of days applied exceeded the balance annual leave.");
+			}
+			else {
+				la.setStatus(LeaveApplicationStatusEnum.APPROVED);
+			}
 		}
 		else {
 			la.setStatus(LeaveApplicationStatusEnum.REJECTED);
