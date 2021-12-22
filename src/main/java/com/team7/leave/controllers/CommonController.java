@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team7.leave.helper.EmployeeSession;
 import com.team7.leave.model.Employee;
+import com.team7.leave.model.UserType;
 import com.team7.leave.services.EmployeeService;
-
 
 @Controller
 public class CommonController {
@@ -36,19 +36,38 @@ public class CommonController {
 	@RequestMapping("/home/authenticate")
 	public String authenticate(@ModelAttribute ("employee") @Valid Employee employee, BindingResult bindingResult,
 			Model model, HttpSession session) {
-		
-		EmployeeSession emSession = new EmployeeSession();
-		
+				
 		if(bindingResult.hasErrors()) {
 			return "login";
 		}
 		else {
+			
+//			System.out.println(employee.getUsername() + employee.getPassword());
+			
 			Employee em = emService.authenticate(employee.getUsername(), employee.getPassword());
-			emSession.setEmployee(em);
-			session.setAttribute("emSession", emSession);
+			
+			if (em == null)
+				return "login";
+					
+			Integer emId = (Integer) em.getEmployeeId();
+			ArrayList<Employee> subordinates = emService.findSubordinates(emId);
+			
+			List<Integer> subordinatesIdList = new ArrayList<Integer>();
+			
+			for(Employee sub: subordinates) {
+				subordinatesIdList.add(sub.getEmployeeId());
+			}
+			
+			// session only store these 4 items
+			session.setAttribute("emId", em.getEmployeeId());
+			session.setAttribute("emType", em.getUsertype().getType());
+			session.setAttribute("subordinates", subordinatesIdList);
+			session.setAttribute("emName", em.getName());
+			session.setAttribute("emObj", em);
+			
+			return "welcome";
+
 		}
 		
-		return "welcome";
 	}
 }
-
