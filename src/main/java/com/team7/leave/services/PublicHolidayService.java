@@ -1,5 +1,8 @@
 package com.team7.leave.services;
 
-public interface PublicHolidayService {
+import java.time.LocalDate;
 
+public interface PublicHolidayService {
+	
+	boolean isWorkingDay(LocalDate date);
 }

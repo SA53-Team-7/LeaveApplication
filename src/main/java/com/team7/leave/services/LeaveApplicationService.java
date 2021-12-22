@@ -1,5 +1,6 @@
 package com.team7.leave.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.team7.leave.model.LeaveApplication;
@@ -12,7 +13,9 @@ public interface LeaveApplicationService {
 	
 	List<LeaveApplication> viewAllLeaveApplications(Integer employeeId, Integer year);
 	
+	LeaveApplication findLeaveApplicationById(Integer leaveId);
+	
 	LeaveApplication updateLeaveApplication(LeaveApplication leaveapp);
 	
-	void deleteLeaveApplication(LeaveApplication leaveapp);
+	Integer getNumberOfDaysDeducted(LocalDate fromDate, LocalDate endDate);
 }
