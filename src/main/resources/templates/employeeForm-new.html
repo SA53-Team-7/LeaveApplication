@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+
+<body>
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
+	<h3>New Employee Page</h3>
+	<span th:unless="${#strings.isEmpty(usession)}">
+		<h2 th:utext="${session.usession.name}"> Hello </h2>
+	</span>
+	<form th:object="${employee}" th:action="@{/admin/employee/add}" method="POST">
+        <fieldset>
+			User Name
+			&nbsp;&nbsp;&nbsp;
+			<input type="text" th:field="*{username}" />
+			<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+		</fieldset>
+		<fieldset>
+			Password
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="text" th:field="*{password}" />
+			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+		</fieldset>
+		<fieldset>
+			Name
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="text" th:field="*{name}" />
+			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+		</fieldset>
+		<fieldset>
+			Email
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+			<input type="text" th:field="*{email}" />
+			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+		</fieldset>
+		<fieldset>
+			Managed by
+			&nbsp;&nbsp;
+			<select th:field="*{managedBy}">
+				<option selected="selected" th:value=null></option>
+				<option th:each="manager : ${eidList}" th:value="${manager}" th:text="${manager}">List
+				</option>
+			</select>
+			<p th:if="${#fields.hasErrors('managedBy')}" th:errors="*{managedBy}"></p>
+		</fieldset>
+		
+		<fieldset>
+			<input type="submit" value="Create" />
+			&nbsp;
+			<input type="reset" value="Reset" />
+		</fieldset>
+		
+	</form>
+
+</body>
+
+</html>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team7.leave.LeaveApplication;
 import com.team7.leave.Repositories.EmployeeRepository;
+import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Approve;
 import com.team7.leave.model.Employee;
 import com.team7.leave.services.EmployeeService;
@@ -26,6 +28,9 @@ public class ManagerController {
 	
 	@Autowired
 	EmployeeRepository erepo;
+	
+	@Autowired
+	LeaveApplication lrepo;
 	
 	@Autowired
 	EmployeeService eService;
@@ -67,8 +72,17 @@ public class ManagerController {
 	@RequestMapping(value = "/leave/update/{id}", method = RequestMethod.POST)
 	public String changeStatus(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision, @RequestParam(value="comment") String comment) {
 		com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
-		// la.setStatus(decision);
 		la.setManagerComments(comment);
+		if(decision.equalsIgnoreCase(LeaveApplicationStatusEnum.APPROVED.toString())) {
+			la.setStatus(LeaveApplicationStatusEnum.APPROVED);
+			Integer days = lService.getNumberOfDaysDeducted(la.getDateFrom(), la.getDateTo());
+			Integer remaining = la.getEmployee().getLeaveAnnualLeft() - days;
+			la.getEmployee().setLeaveAnnualLeft(remaining);
+		}
+		else {
+			la.setStatus(LeaveApplicationStatusEnum.REJECTED);
+		}
+		lService.updateLeaveApplication(la);
 		return "managers";
 	}
 }
