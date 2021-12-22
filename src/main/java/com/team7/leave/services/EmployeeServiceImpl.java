@@ -39,10 +39,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return (ArrayList<Employee>) emRepo.findAll();
 
 	}
-
-	@Override
-	public Employee updateEmployee(Employee emp) {
-		return emRepo.saveAndFlush(emp);
 	
 	@Override
 	public void save(Employee employee) {
