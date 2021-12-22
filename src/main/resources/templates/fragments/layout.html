@@ -8,12 +8,15 @@
 
 <body>
 	<div th:fragment="menu" id="menu">
-
+		<!-- Navigation -->
 		<nav class="navbar">
-			<a th:href="@{/}">Leave Application Processing System</a>
-			<a th:href="@{/}">Home</a>
-			<div th:if="${session.emType != null}">
-				<div th:if="${session.emType == 'manager'}">
+			<a th:href="@{/about}">Leave Application Processing System</a>
+			<a th:href="@{/home}">Home</a>
+			<a th:href="@{/about}">About</a>
+      
+<!--			<div th:if="${session.emType != null}">
+        
+				<div th:if="${session.emType == 'manager'}">-->
 					<div class="dropdown">
 						<button class="dropbtn"> Manager Menu<i class="fa fa-caret-down"></i></button>
 						<div class="dropdown-content">
@@ -25,22 +28,24 @@
 								Compensation Claim</a>
 						</div>
 					</div>
-				</div>
-				<div th:if="${session.emType == 'admin'}">
+<!--				</div>-->
+
+
+<!--				<div th:if="${session.emType == 'admin'}">-->
 					<div class="dropdown">
 						<button class="dropbtn"> Admin Menu<i class="fa fa-caret-down"></i></button>
 						<div class="dropdown-content">
 							<a th:href="@{/}" th:utext="#{admin.subnav.manageLeaveType}">Manage Leave Types</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a>
-							<a th:href="@{/admin/usertype/list}"
-								th:utext="#{manager.subnav.manageLeaveEntitlement}">Manage Leave
+							<a th:href="@{/admin/usertype/list}" th:utext="#{manager.subnav.manageLeaveEntitlement}">Manage Leave
 								Entitlement</a>
 							<a th:href="@{/}" th:utext="#{manager.subnav.manageApprovalHierarchy}">Manage Approval
 								Hierarchy</a>
 						</div>
 					</div>
-				</div>
-				<div th:if="${session.emType != null}">
+<!--				</div>-->
+        
+<!--				<div th:if="${session.emType != null}">-->
 					<div class="dropdown">
 						<button class="dropbtn"> Staff Menu<i class="fa fa-caret-down"></i></button>
 						<div class="dropdown-content">
@@ -53,20 +58,18 @@
 								History</a>
 						</div>
 					</div>
-				</div>
-				<div class="dropdown" style="float: right;">
-					<button class="dropbtn" th:utext="'Hello '+ ${session.emName}">Name<i
-							class="fa fa-caret-down"></i></button>
-					<div class="dropdown-content">
-						<a th:href="@{/logout}">Logout</a>
-					</div>
-				</div>
-			</div>
-			<div th:unless="${session.emType != null}">
-				<a th:href="@{/login}" style="float: right;">Login</a>
-			</div>
+<!--			</div>-->
+        
+     </div>
+		</nav>
 	</div>
-	<div th:fragment="header" id="header"></div>
+  
+	<div th:fragment="header" id="header">
+		<div th:if="${not #strings.isEmpty(session.emName)}">
+			<h2><em th:utext="'Hello '+ ${session.emName}"></em></h2>
+		</div>
+	</div>
+
 </body>
 
 </html>
