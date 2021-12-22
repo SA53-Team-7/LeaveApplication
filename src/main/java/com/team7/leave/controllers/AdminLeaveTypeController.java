@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.team7.leave.model.LeaveType;
@@ -55,34 +56,34 @@ public class AdminLeaveTypeController {
 		return mav;
 	}
 	
-//	@GetMapping("/edit/{id}")
-//	public ModelAndView editLeaveTypePage(@PathVariable Integer id) {
-//		
-//		ModelAndView mav = new ModelAndView("leavetype_eidt");
-//		LeaveType leaveType = lService.findByleaveTypeId(id);
-//	    mav.addObject("leavetype", leaveType);
-//	    return mav;
-//	}
-//	
-//	@PostMapping("/edit/{id}")
-//	public ModelAndView editLeaveType(@ModelAttribute @Valid LeaveType leaveType, 
-//			BindingResult bindingResult, @PathVariable Integer id) {
-//		
-//		if (bindingResult.hasErrors())
-//			return new ModelAndView("leavetype_edit");
-//		
-//		ModelAndView mav = new ModelAndView("forward:/admin/leavetype/list");
-//		lService.editLeaveType(leaveType);
-//		return mav;
-//	}
-//	
-//	@GetMapping("/delete/{id}")
-//	public ModelAndView deleteLeaveTypePage(@ModelAttribute @Valid LeaveType leaveType, 
-//			BindingResult bindingResult, @PathVariable Integer id) {
-//		
-//		ModelAndView mav = new ModelAndView("forward:/admin/leavetype/list");
-//		lService.removeLeaveType(leaveType);
-//		return mav;
-//		
-//	}
+	@GetMapping("/edit/{id}")
+	public ModelAndView editLeaveTypePage(@PathVariable Integer id) {
+		
+		ModelAndView mav = new ModelAndView("leavetype_edit");
+		LeaveType leaveType = lService.findByleaveTypeId(id);
+	    mav.addObject("leavetype", leaveType);
+	    return mav;
+	}
+	
+	@PostMapping("/edit/{id}")
+	public ModelAndView editLeaveType(@ModelAttribute @Valid LeaveType leaveType, 
+			BindingResult bindingResult, @PathVariable Integer id) {
+		
+		if (bindingResult.hasErrors())
+			return new ModelAndView("leavetype_edit"); 
+		
+		ModelAndView mav = new ModelAndView("forward:/admin/leavetype/list");
+		lService.editLeaveType(leaveType);
+		return mav;
+	}
+	
+	@GetMapping("/delete/{id}")
+	public ModelAndView deleteLeaveTypePage(@PathVariable Integer id) {
+		
+		LeaveType leaveType = lService.findByleaveTypeId(id);
+		lService.removeLeaveType(leaveType);
+		ModelAndView mav = new ModelAndView("forward:/admin/leavetype/list");
+		return mav;
+		
+	}
 }

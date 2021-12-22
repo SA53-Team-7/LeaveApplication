@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "employeeid")
 	private Integer employeeId;
 	@NotEmpty
 	@Size(min=3, max=10)
@@ -37,12 +36,10 @@ public class Employee {
 	private String username;
 	@NotEmpty
 	@Length(max=20)
-	@Column(name = "password")
 	private String password;
 	private Integer leaveMedicalLeft;
 	private Integer leaveAnnualLeft;
 	private Integer otHours;
-	@Column(name = "managedby")
 	private String managedBy;
 	
 	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
