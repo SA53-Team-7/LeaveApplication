@@ -10,13 +10,13 @@ public interface LeaveTypeService {
 
 	ArrayList<LeaveType> findAllLeaveType();
 	
-//	LeaveType findByleaveTypeId(Integer id);
+	LeaveType findByleaveTypeId(Integer id);
 
 	LeaveType createLeaveType(LeaveType leaveType);
-//	
-//	LeaveType editLeaveType(LeaveType leaveType);
-//	
-//	void removeLeaveType (LeaveType leaveType);
+
+	LeaveType editLeaveType(LeaveType leaveType);
+	
+	void removeLeaveType (LeaveType leaveType);
 	
 	
 }

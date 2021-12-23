@@ -5,6 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.team7.leave.model.Employee;
 import com.team7.leave.model.LeaveType;
 import com.team7.leave.model.UserType;
 
@@ -14,14 +15,13 @@ public class LeaveTypeValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return UserType.class.isAssignableFrom(clazz);
+		return LeaveType.class.isAssignableFrom(clazz);
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
 		LeaveType lt = (LeaveType) target;
-		ValidationUtils.rejectIfEmpty(errors, "leavetype.type", "error.leavetype.type.empty");
-		ValidationUtils.rejectIfEmpty(errors, "leavetype.description", "error.leavetype.descriptin.empty");
+		ValidationUtils.rejectIfEmpty(errors, "type", "error.leavetype.type.empty", "Leave type is mandatory");
 		System.out.println(lt.toString());
 	}
 
