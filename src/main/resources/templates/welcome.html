@@ -7,15 +7,28 @@
 	<div th:replace="fragments/layout.html :: menu" />
 	<div th:replace="fragments/layout.html :: header" />
 
-	<h1 th:text="${employee.name}">EmployeeName</h1>
-	<p th:text="${session.emId}"></p>
-	<p th:text="${session.emType}"></p>
-	<p th:each="item: ${session.subordinates}" th:text="${item}"></p>
+	<h2>Welcome to Leave Application Process System</h2>
 
+	<p th:text="#{welcome.commonFunction}">Frequently-used function</p>
 
+	<div class="dropdown">
+		<div th:if="${session.emType == 'manager'}">
+			<a th:href="@{/manager/leave}" th:utext="#{manager.subnav.viewApplivation}">View Applications for
+				Approval</a>
+			<a th:href="@{/}" th:utext="#{manager.subnav.processCompensation}">Approve/Reject Compensation Claim</a>
+			<a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
+		</div>
 
-	<h3>Welcome! I don't know what pages to show ~~~</h3>
+		<div th:if="${session.emType == 'admin'}">
+			<a th:href="@{/admin/employee/list}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a>
+			<a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
+		</div>
 
+		<div th:if="${session.emType == 'staff'}">
+			<a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
+			<a th:href="@{/}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit Leave Application</a>
+		</div>
+	</div  >
 </body>
 
 </html>

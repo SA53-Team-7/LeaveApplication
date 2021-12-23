@@ -1,8 +1,10 @@
 BODY {
 	font-family : calbiri ;
 	font-size : 10pt;
-	
+    background-image: url("backgroundImage.png");
+    background-color:rgba(0, 0, 0, 0);
 }
+
 p { 
 	margin-top: 0; 
 	text-align: justify;
@@ -112,7 +114,6 @@ table
 {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 	font-size: 12px;
-	background: #fff;
 	border-collapse: collapse;
 	
 }
@@ -135,6 +136,7 @@ td
 tbody tr:hover td
 {
 	color: #009;
+	background-color:rgba(0, 0, 0, 0);
 }
 
 
