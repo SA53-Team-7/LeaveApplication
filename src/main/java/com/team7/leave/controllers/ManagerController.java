@@ -106,7 +106,7 @@ public class ManagerController {
 				}
 				else {
 					Integer remaining = la.getEmployee().getLeaveMedicalLeft() - days;
-					la.getEmployee().setLeaveAnnualLeft(remaining);
+					la.getEmployee().setLeaveMedicalLeft(remaining);
 					if(remaining<0) {
 						la.setStatus(LeaveApplicationStatusEnum.REJECTED);
 						la.setManagerComments("Rejected. The number of days applied exceeded the balance medical leave.");
