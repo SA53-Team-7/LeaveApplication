@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout.html :: html_head" />
+
+<body style="text-align:center;">
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
+	<h2>Submit Overtime Claims</h2>
+	<form action="#" th:action="@{'/staffovertime/claim'}" th:object="${overtime}" method="post">
+		<table style="margin-left:auto; margin-right:auto;">
+			<tbody>
+				<tr>
+					<td ><span th:text="#{fieldLabel.OvertimeDate}"></span></td>
+					<td ><input type="date" th:placeholder="#{fieldLabel.OvertimeDate}" th:field="*{dateTime}" /></td>
+				</tr>
+				<tr>
+					<td><span th:text="#{fieldLabel.Hours}"></span></td>
+					<td><input type=number step=any th:placeholder="#{fieldLabel.Hours}" th:field="*{hours}" /></td>
+				</tr>
+				<tr>
+				    <td></td>
+					<td><input type="submit" value="Create" style="float:left"/>
+					<input type="button" value="Cancel" style="float:right" onclick="history.back(-1)"></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</body>
+
+</html>

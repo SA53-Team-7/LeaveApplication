@@ -20,7 +20,7 @@
 							<a th:href="@{/manager/leave}" th:utext="#{manager.subnav.viewApplivation}">View Applications for
 								Approval</a>
 							<a th:href="@{/manager/list-hist}" th:utext="#{manager.subnav.viewHistory}">View Employee Leave History</a>
-							<a th:href="@{/}" th:utext="#{manager.subnav.processCompensation}">Approve/Reject Compensation Claim</a>
+							<a th:href="@{/manager/overtime/pending}" th:utext="#{manager.subnav.processCompensation}">Approve/Reject Compensation Claim</a>
 						</div>
 					</div>
 				</div>
@@ -43,7 +43,8 @@
 								Application</a>
 							<a th:href="@{/}" th:utext="#{staff.subnav.manageLeaveApplication}">Manage Leave
 								Application</a>
-							<a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
+							<a th:href="@{/staffovertime/claim}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
+							<a th:href="@{/staffovertime/history}" th:utext="#{staff.subnav.claimSubmissionHistory}">Overtime Claims History</a>
 							<a th:href="@{/staff/leave/history}" th:utext="#{staff.subnav.viewPersonalLeaveHistory}">View Personal Leave
 								History</a>
 						</div>
