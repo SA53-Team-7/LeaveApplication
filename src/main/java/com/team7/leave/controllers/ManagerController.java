@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team7.leave.LeaveApplication;
 import com.team7.leave.Repositories.EmployeeRepository;
+import com.team7.leave.helper.Email;
+import com.team7.leave.helper.EmailTemplate;
 import com.team7.leave.helper.ClaimOvertimeEnum;
 import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Approve;
@@ -25,6 +27,7 @@ import com.team7.leave.model.Employee;
 import com.team7.leave.model.Overtime;
 import com.team7.leave.services.EmployeeService;
 import com.team7.leave.services.LeaveApplicationService;
+import com.team7.leave.services.SendMailService;
 import com.team7.leave.services.OvertimeService;
 
 @Controller
@@ -45,6 +48,9 @@ public class ManagerController {
 	
 	@Autowired
 	LeaveApplicationService lService;
+	
+	@Autowired
+	SendMailService mailService;
 	
 	@GetMapping("/leave")
 	public String listPending(Model model) {
@@ -92,8 +98,7 @@ public class ManagerController {
 	// Update status and comment for approval of annual leave and medical leave
 	@RequestMapping(value = "/leave/update/{id}", method = RequestMethod.POST)
 	public String changeStatus(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision, @RequestParam(value="comment") String comment, HttpSession session) {
-		Employee emp = (Employee) session.getAttribute("emObj");
-		
+		Employee emp = (Employee) session.getAttribute("emObj");		
 		if (emp != null) {
 			com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
 			la.setManagerComments(comment);
@@ -124,11 +129,14 @@ public class ManagerController {
 				
 			}
 			else {
-				la.setStatus(LeaveApplicationStatusEnum.REJECTED);
-			}
-			lService.updateLeaveApplication(la);
-			return "managers";
-		}
+			la.setStatus(LeaveApplicationStatusEnum.REJECTED);
+      }
+      lService.updateLeaveApplication(la);
+      EmailTemplate msg = new EmailTemplate(la.getStatus().toString(), la.getEmployee().getManagedBy(), la);
+      Email mail = new Email("sithuzaw36@gmail.com", "Test Email", msg.message);
+      mailService.sendMail(mail);
+      return "managers-emp-history";
+    }
 		return "forward:/login";
 	}
 	
@@ -186,6 +194,4 @@ public class ManagerController {
 				otService.save(ot);
 				return "redirect:/manager/overtime/pending";
 			}
-			
-			
 }

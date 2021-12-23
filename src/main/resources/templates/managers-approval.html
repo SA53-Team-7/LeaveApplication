@@ -3,7 +3,7 @@
 <head>
 <link rel="stylesheet" th:href="@{/css/manager.css}"
 	href="../../static/css/manager.css" />
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Manager Approval Page</title>
 </head>
 <body>
@@ -70,10 +70,22 @@
 						</fieldset></td>
 				</tr>
 				<tr>
-					<td><fieldset>
-							<input th:type="submit" th:value="Update" class="blcass" />
-						</fieldset></td>
-	
+					<td>
+						<div class="w3-container">
+	  						<button onclick="document.getElementById('id01').style.display='block'" >Update</button>
+	  						<div id="id01" class="w3-modal">
+	    							<div class="w3-modal-content">
+	      							<div class="w3-container">
+	        							<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+	        							<p>Confirm changes to the leave application?</p>
+	        							<fieldset>
+	      									<input th:type="submit" th:value="Update" class="blcass"/>
+	        							</fieldset>
+	      							</div>
+	    						</div>
+	  						</div>
+						</div>
+					</td>
 				</tr>
 			</table>
 	
