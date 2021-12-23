@@ -14,9 +14,9 @@ public class EmployeeValidator implements Validator{
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return User.class.isAssignableFrom(clazz);
+		return Employee.class.equals(clazz);
 	}
-		
+	
 	@Override
 	public void validate(Object target, Errors errors) {
 		
@@ -26,7 +26,18 @@ public class EmployeeValidator implements Validator{
 				"employee.username", "error.user.username.empOrSpace", "Username must not be empty or cantain space");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, 
 				"employee.password", "error.user.password.empOrSpace", "Password must not be empty or cantain space");
+		
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
+//		ValidationUtils.rejectIfEmpty(errors, "name", "not empty");
+//		if (em.getName().length() >= 3 || em.getName().length() <= 10) {
+//			errors.rejectValue("name", "name");
+//		}
+		
+
 		System.out.println(em.toString());
 		
+
 	}
+	
+	
 }

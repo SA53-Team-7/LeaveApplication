@@ -74,11 +74,11 @@ public class UserType {
 		this.userList = userList;
 	}
 
-	@Override
-	public String toString() {
-		return "UserType [typeId=" + typeId + ", type=" + type + ", leaveAnnualTotal=" + leaveAnnualTotal
-				+ ", userList=" + userList + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "UserType [typeId=" + typeId + ", type=" + type + ", leaveAnnualTotal=" + leaveAnnualTotal
+//				+ ", userList=" + userList + "]";
+//	}
 	
 	
 }

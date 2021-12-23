@@ -24,25 +24,15 @@ import lombok.NoArgsConstructor;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "employeeid")
 	private Integer employeeId;
-	@NotEmpty
-	@Size(min=3, max=10)
 	private String name;
-	@NotEmpty
 	private String email;
 	// private String type;
-	@NotEmpty
-	@Size(min=3, max=10)
 	private String username;
-	@NotEmpty
-	@Length(max=20)
-	@Column(name = "password")
 	private String password;
 	private Integer leaveMedicalLeft;
 	private Integer leaveAnnualLeft;
 	private Integer otHours;
-	@Column(name = "managedby")
 	private String managedBy;
 	
 	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -199,13 +189,13 @@ public class Employee {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", name=" + name + ", email=" + email + ", username=" + username
-				+ ", password=" + password + ", leaveMedicalLeft=" + leaveMedicalLeft + ", leaveAnnualLeft="
-				+ leaveAnnualLeft + ", otHours=" + otHours + ", managedBy=" + managedBy + ", leaveList=" + leaveList
-				+ ", overtimeList=" + overtimeList + ", usertype=" + usertype + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Employee [employeeId=" + employeeId + ", name=" + name + ", email=" + email + ", username=" + username
+//				+ ", password=" + password + ", leaveMedicalLeft=" + leaveMedicalLeft + ", leaveAnnualLeft="
+//				+ leaveAnnualLeft + ", otHours=" + otHours + ", managedBy=" + managedBy + ", leaveList=" + leaveList
+//				+ ", overtimeList=" + overtimeList + ", usertype=" + usertype + "]";
+//	}
 	
 	
 

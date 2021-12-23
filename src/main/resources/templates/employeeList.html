@@ -7,17 +7,16 @@
 	<div th:replace="fragments/layout.html :: header"/> 
 	<div>
 		<h3>Employee List page</h3>
-		<a th:href="@{/admin/employee/load}">Add
-			Employee</a>
+		<a th:href="@{/admin/employee/add}"><input type="button" value="Add Employee"></a>
 	</div>
-	</div>
-	&nbsp;&nbsp;
 	<div>
+	&nbsp;&nbsp;
+	</div>
 	<div>
 		<form th:action="@{/admin/employee/page/1}" >
    			<input type="hidden" name="sortField" th:value="${sortField}"/>
     		<input type="hidden" name="sortDir" th:value="${sortDir}"/>
-    		Search: <input type="text" name="keyword" th:value="${keyword}" required />
+    		Search: <input type="text" name="keyword" th:value="${keyword}" th:placeholder="#{fieldLabel.search}" required />
     		&nbsp;
    			<input type="submit" value="Submit" />
     		&nbsp;
@@ -53,6 +52,11 @@
 						</a>
 					</th>
 					<th>
+						<a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=managedBy&sortDir=' + ${reverseSortDir}}">
+						User Type
+						</a>
+					</th>
+					<th>
 						<a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
 						Email
 						</a>
@@ -66,11 +70,10 @@
 					<td align="center" th:text="${employee.password}">Password</td>
 					<td align="center" th:text="${employee.name}">Name</td>
 					<td align="center" th:text="${employee.managedBy}">Managed by</td>
+					<td align="center" th:text="${employee.usertype.type}">User Type</td>
 					<td align="center" th:text="${employee.email}">Email</td>
-					<td><a href="employeeForm.html" th:href="@{/admin/employee/editload/}+${employee.employeeId}"
-						>Edit</a></td> 
-					<td><a href="employeeForm.html" th:href="@{/admin/employee/delete/}+${employee.employeeId}"
-						>Delete</a></td>
+					<td><a th:href="@{/admin/employee/edit/}+${employee.employeeId}">Edit</a></td> 
+					<td><a th:href="@{/admin/employee/delete/}+${employee.employeeId}">Delete</a></td>
 		 		</tr>
 			</table>
 	</div>

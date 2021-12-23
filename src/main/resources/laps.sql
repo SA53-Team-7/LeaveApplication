@@ -6,15 +6,10 @@ VALUES
 (3,"manager",18);
 
 INSERT INTO laps.employee
+(employee_id, email, leave_annual_left, leave_medical_left, managed_by, name, ot_hours, password, username, user_type_id)
 VALUES
 (1, "first@gmail.com", 10, 5, "pupu", "bob", 20, "bob", "bob", 1)
-
-INSERT INTO laps.employee
-VALUES
-(2, "second@gmail.com", 20, 23, null, "pupu", 20, "pupu", "pupu", 3)
-
-INSERT INTO laps.employee
-VALUES
+(2, "second@gmail.com", 20, 23, "pupu", "pupu", 20, "pupu", "pupu", 3)
 (3, "third@gmail.com", 20, 23, "pupu", "tony", 20, "tony", "tony", 2)
 
 INSERT INTO laps.public_holiday
