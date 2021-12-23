@@ -3,6 +3,8 @@ package com.team7.leave.model;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,11 +12,12 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.team7.leave.helper.ClaimOvertimeEnum;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-
 public class Overtime {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +25,13 @@ public class Overtime {
 	private Double hours;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateTime;
-	private String status;
+	@Enumerated(EnumType.STRING)
+	private ClaimOvertimeEnum status;
 	
 	@ManyToOne
 	private Employee employee;
 
-	public Overtime(Double hours, LocalDate dateTime, String status, Employee employee) {
+	public Overtime(Double hours, LocalDate dateTime, ClaimOvertimeEnum status, Employee employee) {
 		super();
 		this.hours = hours;
 		this.dateTime = dateTime;
@@ -63,11 +67,11 @@ public class Overtime {
 		this.dateTime = dateTime;
 	}
 
-	public String getStatus() {
+	public ClaimOvertimeEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(ClaimOvertimeEnum status) {
 		this.status = status;
 	}
 
