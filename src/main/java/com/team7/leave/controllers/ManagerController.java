@@ -133,7 +133,7 @@ public class ManagerController {
       }
       lService.updateLeaveApplication(la);
       EmailTemplate msg = new EmailTemplate(la.getStatus().toString(), la.getEmployee().getManagedBy(), la);
-      Email mail = new Email("sithuzaw36@gmail.com", "Test Email", msg.message);
+      Email mail = new Email(la.getEmployee().getEmail(), "Test Email", msg.message);
       mailService.sendMail(mail);
       return "managers-emp-history";
     }
