@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Employee {
@@ -22,10 +23,12 @@ public class Employee {
 	private String name;
 
 	private String email;
-
+	
+	@NotBlank(message = "Username is mandatory")
 	private String username;
-
+	
 	@Column(name = "password")
+	@NotBlank(message = "Password is mandatory")
 	private String password;
 	private Integer leaveMedicalLeft;
 	private Integer leaveAnnualLeft;

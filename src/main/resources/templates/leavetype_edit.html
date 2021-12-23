@@ -9,7 +9,7 @@
 	<div th:replace="fragments/layout.html :: header" />
 	<h3>Edit Leave Type page</h3>
 
-	<form action="#" th:action="@{/admin/leavetype/edit/}+${leavetype.leaveTypeId}" th:object="${leavetype}"
+	<form action="#" th:action="@{/admin/leavetype/edit/}+${leaveType.leaveTypeId}" th:object="${leaveType}"
 		method="post">
 		<table style="margin-left:auto; margin-right:auto;">
 			<tbody>
