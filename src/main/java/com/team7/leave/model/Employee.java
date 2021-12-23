@@ -12,23 +12,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Length;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer employeeId;
+<<<<<<< HEAD
 	private String name;
 	private String email;
 	// private String type;
 	private String username;
+=======
+
+	private String name;
+
+	private String email;
+	
+	@NotBlank(message = "Username is mandatory")
+	private String username;
+	
+	@Column(name = "password")
+	@NotBlank(message = "Password is mandatory")
+>>>>>>> main
 	private String password;
 	private Integer leaveMedicalLeft;
 	private Integer leaveAnnualLeft;

@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+
+<body style="text-align:center;">
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
+	<h3>Leave Application Summary</h3>
+
+	<div th:if="${not #lists.isEmpty(userTypeList)}">
+		<table style="margin-left:auto; margin-right:auto;">
+
+			<tr class="listHeading">
+				<th><span th:text="#{home.fieldLabel.pendingapprove}"></span></th>
+				<th><span th:text="#{home.fieldLabel.approved}"></span></th>
+				<th><span th:text="#{home.fieldLabel.reject}"></span></th>
+			</tr>
+			<tr th:each="userType : ${userTypeList}" class="listRecord">
+				<td align="left" th:text="${userType.type}">User Type</td>
+				<td align="left" th:text="${userType.leaveAnnualTotal}">Total Annual Leave</td>
+				<td><a th:href="@{/admin/usertype/edit/}+${userType.typeId}" >
+				<input type="button" th:value="#{caption.edit}"/></a>
+				</td>
+				<td><a th:href="@{/admin/usertype/delete/}+${userType.typeId}" >
+				<input type="button" th:value="#{caption.delete}"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

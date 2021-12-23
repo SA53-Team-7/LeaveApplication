@@ -14,7 +14,11 @@ public class EmployeeValidator implements Validator{
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
+<<<<<<< HEAD
 		return Employee.class.equals(clazz);
+=======
+		return Employee.class.isAssignableFrom(clazz);
+>>>>>>> main
 	}
 	
 	@Override

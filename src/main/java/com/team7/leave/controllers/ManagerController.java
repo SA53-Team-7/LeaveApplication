@@ -3,7 +3,10 @@ package com.team7.leave.controllers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team7.leave.LeaveApplication;
 import com.team7.leave.Repositories.EmployeeRepository;
+import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Approve;
 import com.team7.leave.model.Employee;
 import com.team7.leave.services.EmployeeService;
@@ -26,6 +30,9 @@ public class ManagerController {
 	
 	@Autowired
 	EmployeeRepository erepo;
+	
+	@Autowired
+	LeaveApplication lrepo;
 	
 	@Autowired
 	EmployeeService eService;
@@ -45,30 +52,77 @@ public class ManagerController {
 		return "manager-leave-pending";
 	}
 	
+	// List all employees' leave history
 	@GetMapping("/list-hist")
-	public String listhistory(Model model) {
-		HashMap<Employee, ArrayList<LeaveApplication>> submap = new HashMap<Employee, ArrayList<LeaveApplication>>();
-		ArrayList<Employee> emps = (ArrayList<Employee>) erepo.findAll();
-		for (Employee emp : emps) {
-			ArrayList<LeaveApplication> la = (ArrayList) lService.findLeaveApplicationByEmployeeId(emp.getEmployeeId());
-			submap.put(emp, la);
+	public String listhistory(Model model, HttpSession session) {
+		Employee emp = (Employee) session.getAttribute("emObj");
+		
+		if (emp != null) {
+			HashMap<Employee, ArrayList<LeaveApplication>> submap = new HashMap<Employee, ArrayList<LeaveApplication>>();
+			ArrayList<Employee> emps = (ArrayList<Employee>) erepo.findAll();
+			for (Employee e : emps) {
+				ArrayList<LeaveApplication> la = (ArrayList) lService.findLeaveApplicationByEmployeeId(e.getEmployeeId());
+				submap.put(e, la);
+			}
+			model.addAttribute("submap", submap);
+			return "managers-emp-history";
 		}
-		model.addAttribute("submap", submap);
-		return "managers-emp-history";
+		return "forward:/login";
 	}
 	
+	// Link to accept and approve page for annual leave and medical leave
 	@RequestMapping(value = "/leave/display/{id}", method = RequestMethod.GET)
-	public String updateStatus(@PathVariable Integer id, Model model) {
-		com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
-		model.addAttribute("leave", la);
-		return "managers-approval";
+	public String updateStatus(@PathVariable Integer id, Model model, HttpSession session) {
+		Employee emp = (Employee) session.getAttribute("emObj");
+		
+		if (emp != null) {
+			com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
+			model.addAttribute("leave", la);
+			return "managers-approval";
+		}
+		return "forward:/login";
 	}
 	
+	// Update status and comment for approval of annual leave and medical leave
 	@RequestMapping(value = "/leave/update/{id}", method = RequestMethod.POST)
-	public String changeStatus(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision, @RequestParam(value="comment") String comment) {
-		com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
-		// la.setStatus(decision);
-		la.setManagerComments(comment);
-		return "managers";
+	public String changeStatus(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision, @RequestParam(value="comment") String comment, HttpSession session) {
+		Employee emp = (Employee) session.getAttribute("emObj");
+		
+		if (emp != null) {
+			com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
+			la.setManagerComments(comment);
+			if(decision.equalsIgnoreCase(LeaveApplicationStatusEnum.APPROVED.toString())) {
+				Integer days = lService.getNumberOfDaysDeducted(la.getDateFrom(), la.getDateTo());
+				if(la.getLeavetype().getType().equalsIgnoreCase("annual leave")) {
+					Integer remaining = la.getEmployee().getLeaveAnnualLeft() - days;
+					la.getEmployee().setLeaveAnnualLeft(remaining);
+					if(remaining<0) {
+						la.setStatus(LeaveApplicationStatusEnum.REJECTED);
+						la.setManagerComments("Rejected. The number of days applied exceeded the balance annual leave.");
+					}
+					else {
+						la.setStatus(LeaveApplicationStatusEnum.APPROVED);
+					}
+				}
+				else {
+					Integer remaining = la.getEmployee().getLeaveMedicalLeft() - days;
+					la.getEmployee().setLeaveMedicalLeft(remaining);
+					if(remaining<0) {
+						la.setStatus(LeaveApplicationStatusEnum.REJECTED);
+						la.setManagerComments("Rejected. The number of days applied exceeded the balance medical leave.");
+					}
+					else {
+						la.setStatus(LeaveApplicationStatusEnum.APPROVED);
+					}
+				}
+				
+			}
+			else {
+				la.setStatus(LeaveApplicationStatusEnum.REJECTED);
+			}
+			lService.updateLeaveApplication(la);
+			return "managers";
+		}
+		return "forward:/login";
 	}
 }

@@ -7,7 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.team7.leave.model.Employee;
+<<<<<<< HEAD
 import com.team7.leave.model.UserType;
+=======
+import com.team7.leave.model.LeaveApplication;
+>>>>>>> main
 
 @Service
 public interface EmployeeService {
@@ -25,6 +29,7 @@ public interface EmployeeService {
 	void delete(Employee employee);
 
 	Page<Employee> listAll(Integer pageNum, String sortField, String sortDir, String keyword);
+<<<<<<< HEAD
 	
 	ArrayList<UserType> findAllUserType();
 
@@ -32,4 +37,6 @@ public interface EmployeeService {
 	
 
 
+=======
+>>>>>>> main
 }

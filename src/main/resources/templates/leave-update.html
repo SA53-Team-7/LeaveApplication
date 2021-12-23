@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="fragments/layout.html :: html_head" />
-
+<head>
+	<title>Update Leave Application</title>
+</head>
 <body>
-	<h1>Update Leave Application</h1>
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div class="content">
+	<h3>Update Leave Application</h3>
 	<form th:action="@{/staff/leave/update/}+${leave.leaveId}" th:object="${leave}" method="post">
 		<table>
 			<tr>
@@ -16,7 +20,7 @@
 				<td>
 					<select class="form-control" th:field="*{leavetype}">
 						<option th:each="type : ${leavetypes}" th:value="${type.leaveTypeId}"
-							th:text="${type.description}"></option>
+							th:text="${type.type}"></option>
 					</select>
 				</td>
 			</tr>
@@ -30,6 +34,12 @@
 				<td><input type="text" th:field="*{dateTo}" placeholder="YYYY-MM-DD" /></td>
 				<td th:if="${#fields.hasErrors('dateTo')}" th:errors="*{dateTo}"></td>
 			</tr>
+			<tr>
+				<td style = "color:red; text-align:center" colspan=2 th:text="${error}"></td>
+			<tr>
+			<tr>
+				<td style = "color:red; text-align:center" colspan=2 th:text="${error1}"></td>
+			<tr>
 			<tr>
 				<td>Reason</td>
 				<td>
@@ -52,14 +62,22 @@
 				<td><input type="text" th:field="*{status}" disabled="disabled" /></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Update" /></td>
-				<td><input type="reset" value="Reset" /></td>
+				<td style="text-align: center;"><input type="submit" value="Update" /></td >
+				<td style="text-align: center;"><input type="reset" value="Reset" /></td >
 			</tr>
 		</table>
 	</form>
+	</div>
 	<style>
 		td {
 			text-align: left;
+		}
+		
+		.content {
+			top: 10%;
+			padding: 10px;
+			width: 75%;
+			margin: auto;
 		}
 	</style>
 </body>

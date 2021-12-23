@@ -17,32 +17,37 @@ import com.team7.leave.model.Employee;
 import com.team7.leave.model.UserType;
 
 @Component
+@Transactional 
 public class EmployeeServiceImpl implements EmployeeService {
 
 	@Resource
 	private EmployeeRepository emRepo;
 	
+<<<<<<< HEAD
 	@Autowired
 	private UserTypeService utService;	
 	
 	@Transactional
+=======
+>>>>>>> main
 	public Employee authenticate(String username, String password) {
 		
 		Employee em =  emRepo.findEmployeeByUsernameAndPassword(username, password);
 		return em;
 	}
 	
-	@Transactional 
+
+
 	public ArrayList<Employee> findSubordinates(Integer emId){
 	
 		ArrayList<Employee> subs = emRepo.findSubordinatesByEmployeeId(emId);
 		return subs;
-	}
-    
-	@Transactional 
-	public ArrayList<Employee> findAll(){
-		return (ArrayList<Employee>) emRepo.findAll();
 
+  }
+    
+	public ArrayList<Employee> findAll(){
+
+		return (ArrayList<Employee>) emRepo.findAll();
 	}
 	
 	@Override
