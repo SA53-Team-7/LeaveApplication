@@ -156,7 +156,7 @@ public class StaffController {
 		
 		if (bResult.hasErrors() || sufficientLeave == false) {
 			List<LeaveType> leavetypes = laService.findAllLeaveType();
-			ModelAndView mav = new ModelAndView("leave-new", "leavetypes", leavetypes);
+			ModelAndView mav = new ModelAndView("leave-update", "leavetypes", leavetypes);
 			if (sufficientLeave == false) {
 				mav.addObject("error", "Insufficient leave");
 			}
