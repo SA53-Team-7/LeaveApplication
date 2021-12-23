@@ -14,7 +14,7 @@
 				<td>
 					<select class="form-control" th:field="*{leavetype}">
 						<option th:each="type : ${leavetypes}" th:value="${type.leaveTypeId}"
-							th:text="${type.description}"></option>
+							th:text="${type.type}"></option>
 					</select>
 				</td>
 			</tr>
@@ -28,6 +28,8 @@
 				<td><input type="text" th:field="*{dateTo}" placeholder="YYYY-MM-DD"/></td>
 				<td th:if="${#fields.hasErrors('dateTo')}" th:errors="*{dateTo}"></td>
 			</tr>
+			<tr>
+				<td style = "color:red; text-align:center" colspan=2 th:text="${error}"></td>
 			<tr>
 				<td>Reason</td>
 				<td>
@@ -51,4 +53,9 @@
 			</tr>
 		</table>
 	</form>
+	<style>
+		td {
+			text-align: left;
+		}
+	</style>
 </body>
