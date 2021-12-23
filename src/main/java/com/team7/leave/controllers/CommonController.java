@@ -89,4 +89,9 @@ public class CommonController {
 	public String aboutPage() {
 		return "about";
 	}
+	
+	@RequestMapping(value = "/welcome")
+	public String welcome() {
+		return "welcome";
+	}
 }
