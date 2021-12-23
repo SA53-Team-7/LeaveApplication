@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team7.leave.LeaveApplication;
 import com.team7.leave.Repositories.EmployeeRepository;
+import com.team7.leave.helper.Email;
+import com.team7.leave.helper.EmailTemplate;
 import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Approve;
 import com.team7.leave.model.Employee;
 import com.team7.leave.services.EmployeeService;
 import com.team7.leave.services.LeaveApplicationService;
+import com.team7.leave.services.SendMailService;
 
 @Controller
 @RequestMapping("/manager")
@@ -37,6 +40,9 @@ public class ManagerController {
 	
 	@Autowired
 	LeaveApplicationService lService;
+	
+	@Autowired
+	SendMailService mailService;
 	
 	@GetMapping("/leave")
 	public String listPending(Model model) {
@@ -82,16 +88,20 @@ public class ManagerController {
 			la.getEmployee().setLeaveAnnualLeft(remaining);
 			if(remaining<0) {
 				la.setStatus(LeaveApplicationStatusEnum.REJECTED);
-				la.setManagerComments("Rejected. The number of days applied exceeded the balance annual leave.");
+				la.setManagerComments("Rejected. The number of days applied exceeded the balance annual leave.");				
 			}
 			else {
-				la.setStatus(LeaveApplicationStatusEnum.APPROVED);
+				la.setStatus(LeaveApplicationStatusEnum.APPROVED);				
 			}
 		}
 		else {
 			la.setStatus(LeaveApplicationStatusEnum.REJECTED);
 		}
 		lService.updateLeaveApplication(la);
-		return "managers";
+		EmailTemplate msg = new EmailTemplate(la.getStatus().toString(), la.getEmployee().getManagedBy(), la);
+		Email mail = new Email("sithuzaw36@gmail.com", "Test Email", msg.message);
+		mailService.sendMail(mail);
+		return "managers-emp-history";
 	}
+
 }
