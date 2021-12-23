@@ -135,7 +135,7 @@ public class ManagerController {
       EmailTemplate msg = new EmailTemplate(la.getStatus().toString(), la.getEmployee().getManagedBy(), la);
       Email mail = new Email(la.getEmployee().getEmail(), "Test Email", msg.message);
       mailService.sendMail(mail);
-      return "managers-emp-history";
+      return "redirect:/manager/overtime/pending";
     }
 		return "forward:/login";
 	}
