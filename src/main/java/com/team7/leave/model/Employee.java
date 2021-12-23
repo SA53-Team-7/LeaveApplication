@@ -19,7 +19,7 @@ public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer employeeId;
-
+	
 	private String name;
 
 	private String email;
@@ -32,7 +32,9 @@ public class Employee {
 	private String password;
 	private Integer leaveMedicalLeft;
 	private Integer leaveAnnualLeft;
-	private Integer otHours;
+  
+	private Double otHours;
+	@Column(name = "managedby")
 	private String managedBy;
 	
 	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
@@ -46,7 +48,7 @@ public class Employee {
 	
 
 	public Employee(String name, String email, String username, String password, Integer leaveMedicalLeft,
-			Integer leaveAnnualLeft, Integer otHours, String managedBy, Set<LeaveApplication> leaveList,
+			Integer leaveAnnualLeft, Double otHours, String managedBy, Set<LeaveApplication> leaveList,
 			Set<Overtime> overtimeList, UserType usertype) {
 		super();
 		this.name = name;
@@ -139,12 +141,12 @@ public class Employee {
 	}
 
 
-	public Integer getOtHours() {
+	public Double getOtHours() {
 		return otHours;
 	}
 
 
-	public void setOtHours(Integer otHours) {
+	public void setOtHours(Double otHours) {
 		this.otHours = otHours;
 	}
 
@@ -189,13 +191,13 @@ public class Employee {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", name=" + name + ", email=" + email + ", username=" + username
-				+ ", password=" + password + ", leaveMedicalLeft=" + leaveMedicalLeft + ", leaveAnnualLeft="
-				+ leaveAnnualLeft + ", otHours=" + otHours + ", managedBy=" + managedBy + ", leaveList=" + leaveList
-				+ ", overtimeList=" + overtimeList + ", usertype=" + usertype + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Employee [employeeId=" + employeeId + ", name=" + name + ", email=" + email + ", username=" + username
+//				+ ", password=" + password + ", leaveMedicalLeft=" + leaveMedicalLeft + ", leaveAnnualLeft="
+//				+ leaveAnnualLeft + ", otHours=" + otHours + ", managedBy=" + managedBy + ", leaveList=" + leaveList
+//				+ ", overtimeList=" + overtimeList + ", usertype=" + usertype + "]";
+//	}
 	
 	
 

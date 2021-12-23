@@ -9,7 +9,7 @@
 	<span th:unless="${#strings.isEmpty(usession)}">
 		<h2 th:utext="${session.usession.name}"> Hello </h2>
 	</span>
-	<form th:object="${employee}" th:action="@{/admin/employee/add}" method="POST">
+	<form th:object="${employee}" th:action="@{/admin/employee/edit/}+${employee.employeeId}" method="POST">
         <fieldset>
 			Employee Id
 			&nbsp;
@@ -35,22 +35,29 @@
 			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 		</fieldset>
 		<fieldset>
+			Managed by
+			&nbsp;&nbsp;
+			<select th:field="*{managedBy}">
+				<option selected="selected" th:value=null></option>
+				<option th:each="manager : ${eManagerList}" th:value="${manager}" th:text="${manager}">List
+				</option>
+			</select>
+			<p th:if="${#fields.hasErrors('managedBy')}" th:errors="*{managedBy}"></p>
+		</fieldset>
+		<fieldset>
+			User Type
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<select class="form-control" th:field="*{usertype}">
+				<option th:each="type : ${usertypes}" th:value="${type.typeId}" th:text="${type.type}">
+				</option>
+			</select >
+		</fieldset>
+		<fieldset>
 			Email
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
 			<input type="text" th:field="*{email}" />
 			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 		</fieldset>
-		<fieldset>
-			Managed by
-			&nbsp;&nbsp;
-			<select th:field="*{managedBy}">
-				<option selected="selected" th:value=null></option>
-				<option th:each="manager : ${eidList}" th:value="${manager}" th:text="${manager}">List
-				</option>
-			</select>
-			<p th:if="${#fields.hasErrors('managedBy')}" th:errors="*{managedBy}"></p>
-		</fieldset>
-		
 		<fieldset>
 			<input type="submit" value="Update" />
 		</fieldset>

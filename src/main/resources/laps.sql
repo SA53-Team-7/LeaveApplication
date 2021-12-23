@@ -11,14 +11,6 @@ VALUES
 (2, "second@gmail.com", 20, 23, null, "pupu", 20, "pupu", "pupu", 3),
 (3, "third@gmail.com", 20, 23, "pupu", "tony", 20, "tony", "tony", 2);
 
-
-INSERT INTO laps.employee
-VALUES
-(1, "first@gmail.com", 10, 5, "pupu", "bob", 20, "bob", "bob", 1),
-(2, "second@gmail.com", 20, 23, null, "pupu", 20, "pupu", "pupu", 3),
-(3, "third@gmail.com", 20, 23, "pupu", "tony", 20, "tony", "tony", 2);
-
-
 INSERT INTO laps.public_holiday
 (public_holiday.date_from, public_holiday.name)
 VALUES
@@ -42,7 +34,7 @@ VALUES
 (3,"For compensation leave the granularity is half a day. Every four hours of overtime work makes an employee eligible for half-a day compensation.","Compensation Leave");
 
 INSERT INTO laps.leave_application
-(leave_id, date_from, date_to, memo, reason, status, employee_employeeid, leavetype_leave_type_id)
+(leave_id, date_from, date_to, memo, reason, status, employee_employee_id, leavetype_leave_type_id)
 VALUES
 (1, '2021-12-10', '2021-12-22', "nil", "Personal", "APPLIED", 1, 1 ),
 (2, '2021-02-22', '2021-04-05', "nil", "Vacation", "APPROVED", 1, 1 ),
@@ -62,3 +54,4 @@ INSERT INTO `leave_application` (`leave_id`, `date_from`, `date_to`, `manager_co
 (2, '1998-12-31', '1998-12-31', '', 'ttest', 'tes', 'APPROVED', 3, 1),
 (3, '2021-12-01', '2021-12-02', NULL, 'test', 'test', 'APPLIED', 3, 1),
 (4, '2021-12-01', '2021-12-02', '', 'test', 'test', 'REJECTED', 3, 1);
+

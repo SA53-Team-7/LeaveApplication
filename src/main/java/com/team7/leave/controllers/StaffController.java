@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team7.leave.helper.ClaimOvertimeEnum;
 import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Employee;
 import com.team7.leave.model.LeaveApplication;
 import com.team7.leave.model.LeaveType;
+import com.team7.leave.model.Overtime;
 import com.team7.leave.services.EmployeeService;
 import com.team7.leave.services.LeaveApplicationService;
+import com.team7.leave.services.OvertimeService;
 import com.team7.leave.validators.LeaveApplicationValidator;
 
 @Controller
@@ -33,6 +36,9 @@ public class StaffController {
 
 	@Autowired
 	private LeaveApplicationService laService;
+	
+	@Autowired
+	private OvertimeService otService;
 
 	@Autowired
 	private LeaveApplicationValidator laValidator;
@@ -47,7 +53,7 @@ public class StaffController {
 
 	// Load create new leave form
 	@GetMapping("/leave/create")
-	public String loadNewLeavePage(Model model) {
+	public String loadNewLeavePage(Model model,  HttpSession session) {
 		LeaveApplication leave = new LeaveApplication();
 		List<LeaveType> leavetypes = laService.findAllLeaveType();
 		model.addAttribute("leave", leave);
@@ -60,9 +66,10 @@ public class StaffController {
 	public ModelAndView createLeaveApplication(@Valid @ModelAttribute("leave") LeaveApplication leave,
 			BindingResult bResult, HttpSession session) {
 		boolean sufficientLeave = true;
+		int existingLeaveCount = 0;
 		Employee emp = (Employee) session.getAttribute("emObj");
 		
-		if (leave.getDateFrom() != null && leave.getDateTo() != null) {
+		if (leave.getDateFrom() != null && leave.getDateTo() != null && leave.getDateTo().isAfter(leave.getDateFrom())) {
 			if (leave.getLeavetype().getType().equalsIgnoreCase("Annual Leave")) {
 				sufficientLeave = emp.getLeaveAnnualLeft() >= laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 			}
@@ -75,15 +82,23 @@ public class StaffController {
 				int hours = 8 * laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 				sufficientLeave = emp.getOtHours() >= hours;
 			}
+			
+			existingLeaveCount = laService.findAllLeaveBetweenDates(leave.getDateFrom(), leave.getDateTo(), emp.getEmployeeId());
 		}
 	
-		if (bResult.hasErrors() || sufficientLeave == false) {
+		if (bResult.hasErrors() || sufficientLeave == false || existingLeaveCount > 0) {
 			List<LeaveType> leavetypes = laService.findAllLeaveType();
 			//return new ModelAndView("leave-new", "leavetypes", leavetypes);
 			ModelAndView mav = new ModelAndView("leave-new", "leavetypes", leavetypes);
+			
 			if (sufficientLeave == false) {
 				mav.addObject("error", "Insufficient leave");
 			}
+			
+			if (existingLeaveCount > 0) {
+				mav.addObject("error1", "There's an overlap in dates selected");
+			}
+	
 			return mav;
 		}
 		ModelAndView mav = new ModelAndView();
@@ -138,8 +153,9 @@ public class StaffController {
 		
 		Employee emp = (Employee) session.getAttribute("emObj");
 		boolean sufficientLeave = true;
+		int existingLeaveCount = 0;
 		
-		if (leave.getDateFrom() != null && leave.getDateTo() != null) {
+		if (leave.getDateFrom() != null && leave.getDateTo() != null && leave.getDateTo().isAfter(leave.getDateFrom())) {
 			if (leave.getLeavetype().getType().equalsIgnoreCase("Annual Leave")) {
 				sufficientLeave = emp.getLeaveAnnualLeft() >= laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 			}
@@ -152,14 +168,21 @@ public class StaffController {
 				int hours = 8 * laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 				sufficientLeave = emp.getOtHours() >= hours;
 			}
+			
+			existingLeaveCount = laService.findAllLeaveBetweenDatesV2(leave.getDateFrom(), leave.getDateTo(), emp.getEmployeeId(), leave.getLeaveId());
 		}
 		
-		if (bResult.hasErrors() || sufficientLeave == false) {
+		if (bResult.hasErrors() || sufficientLeave == false || existingLeaveCount > 0) {
 			List<LeaveType> leavetypes = laService.findAllLeaveType();
 			ModelAndView mav = new ModelAndView("leave-update", "leavetypes", leavetypes);
 			if (sufficientLeave == false) {
 				mav.addObject("error", "Insufficient leave");
 			}
+			
+			if (existingLeaveCount > 0) {
+				mav.addObject("error1", "There's an overlap in dates selected");
+			}
+			
 			return mav;
 		}
 		ModelAndView mav = new ModelAndView();
@@ -201,4 +224,7 @@ public class StaffController {
 		eService.save(emp);
 		return mav;
 	}
+	
+	
+	
 }

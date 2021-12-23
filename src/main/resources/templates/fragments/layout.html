@@ -20,7 +20,7 @@
 							<a th:href="@{/manager/leave}" th:utext="#{manager.subnav.viewApplivation}">View Applications for
 								Approval</a>
 							<a th:href="@{/manager/list-hist}" th:utext="#{manager.subnav.viewHistory}">View Employee Leave History</a>
-							<a th:href="@{/}" th:utext="#{manager.subnav.processCompensation}">Approve/Reject Compensation Claim</a>
+							<a th:href="@{/manager/overtime/pending}" th:utext="#{manager.subnav.processCompensation}">Approve/Reject Compensation Claim</a>
 						</div>
 					</div>
 				</div>
@@ -32,6 +32,7 @@
 							<a th:href="@{/admin/employee/list}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a>
 							<a th:href="@{/admin/usertype/list}" th:utext="#{manager.subnav.manageLeaveEntitlement}">Manage Leave
 								Entitlement</a>
+							<a th:href="@{http://localhost:3000/}">Manage Public Holiday</a>
 						</div>
 					</div>
 				</div>
@@ -41,11 +42,10 @@
 						<div class="dropdown-content">
 							<a th:href="@{/staff/leave/create}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit Leave
 								Application</a>
-							<a th:href="@{/}" th:utext="#{staff.subnav.manageLeaveApplication}">Manage Leave
-								Application</a>
-							<a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
 							<a th:href="@{/staff/leave/history}" th:utext="#{staff.subnav.viewPersonalLeaveHistory}">View Personal Leave
 								History</a>
+							<a th:href="@{/staffovertime/claim}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
+							<a th:href="@{/staffovertime/history}" th:utext="#{staff.subnav.claimSubmissionHistory}">Overtime Claims History</a>	
 						</div>
 					</div>
 				</div>
