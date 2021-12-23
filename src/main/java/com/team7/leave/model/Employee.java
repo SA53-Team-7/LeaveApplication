@@ -12,24 +12,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "employeeid")
 	private Integer employeeId;
-
+	
 	private String name;
 
 	private String email;
-
+	
+	@NotBlank(message = "Username is mandatory")
 	private String username;
-
+	
 	@Column(name = "password")
+	@NotBlank(message = "Password is mandatory")
 	private String password;
 	private Integer leaveMedicalLeft;
 	private Integer leaveAnnualLeft;
+  
 	private Double otHours;
 	@Column(name = "managedby")
 	private String managedBy;
@@ -188,13 +191,13 @@ public class Employee {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", name=" + name + ", email=" + email + ", username=" + username
-				+ ", password=" + password + ", leaveMedicalLeft=" + leaveMedicalLeft + ", leaveAnnualLeft="
-				+ leaveAnnualLeft + ", otHours=" + otHours + ", managedBy=" + managedBy + ", leaveList=" + leaveList
-				+ ", overtimeList=" + overtimeList + ", usertype=" + usertype + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Employee [employeeId=" + employeeId + ", name=" + name + ", email=" + email + ", username=" + username
+//				+ ", password=" + password + ", leaveMedicalLeft=" + leaveMedicalLeft + ", leaveAnnualLeft="
+//				+ leaveAnnualLeft + ", otHours=" + otHours + ", managedBy=" + managedBy + ", leaveList=" + leaveList
+//				+ ", overtimeList=" + overtimeList + ", usertype=" + usertype + "]";
+//	}
 	
 	
 

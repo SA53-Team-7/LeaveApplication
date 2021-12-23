@@ -39,13 +39,14 @@ public class LeaveApplicationValidator implements Validator {
 		if (la.getDateFrom() != null && la.getDateTo() != null) {
 			// Checks that end date is after start date
 			if (!la.getDateTo().isAfter(la.getDateFrom())) {
-				if (!la.getDateTo().equals(la.getDateFrom()))
+				if (!la.getDateTo().equals(la.getDateFrom())) {
 					errors.rejectValue("dateTo", "error.dates", "End date has to be after start date");
+				}
 			}
 
 			// Checks that for medical leave, the calendar days taken cannot be beyond 60
 			// days
-			if (la.getLeavetype().getType().equalsIgnoreCase("medical leave")
+			if (la.getLeavetype().getType().equalsIgnoreCase("Medical Leave")
 					&& ChronoUnit.DAYS.between(la.getDateFrom(), la.getDateTo()) + 1 > 60) {
 				errors.rejectValue("dateTo", "error.dates", "Medical leave cannot be beyond 60 days");
 			}
@@ -57,7 +58,7 @@ public class LeaveApplicationValidator implements Validator {
 
 			if (!phService.isWorkingDay(la.getDateTo())) {
 				errors.rejectValue("dateTo", "error.dates", "End date has to be a working day");
-			}			
+			}		
 		}
 	}
 }

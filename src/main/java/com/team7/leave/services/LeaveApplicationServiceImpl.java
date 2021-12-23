@@ -93,4 +93,12 @@ public class LeaveApplicationServiceImpl implements LeaveApplicationService {
 	public ArrayList<LeaveApplication> findPendingLeaveApplicationByEmployeeId(Integer eid){
 		return larepo.findPendingLeaveApplicationByEmployeeId(eid);
 	}
+	
+	public int findAllLeaveBetweenDates(LocalDate from, LocalDate start, Integer employeeId) {
+		return larepo.findAllLeaveAppBetweenDates(from, start, employeeId).size();
+	}
+	
+	public int findAllLeaveBetweenDatesV2(LocalDate from, LocalDate start, Integer employeeId, Integer leaveId) {
+		return larepo.findAllLeaveAppBetweenDatesV2(from, start, employeeId, leaveId).size();
+	}
 }

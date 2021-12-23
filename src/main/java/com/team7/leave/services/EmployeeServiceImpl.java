@@ -1,7 +1,8 @@
 package com.team7.leave.services;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,55 +14,72 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.team7.leave.Repositories.EmployeeRepository;
 import com.team7.leave.model.Employee;
+import com.team7.leave.model.UserType;
 
 @Component
-@Transactional 
 public class EmployeeServiceImpl implements EmployeeService {
 
-	@Autowired
+	@Resource
 	private EmployeeRepository emRepo;
 	
+	@Autowired
+	private UserTypeService utService;	
+	
+	@Transactional
 	public Employee authenticate(String username, String password) {
 		
 		Employee em =  emRepo.findEmployeeByUsernameAndPassword(username, password);
 		return em;
 	}
 	
-
-
+	@Transactional 
 	public ArrayList<Employee> findSubordinates(Integer emId){
 	
 		ArrayList<Employee> subs = emRepo.findSubordinatesByEmployeeId(emId);
 		return subs;
-
-  }
+	}
     
+	@Transactional 
 	public ArrayList<Employee> findAll(){
-
 		return (ArrayList<Employee>) emRepo.findAll();
+
 	}
 	
 	@Override
+	@Transactional
 	public void save(Employee employee) {
 		emRepo.saveAndFlush(employee);
 	}
 	
 	@Override
+	@Transactional
 	public void delete(Employee employee) {
 		emRepo.delete(employee);
 	}
 	
 	@Override
-	public Employee get(int id) {
-		return emRepo.findById(id).get();
+	@Transactional
+	public ArrayList<String> findManagerNames(){
+		return emRepo.findManagerNames();
 	}
 	
 	@Override
-	public ArrayList<String> findAllEmployeeNames(){
-		return emRepo.findAllEmployeeNames();
+	@Transactional
+	public ArrayList<UserType> findAllUserType(){
+		ArrayList<UserType> usertypes = utService.findAllUserType();
+		return usertypes;
 	}
 	
+	
 	@Override
+	@Transactional
+	public Employee findEmployeeById (Integer id) {
+		return emRepo.findEmployeeById(id);
+	}
+	
+	
+	@Override
+	@Transactional
 	public Page<Employee> listAll(Integer pageNum, String sortField, String sortDir, String keyword ){
 	    int pageSize = 5;
 	    Pageable pageable = PageRequest.of(pageNum - 1, pageSize,
@@ -74,5 +92,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 		return emRepo.findAll(pageable);
 	}
+
+
 }
 
