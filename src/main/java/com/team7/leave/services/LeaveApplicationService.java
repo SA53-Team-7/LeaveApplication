@@ -25,4 +25,8 @@ public interface LeaveApplicationService {
 	LeaveApplication findLeaveApplicationById(Integer id);
 	
 	ArrayList<LeaveApplication> findPendingLeaveApplicationByEmployeeId(Integer eid);
+	
+	int findAllLeaveBetweenDates(LocalDate from, LocalDate start, Integer employeeId);
+
+	int findAllLeaveBetweenDatesV2(LocalDate from, LocalDate start, Integer employeeId, Integer leaveId);
 }

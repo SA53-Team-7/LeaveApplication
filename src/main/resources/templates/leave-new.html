@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head th:replace="fragments/layout.html :: html_head" />
 <head>
 	<title>Leave Application</title>
 </head>
 <body>
 	<div th:replace="fragments/layout.html :: menu"/>
+	<div class="leave-avail">
+		
+	</div >
 	<div class="content">
 	<h3>Leave Application</h3>
 	<form th:action="@{/staff/leave/create}" th:object="${leave}" method="post">
@@ -32,6 +34,9 @@
 			</tr>
 			<tr>
 				<td style = "color:red; text-align:center" colspan=2 th:text="${error}"></td>
+			<tr>
+			<tr>
+				<td style = "color:red; text-align:center" colspan=2 th:text="${error1}"></td>
 			<tr>
 				<td>Reason</td>
 				<td>
