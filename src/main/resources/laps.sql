@@ -9,16 +9,19 @@ VALUES
 =======
 -- for login page ↓
 
+
 INSERT INTO laps.employee
 VALUES
 (1, "first@gmail.com", 10, 5, "pupu", "bob", 20, "bob", "bob", 1)
-
-INSERT INTO laps.employee
-VALUES
 (2, "second@gmail.com", 20, 23, null, "pupu", 20, "pupu", "pupu", 3)
+(3, "third@gmail.com", 20, 23, "pupu", "tony", 20, "tony", "tony", 2)
+
+-- for login page
 
 INSERT INTO laps.employee
 VALUES
+(1, "first@gmail.com", 10, 5, "pupu", "bob", 20, "bob", "bob", 1),
+(2, "second@gmail.com", 20, 23, null, "pupu", 20, "pupu", "pupu", 3),
 (3, "third@gmail.com", 20, 23, "pupu", "tony", 20, "tony", "tony", 2)
 
 >>>>>>> refs/remotes/origin/main
@@ -60,7 +63,7 @@ VALUES
 
 INSERT INTO leave_type
 VALUES
-(1, "for annual leave", "annual leave")
-(2, "for medical leave", "medical leave")
+(1, "for annual leave", "annual leave"),
+(2, "for medical leave", "medical leave"),
 (3, "for compensation leave", "compensation leave")
 >>>>>>> refs/remotes/origin/main

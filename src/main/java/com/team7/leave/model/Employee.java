@@ -12,26 +12,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "employeeid")
 	private Integer employeeId;
 
 	private String name;
 
 	private String email;
-
+	
+	@NotBlank(message = "Username is mandatory")
 	private String username;
-
+	
 	@Column(name = "password")
+	@NotBlank(message = "Password is mandatory")
 	private String password;
 	private Integer leaveMedicalLeft;
 	private Integer leaveAnnualLeft;
 	private Integer otHours;
-	@Column(name = "managedby")
 	private String managedBy;
 	
 	@OneToMany(mappedBy="employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
