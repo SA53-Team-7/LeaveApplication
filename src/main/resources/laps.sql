@@ -5,6 +5,14 @@ VALUES
 (2,"staff",18),
 (3,"manager",18);
 
+-- for login page
+
+INSERT INTO laps.employee
+VALUES
+(1, "first@gmail.com", 10, 5, "pupu", "bob", 20, "bob", "bob", 1),
+(2, "second@gmail.com", 20, 23, null, "pupu", 20, "pupu", "pupu", 3),
+(3, "third@gmail.com", 20, 23, "pupu", "tony", 20, "tony", "tony", 2)
+
 INSERT INTO laps.public_holiday
 (public_holiday.date_from, public_holiday.name)
 VALUES
@@ -36,4 +44,6 @@ VALUES
 (4, '2021-08-22', '2021-08-25', "nil", "Personal", "APPLIED", 3, 1 ),
 (5, '2021-12-18', '2021-12-22', "nil", "Personal", "APPLIED", 3, 1 ),
 (6, '2021-10-22', '2021-10-26', "nil", "Vacation", "APPLIED", 2, 1 );
+
+
 

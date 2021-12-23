@@ -71,16 +71,22 @@ public class CommonController {
 			session.setAttribute("emObj", em);
 			
 			return "welcome";
-
 		}
-		
 	}
 	
 	@RequestMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		
 		return "redirect:/";
-
+	}
+	
+	@RequestMapping(value = "/home")
+	public String homePage() {
+		return "home";
+	}
+	
+	@RequestMapping(value = "/about")
+	public String aboutPage() {
+		return "about";
 	}
 }

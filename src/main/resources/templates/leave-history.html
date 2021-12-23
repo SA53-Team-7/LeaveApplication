@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<head>
+	<title>Staff Leave History</title>
+</head>
 <head th:replace="fragments/layout.html :: html_head" />
 
 <body>
-	<h1>Employee Leave History</h1>
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div class="content">
+	<h3>Staff Leave History</h3>
 	<div th:if="${not #lists.isEmpty(leavehistory)}">
 		<table style=" border: 1;">
 			<tr class="listHeading">
@@ -15,15 +19,44 @@
 				<th></th>
 			</tr>
 			<tr th:each="leave : ${leavehistory}" class="leave-list">
-				<td th:text="${leave.leavetype.description}">Leave Type</td>
+				<td th:text="${leave.leavetype.type}">Leave Type</td>
 				<td th:text="${leave.dateFrom}">Starting Date</td>
 				<td th:text="${leave.dateTo}">End Date</td>
 				<td th:text="${leave.status}">Status</td>
 				<td>
 					<div>
-						<a th:href="@{/staff/leave/details/}+${leave.leaveId}">More Details</a>
+						<button><a th:href="@{/staff/leave/details/}+${leave.leaveId}">More Details</a></button>
 					</div>
 				</td>
 		</table>
 	</div>
+	</div>
+	<style>
+		td {text-align: left;}
+		
+		a:link { 
+			text-decoration: none; 
+			color:white;
+		}
+		a:visited {
+			text-decoration: none;
+			color:white;
+		}
+
+		.content {
+			top: 10%;
+			padding: 10px;
+			width: 70%;
+			margin: auto;
+		}
+		
+		button {
+			width: 200px;
+			font-size: 14px;
+			display: inline-block;
+			text-align: center;
+			border: none;
+			background-color:#333;
+		}
+	</style>
 </body>

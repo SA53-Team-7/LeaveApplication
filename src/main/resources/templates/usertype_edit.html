@@ -14,7 +14,7 @@
 			<td><input type="hidden" th:field="*{typeId}" /></td>
 				<tr>
 					<td><span th:text="#{fieldLabel.usertype}"></span></td>
-					<td><input type="text" th:placeholder="#{fieldLabel.usertype}" th:field="*{type}" /></td>
+					<td><input type="text" th:placeholder="#{fieldLabel.usertype}" th:field="*{type}" readonly="readonly"/></td>
 					<td th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></td>
 				</tr>
 				<tr>

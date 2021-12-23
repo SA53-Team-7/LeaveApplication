@@ -14,7 +14,7 @@ public class EmployeeValidator implements Validator{
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return User.class.isAssignableFrom(clazz);
+		return Employee.class.isAssignableFrom(clazz);
 	}
 		
 	@Override
