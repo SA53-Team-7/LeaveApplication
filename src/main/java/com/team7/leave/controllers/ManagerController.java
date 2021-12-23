@@ -183,6 +183,9 @@ public class ManagerController {
 			emp.setOtHours(totalhours);
 			eService.save(emp);
 			otService.save(ot);
+			EmailTemplate msg = new EmailTemplate(ot.getStatus().toString(), ot.getEmployee().getManagedBy(), ot);
+		    Email mail = new Email(ot.getEmployee().getEmail(), "Test Email", msg.message);
+		    mailService.sendMail(mail);
 			return "redirect:/manager/overtime/pending";
 		}
 		
@@ -192,6 +195,9 @@ public class ManagerController {
 				Overtime ot = otService.retrieveOTFromId(id);
 				ot.setStatus(ClaimOvertimeEnum.REJECTED);
 				otService.save(ot);
+				EmailTemplate msg = new EmailTemplate(ot.getStatus().toString(), ot.getEmployee().getManagedBy(), ot);
+			    Email mail = new Email(ot.getEmployee().getEmail(), "Test Email", msg.message);
+			    mailService.sendMail(mail);
 				return "redirect:/manager/overtime/pending";
 			}
 }
