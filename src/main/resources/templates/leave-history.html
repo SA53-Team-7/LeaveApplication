@@ -4,6 +4,8 @@
 <head th:replace="fragments/layout.html :: html_head" />
 
 <body>
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
 	<h1>Employee Leave History</h1>
 	<div th:if="${not #lists.isEmpty(leavehistory)}">
 		<table style=" border: 1;">
@@ -15,15 +17,20 @@
 				<th></th>
 			</tr>
 			<tr th:each="leave : ${leavehistory}" class="leave-list">
-				<td th:text="${leave.leavetype.description}">Leave Type</td>
+				<td th:text="${leave.leavetype.type}">Leave Type</td>
 				<td th:text="${leave.dateFrom}">Starting Date</td>
 				<td th:text="${leave.dateTo}">End Date</td>
 				<td th:text="${leave.status}">Status</td>
 				<td>
 					<div>
-						<a th:href="@{/staff/leave/details/}+${leave.leaveId}">More Details</a>
+						<button><a th:href="@{/staff/leave/details/}+${leave.leaveId}">More Details</a></button>
 					</div>
 				</td>
 		</table>
 	</div>
+	<style>
+		td {text-align: left;}
+		a:link { text-decoration: none; }
+		a:visited { text-decoration: none; }
+	</style>
 </body>
