@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.team7.leave.helper.ClaimOvertimeEnum;
 import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Employee;
 import com.team7.leave.model.LeaveApplication;
 import com.team7.leave.model.LeaveType;
+import com.team7.leave.model.Overtime;
 import com.team7.leave.services.EmployeeService;
 import com.team7.leave.services.LeaveApplicationService;
+import com.team7.leave.services.OvertimeService;
 import com.team7.leave.validators.LeaveApplicationValidator;
 
 @Controller
@@ -33,6 +36,9 @@ public class StaffController {
 
 	@Autowired
 	private LeaveApplicationService laService;
+	
+	@Autowired
+	private OvertimeService otService;
 
 	@Autowired
 	private LeaveApplicationValidator laValidator;
@@ -218,4 +224,7 @@ public class StaffController {
 		eService.save(emp);
 		return mav;
 	}
+	
+	
+	
 }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout.html :: html_head"/>
+
+<body style="text-align:center;">
+	<div th:replace="fragments/layout.html :: menu"/>
+	<div th:replace="fragments/layout.html :: header"/> 
+	<h2>Overtime Claims User History</h2>
+	
+	<div th:if="${#lists.isEmpty(OTClaimHistory)}">
+	<h3>No Overtime Claims submitted</h3>
+	</div>
+
+	<div th:if="${not #lists.isEmpty(OTClaimHistory)}">
+		<table style="margin-left:auto; margin-right:auto;">
+
+			<tr class="listHeading">
+
+		<!--		<th><span th:text="#{fieldLabel.EmployeeID}"></span></th>
+				<th><span th:text="#{fieldLabel.name}"></span></th> -->
+				<th><span th:text="#{fieldLabel.OvertimeDate}"></span></th>
+				<th><span th:text="#{fieldLabel.Hours}"></span></th>
+				<th><span th:text="#{fieldLabel.status}"></span></th>
+			</tr>
+			<tr th:each="overtime : ${OTClaimHistory}" class="listRecord">
+	<!--			<td align="left" th:text="${overtime.employee.employeeId}">Employee ID</td>
+				<td align="left" th:text="${overtime.employee.name}">Employee Name</td>  -->
+				<td align="left" th:text="${overtime.dateTime}">Date</td>
+				<td align="left" th:text="${overtime.hours}">Overtime Hours</td>
+				<td align="left" th:text="${overtime.status}">Status</td>
+			</tr>
+		</table>
+	</div>
+</body>
+
+</html>

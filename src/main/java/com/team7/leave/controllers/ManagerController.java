@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.team7.leave.LeaveApplication;
 import com.team7.leave.Repositories.EmployeeRepository;
+import com.team7.leave.helper.ClaimOvertimeEnum;
 import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Approve;
 import com.team7.leave.model.Employee;
+import com.team7.leave.model.Overtime;
 import com.team7.leave.services.EmployeeService;
 import com.team7.leave.services.LeaveApplicationService;
+import com.team7.leave.services.OvertimeService;
 
 @Controller
 @RequestMapping("/manager")
@@ -33,6 +36,9 @@ public class ManagerController {
 	
 	@Autowired
 	LeaveApplication lrepo;
+	
+	@Autowired
+	OvertimeService otService;
 	
 	@Autowired
 	EmployeeService eService;
@@ -125,4 +131,61 @@ public class ManagerController {
 		}
 		return "forward:/login";
 	}
+	
+	// List all compensation claim for approval
+		@GetMapping("/overtime/pending")
+		public String overtimeHistory(Model model, HttpSession session) {
+			Employee emp = (Employee) session.getAttribute("emObj");
+			
+			if (emp != null) {
+				if (otService.getListForApproval(emp.getUsername()).size() > 0) {
+					model.addAttribute("OTClaimApprovalList", otService.getListForApproval(emp.getUsername()));
+				}
+				return "overtime-pending";
+			}
+			return "forward:/login";
+			
+		}
+		
+	// Approve or Reject compensation claim
+//		@RequestMapping(value = "/overtime/approval/{id}")
+//		public String otClaimApproval(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision) {
+//			Overtime ot = otService.retrieveOTFromId(id);
+//			if(decision.equalsIgnoreCase(ClaimOvertimeEnum.APPROVED.toString())) {
+//				ot.setStatus(ClaimOvertimeEnum.APPROVED);
+//				Employee emp = ot.getEmployee();
+//				double totalhours = emp.getOtHours() + ot.getHours();
+//				emp.setOtHours(totalhours);
+//				eService.save(emp);
+//			}
+//			else {
+//				ot.setStatus(ClaimOvertimeEnum.REJECTED);
+//			}
+//			otService.save(ot);
+//			return "overtime-pending";
+//		}
+		
+		//Approve only
+		@RequestMapping(value = "/overtime/approve/{id}")
+		public String otClaimApprove(@PathVariable Integer id) {
+			Overtime ot = otService.retrieveOTFromId(id);
+			ot.setStatus(ClaimOvertimeEnum.APPROVED);
+			Employee emp = ot.getEmployee();
+			double totalhours = emp.getOtHours() + ot.getHours();
+			emp.setOtHours(totalhours);
+			eService.save(emp);
+			otService.save(ot);
+			return "redirect:/manager/overtime/pending";
+		}
+		
+		//Reject only
+			@RequestMapping(value = "/overtime/reject/{id}")
+			public String otClaimReject(@PathVariable Integer id) {
+				Overtime ot = otService.retrieveOTFromId(id);
+				ot.setStatus(ClaimOvertimeEnum.REJECTED);
+				otService.save(ot);
+				return "redirect:/manager/overtime/pending";
+			}
+			
+			
 }
