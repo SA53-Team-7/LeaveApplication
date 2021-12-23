@@ -35,14 +35,6 @@ public class AdminEmployeeController {
 	@Autowired
 	private EmployeeService eService;	
 	
-//	@Autowired
-//	private EmployeeValidator eValidator;
-//	
-//	@InitBinder
-//	private void initEmployeeBinder(WebDataBinder binder) {
-//		binder.addValidators(eValidator);
-//	}
-	
 	@RequestMapping(value = "/list")
 	public String listEmployee(Model model) {
 		return listByPage(model, 1, "name", "asc", null);
@@ -90,7 +82,9 @@ public class AdminEmployeeController {
 	public String addEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bingResult, Model model) {
 		if (bingResult.hasErrors()) {
 			ArrayList<UserType> usertypes = eService.findAllUserType();
+			ArrayList<String> eManagerList = eService.findManagerNames();
 			model.addAttribute("usertypes", usertypes);
+			model.addAttribute("eManagerList", eManagerList);
 			return "employeeForm-new";
 		}
 		
@@ -114,7 +108,9 @@ public class AdminEmployeeController {
 			BindingResult bingResult, Model model, @PathVariable Integer id) {
 		if (bingResult.hasErrors()) {
 			ArrayList<UserType> usertypes = eService.findAllUserType();
+			ArrayList<String> eManagerList = eService.findManagerNames();
 			model.addAttribute("usertypes", usertypes);
+			model.addAttribute("eManagerList", eManagerList);
 			return "employeeForm-edit";
 		}
 		

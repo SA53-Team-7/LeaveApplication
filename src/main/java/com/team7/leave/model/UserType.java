@@ -28,7 +28,7 @@ public class UserType {
 	private Integer leaveAnnualTotal;
 
 	// Bi-directional association with Employee
-	@OneToMany(mappedBy="usertype", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="usertype", orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Employee> userList = new HashSet<Employee>();
 
 	public UserType(String type, Integer leaveAnnualTotal, Set<Employee> userList) {
