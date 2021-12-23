@@ -19,13 +19,7 @@ public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer employeeId;
-<<<<<<< HEAD
-	private String name;
-	private String email;
-	// private String type;
-	private String username;
-=======
-
+	
 	private String name;
 
 	private String email;
@@ -35,7 +29,6 @@ public class Employee {
 	
 	@Column(name = "password")
 	@NotBlank(message = "Password is mandatory")
->>>>>>> main
 	private String password;
 	private Integer leaveMedicalLeft;
 	private Integer leaveAnnualLeft;
