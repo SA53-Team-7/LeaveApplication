@@ -19,7 +19,7 @@ public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer employeeId;
-
+	
 	private String name;
 
 	private String email;
@@ -189,13 +189,13 @@ public class Employee {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", name=" + name + ", email=" + email + ", username=" + username
-				+ ", password=" + password + ", leaveMedicalLeft=" + leaveMedicalLeft + ", leaveAnnualLeft="
-				+ leaveAnnualLeft + ", otHours=" + otHours + ", managedBy=" + managedBy + ", leaveList=" + leaveList
-				+ ", overtimeList=" + overtimeList + ", usertype=" + usertype + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Employee [employeeId=" + employeeId + ", name=" + name + ", email=" + email + ", username=" + username
+//				+ ", password=" + password + ", leaveMedicalLeft=" + leaveMedicalLeft + ", leaveAnnualLeft="
+//				+ leaveAnnualLeft + ", otHours=" + otHours + ", managedBy=" + managedBy + ", leaveList=" + leaveList
+//				+ ", overtimeList=" + overtimeList + ", usertype=" + usertype + "]";
+//	}
 	
 	
 
