@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.team7.leave.Repositories.PublicHolidayRepository;
 import com.team7.leave.model.PublicHoliday;
 import com.team7.leave.services.PublicHolidayService;
-@CrossOrigin(origins= "http://localhost:3000")
+
+@CrossOrigin(origins= "http://localhost:3000/")
 @RestController
 @RequestMapping("/api/publicholiday")
 public class PublicHolidayController {
