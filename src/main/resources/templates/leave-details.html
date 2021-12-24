@@ -43,13 +43,13 @@
 	</div>
 	<div class="buttons">
 			<div id="first" th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
-				<button><a th:href="@{/staff/leave/update/}+${leave.leaveId}">Update</a></button>
+				<button><a class="leave-btn" th:href="@{/staff/leave/update/}+${leave.leaveId}">Update</a></button>
 			</div>
 			<div id="second" th:if="${#strings.equals(leave.status, 'APPROVED')}">
-				<button><a th:href="@{/staff/leave/cancel/}+${leave.leaveId}">Cancel</a></button>
+				<button><a class="leave-btn" th:href="@{/staff/leave/cancel/}+${leave.leaveId}">Cancel</a></button>
 			</div>
 			<div id="third" th:if="${#strings.equals(leave.status, 'APPLIED')  or #strings.equals(leave.status,'UPDATED')}">
-				<button><a th:href="@{/staff/leave/delete/}+${leave.leaveId}">Delete</a></button>
+				<button><a class="leave-btn" th:href="@{/staff/leave/delete/}+${leave.leaveId}">Delete</a></button>
 			</div>
 		</div>
 	<style>
@@ -58,12 +58,8 @@
 			padding: 10px
 		}
 		
-		a:link { 
+		.leave-btn { 
 			text-decoration: none; 
-			color:white;
-		}
-		a:visited {
-			text-decoration: none;
 			color:white;
 		}
 
