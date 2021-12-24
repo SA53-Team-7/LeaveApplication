@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team7.leave.helper.ClaimOvertimeEnum;
+import com.team7.leave.helper.Email;
+import com.team7.leave.helper.EmailTemplate;
 import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Employee;
 import com.team7.leave.model.LeaveApplication;
@@ -28,6 +30,7 @@ import com.team7.leave.model.Overtime;
 import com.team7.leave.services.EmployeeService;
 import com.team7.leave.services.LeaveApplicationService;
 import com.team7.leave.services.OvertimeService;
+import com.team7.leave.services.SendMailService;
 import com.team7.leave.validators.LeaveApplicationValidator;
 
 @Controller
@@ -45,6 +48,9 @@ public class StaffController {
 	
 	@Autowired
 	private EmployeeService eService;
+	
+	@Autowired
+	private SendMailService mailService;
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -108,6 +114,13 @@ public class StaffController {
 		ModelAndView mav = new ModelAndView();
 		leave.setEmployee(emp);
 		leave.setStatus(LeaveApplicationStatusEnum.APPLIED);
+		EmailTemplate msg = new EmailTemplate(leave.getEmployee().getName(), leave);
+		Employee manager = eService.findManagerByUsername(emp.getManagedBy());
+		if (manager == null) {
+			manager = leave.getEmployee();
+		}
+	    Email mail = new Email(manager.getEmail(), "New leave application: LAPS", msg.message);
+	    mailService.sendMail(mail);
 		mav.setViewName("redirect:/staff/leave/history");
 		laService.createLeaveApplication(leave);
 		return mav;

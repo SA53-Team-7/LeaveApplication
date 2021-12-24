@@ -162,7 +162,7 @@ public class ManagerController {
       EmailTemplate msg = new EmailTemplate(la.getStatus().toString(), la.getEmployee().getManagedBy(), la);
       Email mail = new Email(la.getEmployee().getEmail(), "Test Email", msg.message);
       mailService.sendMail(mail);
-      return "redirect:/manager/overtime/pending";
+      return "redirect:/manager/leave";
     }
 		return "forward:/login";
 	}
@@ -182,48 +182,33 @@ public class ManagerController {
 			
 		}
 		
-	// Approve or Reject compensation claim
-//		@RequestMapping(value = "/overtime/approval/{id}")
-//		public String otClaimApproval(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision) {
-//			Overtime ot = otService.retrieveOTFromId(id);
-//			if(decision.equalsIgnoreCase(ClaimOvertimeEnum.APPROVED.toString())) {
-//				ot.setStatus(ClaimOvertimeEnum.APPROVED);
-//				Employee emp = ot.getEmployee();
-//				double totalhours = emp.getOtHours() + ot.getHours();
-//				emp.setOtHours(totalhours);
-//				eService.save(emp);
-//			}
-//			else {
-//				ot.setStatus(ClaimOvertimeEnum.REJECTED);
-//			}
-//			otService.save(ot);
-//			return "overtime-pending";
-//		}
-		
-		//Approve only
+		//Approve Overtime only
 		@RequestMapping(value = "/overtime/approve/{id}")
 		public String otClaimApprove(@PathVariable Integer id) {
 			Overtime ot = otService.retrieveOTFromId(id);
 			ot.setStatus(ClaimOvertimeEnum.APPROVED);
 			Employee emp = ot.getEmployee();
+			if (emp.getOtHours() == null) {
+				emp.setOtHours(0.0);
+			}
 			double totalhours = emp.getOtHours() + ot.getHours();
 			emp.setOtHours(totalhours);
 			eService.save(emp);
 			otService.save(ot);
 			EmailTemplate msg = new EmailTemplate(ot.getStatus().toString(), ot.getEmployee().getManagedBy(), ot);
-		    Email mail = new Email(ot.getEmployee().getEmail(), "Test Email", msg.message);
+		    Email mail = new Email(ot.getEmployee().getEmail(), "Update to over-time claim: LAPS", msg.message);
 		    mailService.sendMail(mail);
 			return "redirect:/manager/overtime/pending";
 		}
 		
-		//Reject only
+		//Reject Overtime only
 			@RequestMapping(value = "/overtime/reject/{id}")
 			public String otClaimReject(@PathVariable Integer id) {
 				Overtime ot = otService.retrieveOTFromId(id);
 				ot.setStatus(ClaimOvertimeEnum.REJECTED);
 				otService.save(ot);
 				EmailTemplate msg = new EmailTemplate(ot.getStatus().toString(), ot.getEmployee().getManagedBy(), ot);
-			    Email mail = new Email(ot.getEmployee().getEmail(), "Test Email", msg.message);
+			    Email mail = new Email(ot.getEmployee().getEmail(), "Update to leave application: LAPS", msg.message);
 			    mailService.sendMail(mail);
 				return "redirect:/manager/overtime/pending";
 			}

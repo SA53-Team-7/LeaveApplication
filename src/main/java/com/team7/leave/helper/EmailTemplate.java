@@ -23,5 +23,14 @@ public class EmailTemplate {
 
 		message = "Your request for your leave application has been " + status + " by " + manager + ". Request details: From: " + LA.getDateFrom() + ", To: " + LA.getDateTo() + ", Reason: " + LA.getReason() + ", Manager's Comments: " + LA.getManagerComments();
 	}
+	
+	public EmailTemplate(String staff, Overtime OT) {
 
+		message = "A new over-time request has been submitted by " + staff + ". Request details: Hours claimed: " + OT.getHours() + ", Date: " + OT.getDateTime();
+	}
+	
+	public EmailTemplate(String staff, LeaveApplication LA) {
+
+		message = "A new over-time request has been submitted by " + staff + ". Request details: From: " + LA.getDateFrom() + ", To: " + LA.getDateTo() + ", Reason: " + LA.getReason() + ", Handover Memo: " + LA.getMemo();
+	}
 }

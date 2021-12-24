@@ -18,7 +18,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 public class Employee {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer employeeId;
 	
 	private String name;

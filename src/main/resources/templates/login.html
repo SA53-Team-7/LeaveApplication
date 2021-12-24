@@ -4,7 +4,7 @@
 <body>
 <div th:replace="fragments/layout.html :: menu"/>
 	<div th:replace="fragments/layout.html :: header"/>
-		<form action="#" th:object="${employee}" th:action="@{'/home/authenticate'}">
+		<form action="#" th:object="${employee}" th:action="@{'/home/authenticate'}" method="post">
 		<table class="framed" style="margin-left:auto; margin-right:auto;">
 			<tr>
 				<td><span th:text="#{fieldLabel.username}">Username</span></td>
