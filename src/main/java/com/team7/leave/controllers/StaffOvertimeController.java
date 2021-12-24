@@ -56,6 +56,9 @@ public class StaffOvertimeController {
 			otService.save(overtime);
 			EmailTemplate msg = new EmailTemplate(overtime.getEmployee().getName(), overtime);
 			Employee manager = eService.findManagerByUsername(emp.getManagedBy());
+			if (manager == null) {
+				manager = overtime.getEmployee();
+			}
 		    Email mail = new Email(manager.getEmail(), "New leave application: LAPS", msg.message);
 		    mailService.sendMail(mail);
 			return mav;
