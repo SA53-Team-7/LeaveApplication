@@ -116,6 +116,9 @@ public class StaffController {
 		leave.setStatus(LeaveApplicationStatusEnum.APPLIED);
 		EmailTemplate msg = new EmailTemplate(leave.getEmployee().getName(), leave);
 		Employee manager = eService.findManagerByUsername(emp.getManagedBy());
+		if (manager == null) {
+			manager = leave.getEmployee();
+		}
 	    Email mail = new Email(manager.getEmail(), "New leave application: LAPS", msg.message);
 	    mailService.sendMail(mail);
 		mav.setViewName("redirect:/staff/leave/history");
