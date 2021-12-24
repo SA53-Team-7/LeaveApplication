@@ -162,7 +162,7 @@ public class ManagerController {
       EmailTemplate msg = new EmailTemplate(la.getStatus().toString(), la.getEmployee().getManagedBy(), la);
       Email mail = new Email(la.getEmployee().getEmail(), "Test Email", msg.message);
       mailService.sendMail(mail);
-      return "redirect:/manager/overtime/pending";
+      return "redirect:/manager/leave";
     }
 		return "forward:/login";
 	}
@@ -211,7 +211,7 @@ public class ManagerController {
 			eService.save(emp);
 			otService.save(ot);
 			EmailTemplate msg = new EmailTemplate(ot.getStatus().toString(), ot.getEmployee().getManagedBy(), ot);
-		    Email mail = new Email(ot.getEmployee().getEmail(), "Test Email", msg.message);
+		    Email mail = new Email(ot.getEmployee().getEmail(), "Update to over-time claim: LAPS", msg.message);
 		    mailService.sendMail(mail);
 			return "redirect:/manager/overtime/pending";
 		}
@@ -223,7 +223,7 @@ public class ManagerController {
 				ot.setStatus(ClaimOvertimeEnum.REJECTED);
 				otService.save(ot);
 				EmailTemplate msg = new EmailTemplate(ot.getStatus().toString(), ot.getEmployee().getManagedBy(), ot);
-			    Email mail = new Email(ot.getEmployee().getEmail(), "Test Email", msg.message);
+			    Email mail = new Email(ot.getEmployee().getEmail(), "Update to leave application: LAPS", msg.message);
 			    mailService.sendMail(mail);
 				return "redirect:/manager/overtime/pending";
 			}
