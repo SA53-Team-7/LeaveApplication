@@ -115,12 +115,6 @@ public class AdminEmployeeController {
 			model.addAttribute("eManagerList", eManagerList);
 			return "employeeForm-edit";
 		}
-		
-		Employee employeeTmp = eService.findEmployeeById(id);
-		
-		employee.setLeaveAnnualLeft(employeeTmp.getLeaveAnnualLeft()<employee.getUsertype().getLeaveAnnualTotal()?employeeTmp.getLeaveAnnualLeft():employee.getUsertype().getLeaveAnnualTotal());
-		employee.setLeaveMedicalLeft(employeeTmp.getLeaveMedicalLeft());
-		employee.setOtHours(employeeTmp.getOtHours());
 		eService.save(employee);
 		return "forward:/admin/employee/list";
 	}

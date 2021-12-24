@@ -7,54 +7,76 @@
 	<div th:replace="fragments/layout.html :: menu" />
 	<div th:replace="fragments/layout.html :: header" />
 
-	<h2>Welcome to Leave Application Process System</h2>
+	<h3 style=font-size:25px>Welcome to Leave Application Process System</h3>
+	<h2>Frequently-used function</h2>
 
-	<p th:text="#{welcome.commonFunction}">Frequently-used function</p>
-
-	<div class="dropdown">
+	<div>
 		<div th:if="${session.emType == 'manager'}">
-			<div><a th:href="@{/manager/leave}" th:utext="#{manager.subnav.viewApplivation}">View Applications for
-				Approval</a></div>
-			<div><a th:href="@{/}" th:utext="#{manager.subnav.processCompensation}">Approve/Reject Compensation Claim</a></div>
-			<div><a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a></div>
+			<a class="aw" th:href="@{/manager/leave}" th:utext="#{manager.subnav.viewApplivation}">View Applications for
+				Approval</a><br>
+			<a class="aw" th:href="@{/manager/overtime/pending}"
+				th:utext="#{manager.subnav.processCompensation}">Approve/Reject Compensation Claim</a><br>
+			<a class="aw" th:href="@{/staffovertime/claim}" th:utext="#{staff.subnav.claimCompensation}">Claim
+				Compensation</a><br>
 		</div>
 
 		<div th:if="${session.emType == 'admin'}">
-			<div><a th:href="@{/admin/employee/list}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a></div>
-			<div><a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a></div>
+			<a class="aw" th:href="@{/admin/employee/list}" th:utext="#{manager.subnav.manageStaff}">Manage
+				Staff</a><br>
+			<a class="aw" th:href="@{/staffovertime/claim}" th:utext="#{staff.subnav.claimCompensation}">Claim
+				Compensation</a><br>
 		</div>
 
 		<div th:if="${session.emType == 'staff'}">
-			<div><a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a></div>
-			<div><a th:href="@{/}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit Leave Application</a></div>
+			<a class="aw" th:href="@{/staffovertime/claim}" th:utext="#{staff.subnav.claimCompensation}">Claim
+				Compensation</a><br>
+			<a class="aw" th:href="@{/staff/leave/create}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit
+				Leave
+				Application</a><br>
 		</div>
-	</div  >
-	
+		
+	</div>
+
 	<div class="leaves-bal">
 		<h2>Leave Balance</h2>
 		<div>
 			<table>
 				<tr>
 					<th>Annual Leave Balance</th>
-					<td th:utext="${session.emObj.leaveAnnualLeft}"></td>
-				</tr> 
+					<td th:text="${emp.leaveAnnualLeft}"></td>
+				</tr>
 				<tr>
 					<th>Medical Leave Balance</th>
-					<td th:utext="${session.emObj.leaveMedicalLeft}"></td>
-				</tr> 
+					<td th:text="${emp.leaveMedicalLeft}"></td>
+				</tr>
 				<tr>
 					<th>Overtime Hours</th>
-					<td th:utext="${session.emObj.otHours}"></td>
-				</tr> 
+					<td th:text="${emp.otHours}"></td>
+				</tr>
 			</table>
 		</div>
-	</div >
+	</div>
 
-<style>
-	.leaves-bal {
-		margin-top: 5%;
-	}
-</style>
+	<style>
+		.leaves-bal {
+			margin-top: 5%;
+		}
+
+		.aw:link,
+		.aw:visited {
+			color: #696969;
+			padding: 14px 25px;
+			font-size:16px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.aw:hover,
+		.aw:active {
+			background-color: #DCDCDC;
+		}
+	</style>
 </body>
 
 </html>

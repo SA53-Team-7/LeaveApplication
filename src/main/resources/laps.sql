@@ -26,6 +26,7 @@ VALUES
 (2, "for medical leave", "medical leave"),
 (3, "for compensation leave", "compensation leave");
 
+
 INSERT INTO laps.employee
 VALUES
 (1, "admin@gmail.com", 14, 60, "manager", "admin", 20, "admin", "admin", 1),
@@ -34,3 +35,4 @@ VALUES
 (4, "alice@gmail.com", 18, 60, "manager", "staff", 20, "alice", "alice", 2),
 (5, "bob@gmail.com", 18, 60, "manager", "staff", 20, "bob", "bob", 2),
 (6, "john@gmail.com", 18, 60, "manager", "staff", 20, "john", "john", 2);
+

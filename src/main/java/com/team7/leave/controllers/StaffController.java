@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team7.leave.helper.ClaimOvertimeEnum;
+import com.team7.leave.helper.Email;
+import com.team7.leave.helper.EmailTemplate;
 import com.team7.leave.helper.LeaveApplicationStatusEnum;
 import com.team7.leave.model.Employee;
 import com.team7.leave.model.LeaveApplication;
@@ -28,6 +30,7 @@ import com.team7.leave.model.Overtime;
 import com.team7.leave.services.EmployeeService;
 import com.team7.leave.services.LeaveApplicationService;
 import com.team7.leave.services.OvertimeService;
+import com.team7.leave.services.SendMailService;
 import com.team7.leave.validators.LeaveApplicationValidator;
 
 @Controller
@@ -45,6 +48,9 @@ public class StaffController {
 	
 	@Autowired
 	private EmployeeService eService;
+	
+	@Autowired
+	private SendMailService mailService;
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -67,7 +73,9 @@ public class StaffController {
 			BindingResult bResult, HttpSession session) {
 		boolean sufficientLeave = false;
 		int existingLeaveCount = 0;
-		Employee emp = (Employee) session.getAttribute("emObj");
+		
+		Employee e = (Employee) session.getAttribute("emObj");
+		Employee emp = eService.findEmployeeById(e.getEmployeeId());
 				
 		if (leave.getDateFrom() != null && leave.getDateTo() != null && (leave.getDateTo().isAfter(leave.getDateFrom()) || leave.getDateFrom().isEqual(leave.getDateTo()))) {			
 			if (leave.getLeavetype().getType().equalsIgnoreCase("Annual Leave")) {
@@ -108,6 +116,13 @@ public class StaffController {
 		ModelAndView mav = new ModelAndView();
 		leave.setEmployee(emp);
 		leave.setStatus(LeaveApplicationStatusEnum.APPLIED);
+		EmailTemplate msg = new EmailTemplate(leave.getEmployee().getName(), leave);
+		Employee manager = eService.findManagerByUsername(emp.getManagedBy());
+		if (manager == null) {
+			manager = leave.getEmployee();
+		}
+	    Email mail = new Email(manager.getEmail(), "New leave application: LAPS", msg.message);
+	    mailService.sendMail(mail);
 		mav.setViewName("redirect:/staff/leave/history");
 		laService.createLeaveApplication(leave);
 		return mav;
@@ -155,7 +170,9 @@ public class StaffController {
 	public ModelAndView updateLeaveApplication(@Valid @ModelAttribute("leave") LeaveApplication leave,
 			BindingResult bResult, HttpSession session, @PathVariable Integer id) {
 		
-		Employee emp = (Employee) session.getAttribute("emObj");
+		Employee e = (Employee) session.getAttribute("emObj");
+		Employee emp = eService.findEmployeeById(e.getEmployeeId());
+		
 		boolean sufficientLeave = true;
 		int existingLeaveCount = 0;
 		
@@ -214,7 +231,7 @@ public class StaffController {
 	// Cancel leave application
 	@RequestMapping(value = "/leave/cancel/{id}", method = RequestMethod.GET)
 	public ModelAndView cancelLeaveApplication(@PathVariable Integer id) {
-		ModelAndView mav = new ModelAndView("redirect:/staff/leave/history");
+		ModelAndView mav = new ModelAndView("redirect:/welcome");
 		LeaveApplication leave = laService.findLeaveApplicationById(id);
 		Employee emp = leave.getEmployee();
 		Integer duration = laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
