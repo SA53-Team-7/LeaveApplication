@@ -73,7 +73,7 @@ public class CommonController {
 			session.setAttribute("subordinates", subordinatesIdList);
 			session.setAttribute("emName", em.getName());
 			session.setAttribute("emObj", em);
-			
+
 			return "forward:/staff/leave/history";
 		}
 	}
