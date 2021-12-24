@@ -206,6 +206,9 @@ public class ManagerController {
 			Overtime ot = otService.retrieveOTFromId(id);
 			ot.setStatus(ClaimOvertimeEnum.APPROVED);
 			Employee emp = ot.getEmployee();
+			if (emp.getOtHours() == null) {
+				emp.setOtHours(0.0);
+			}
 			double totalhours = emp.getOtHours() + ot.getHours();
 			emp.setOtHours(totalhours);
 			eService.save(emp);
