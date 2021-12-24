@@ -65,11 +65,11 @@ public class StaffController {
 	@RequestMapping(value = "/leave/create", method = RequestMethod.POST)
 	public ModelAndView createLeaveApplication(@Valid @ModelAttribute("leave") LeaveApplication leave,
 			BindingResult bResult, HttpSession session) {
-		boolean sufficientLeave = true;
+		boolean sufficientLeave = false;
 		int existingLeaveCount = 0;
 		Employee emp = (Employee) session.getAttribute("emObj");
-		
-		if (leave.getDateFrom() != null && leave.getDateTo() != null && leave.getDateTo().isAfter(leave.getDateFrom())) {
+				
+		if (leave.getDateFrom() != null && leave.getDateTo() != null && (leave.getDateTo().isAfter(leave.getDateFrom()) || leave.getDateFrom().isEqual(leave.getDateTo()))) {			
 			if (leave.getLeavetype().getType().equalsIgnoreCase("Annual Leave")) {
 				sufficientLeave = emp.getLeaveAnnualLeft() >= laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 			}
@@ -78,14 +78,18 @@ public class StaffController {
 				sufficientLeave = emp.getLeaveMedicalLeft() >= laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 			}
 			
-			if (leave.getLeavetype().getType().equalsIgnoreCase("Compensation Leave")) {
+			if (leave.getLeavetype().getType().equalsIgnoreCase("Compensation Leave") && (leave.getLeaveTime().equalsIgnoreCase("AM") || leave.getLeaveTime().equalsIgnoreCase("PM"))) { 
+				sufficientLeave = emp.getOtHours() >= 4.0;
+			}
+			
+			if (leave.getLeavetype().getType().equalsIgnoreCase("Compensation Leave") && leave.getLeaveTime().equalsIgnoreCase("FULL")) { 
 				int hours = 8 * laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 				sufficientLeave = emp.getOtHours() >= hours;
 			}
-			
+				
 			existingLeaveCount = laService.findAllLeaveBetweenDates(leave.getDateFrom(), leave.getDateTo(), emp.getEmployeeId());
 		}
-	
+			
 		if (bResult.hasErrors() || sufficientLeave == false || existingLeaveCount > 0) {
 			List<LeaveType> leavetypes = laService.findAllLeaveType();
 			//return new ModelAndView("leave-new", "leavetypes", leavetypes);
@@ -96,7 +100,7 @@ public class StaffController {
 			}
 			
 			if (existingLeaveCount > 0) {
-				mav.addObject("error1", "There's an overlap in dates selected");
+				mav.addObject("error1", "Overlap in dates selected");
 			}
 	
 			return mav;
@@ -164,7 +168,11 @@ public class StaffController {
 				sufficientLeave = emp.getLeaveMedicalLeft() >= laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 			}
 			
-			if (leave.getLeavetype().getType().equalsIgnoreCase("Compensation Leave")) {
+			if (leave.getLeavetype().getType().equalsIgnoreCase("Compensation Leave") && (leave.getLeaveTime().equalsIgnoreCase("AM") || leave.getLeaveTime().equalsIgnoreCase("PM"))) { 
+				sufficientLeave = emp.getOtHours() >= 4.0;
+			}
+			
+			if (leave.getLeavetype().getType().equalsIgnoreCase("Compensation Leave") && leave.getLeaveTime().equalsIgnoreCase("FULL")) { 
 				int hours = 8 * laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
 				sufficientLeave = emp.getOtHours() >= hours;
 			}
@@ -216,8 +224,13 @@ public class StaffController {
 		} else if (leave.getLeavetype().getType().equalsIgnoreCase("Medical Leave")) {
 			emp.setLeaveMedicalLeft(emp.getLeaveMedicalLeft() + duration);
 		} else {
-			int hours = duration * 8;
-			emp.setOtHours(emp.getOtHours() + hours);
+			if (leave.getLeaveTime().equalsIgnoreCase("FULL")) {
+				int hours = duration * 8;
+				emp.setOtHours(emp.getOtHours() + hours);
+			}
+			else {
+				emp.setOtHours(emp.getOtHours() + 4);
+			}
 		}
 		leave.setStatus(LeaveApplicationStatusEnum.CANCEL);
 		laService.updateLeaveApplication(leave);

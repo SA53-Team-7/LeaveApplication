@@ -34,6 +34,17 @@
 				<td><input type="text" th:field="*{dateTo}" placeholder="YYYY-MM-DD" /></td>
 				<td th:if="${#fields.hasErrors('dateTo')}" th:errors="*{dateTo}"></td>
 			</tr>
+			</tr>
+				<td>Leave Time</td>
+				<td>
+					<select class="form-control" th:field="*{leaveTime}">
+						<option th:value="AM" th:text="AM"></option>
+						<option th:value="PM" th:text="PM"></option>
+						<option th:value="FULL" th:text="FULL"></option>
+					</select>
+				</td>
+				<td th:if="${#fields.hasErrors('leaveTime')}" th:errors="*{leaveTime}"></td>
+			<tr>
 			<tr>
 				<td style = "color:red; text-align:center" colspan=2 th:text="${error}"></td>
 			<tr>
