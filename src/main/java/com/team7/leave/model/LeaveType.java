@@ -72,11 +72,11 @@ public class LeaveType {
 		this.leaveList = leaveList;
 	}
 
-	@Override
-	public String toString() {
-		return "LeaveType [leaveTypeId=" + leaveTypeId + ", type=" + type + ", description=" + description
-				+ ", leaveList=" + leaveList + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "LeaveType [leaveTypeId=" + leaveTypeId + ", type=" + type + ", description=" + description
+//				+ ", leaveList=" + leaveList + "]";
+//	}
 	
 	
 //	public LeaveType(String type, String description) {
