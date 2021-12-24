@@ -44,13 +44,6 @@ public class LeaveApplicationValidator implements Validator {
 				}
 			}
 
-			// Checks that for medical leave, the calendar days taken cannot be beyond 60
-			// days
-			if (la.getLeavetype().getType().equalsIgnoreCase("Medical Leave")
-					&& ChronoUnit.DAYS.between(la.getDateFrom(), la.getDateTo()) + 1 > 60) {
-				errors.rejectValue("dateTo", "error.dates", "Medical leave cannot be beyond 60 days");
-			}
-
 			// Check if start and end dates are working days
 			if (!phService.isWorkingDay(la.getDateFrom())) {
 				errors.rejectValue("dateFrom", "error.dates", "Start date has to be a working day");
