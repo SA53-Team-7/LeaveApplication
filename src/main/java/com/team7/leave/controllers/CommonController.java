@@ -70,7 +70,7 @@ public class CommonController {
 			session.setAttribute("emName", em.getName());
 			session.setAttribute("emObj", em);
 			
-			return "welcome";
+			return "forward:/staff/leave/history";
 		}
 	}
 	
