@@ -7,7 +7,7 @@
 	<div th:replace="fragments/layout.html :: header"/> 
 	<div>
 		<h3>Employee List page</h3>
-		<a th:href="@{/admin/employee/add}"><input type="button" th:value="#{caption.addemployee}"></a>
+		<a th:href="@{/admin/employee/add}"><input type="button" value="Add Employee"></a>
 	</div>
 	<div>
 	&nbsp;&nbsp;
@@ -43,7 +43,7 @@
 					</th>
 					<th>
 						<a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
-						Employee's Name
+						Name
 						</a>
 					</th>
 					<th>
@@ -58,7 +58,7 @@
 					</th>
 					<th>
 						<a th:href="@{'/admin/employee/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
-						Employee's Email
+						Email
 						</a>
 					</th>
 					<th>Edit</th>
