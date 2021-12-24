@@ -182,25 +182,7 @@ public class ManagerController {
 			
 		}
 		
-	// Approve or Reject compensation claim
-//		@RequestMapping(value = "/overtime/approval/{id}")
-//		public String otClaimApproval(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision) {
-//			Overtime ot = otService.retrieveOTFromId(id);
-//			if(decision.equalsIgnoreCase(ClaimOvertimeEnum.APPROVED.toString())) {
-//				ot.setStatus(ClaimOvertimeEnum.APPROVED);
-//				Employee emp = ot.getEmployee();
-//				double totalhours = emp.getOtHours() + ot.getHours();
-//				emp.setOtHours(totalhours);
-//				eService.save(emp);
-//			}
-//			else {
-//				ot.setStatus(ClaimOvertimeEnum.REJECTED);
-//			}
-//			otService.save(ot);
-//			return "overtime-pending";
-//		}
-		
-		//Approve only
+		//Approve Overtime only
 		@RequestMapping(value = "/overtime/approve/{id}")
 		public String otClaimApprove(@PathVariable Integer id) {
 			Overtime ot = otService.retrieveOTFromId(id);
@@ -219,7 +201,7 @@ public class ManagerController {
 			return "redirect:/manager/overtime/pending";
 		}
 		
-		//Reject only
+		//Reject Overtime only
 			@RequestMapping(value = "/overtime/reject/{id}")
 			public String otClaimReject(@PathVariable Integer id) {
 				Overtime ot = otService.retrieveOTFromId(id);
