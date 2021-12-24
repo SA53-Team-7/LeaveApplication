@@ -28,6 +28,7 @@
 												<th th:utext="#{fieldLabel.email}">Employee Email</th>
 												<th th:utext="#{fieldLabel.startDate}">Start Date</th>
 												<th th:utext="#{fieldLabel.endDate}">End Date</th>
+												<th th:utext="#{fieldLabel.leaveTime}">Duration</th>
 												<th th:utext="#{fieldLabel.leaveType}">Leave Type</th>
 												<th th:utext="#{fieldLabel.status}">Status</th>
 												<th th:utext="#{fieldLabel.approvereject}">Approve or Reject</th>
@@ -40,6 +41,7 @@
 												<td th:text="${leave.employee.email}"></td>
 												<td th:text="${leave.dateFrom}"></td>
 												<td th:text="${leave.dateTo}"></td>
+												<td th:text="${leave.leaveTime}"></td>
 												<td th:text="${leave.leavetype.type}"></td>
 												<td th:text="${leave.status}"></td>
 												<td><a th:href="@{/manager/leave/display/}+${leave.leaveId}">Approve/Reject</a></td>
