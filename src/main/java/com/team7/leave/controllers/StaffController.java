@@ -227,7 +227,7 @@ public class StaffController {
 	// Cancel leave application
 	@RequestMapping(value = "/leave/cancel/{id}", method = RequestMethod.GET)
 	public ModelAndView cancelLeaveApplication(@PathVariable Integer id) {
-		ModelAndView mav = new ModelAndView("redirect:/staff/leave/history");
+		ModelAndView mav = new ModelAndView("redirect:/welcome");
 		LeaveApplication leave = laService.findLeaveApplicationById(id);
 		Employee emp = leave.getEmployee();
 		Integer duration = laService.getNumberOfDaysDeducted(leave.getDateFrom(), leave.getDateTo());
