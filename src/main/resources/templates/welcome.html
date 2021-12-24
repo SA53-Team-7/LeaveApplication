@@ -29,6 +29,32 @@
 			<div><a th:href="@{/}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit Leave Application</a></div>
 		</div>
 	</div  >
+	
+	<div class="leaves-bal">
+		<h2>Leave Balance</h2>
+		<div>
+			<table>
+				<tr>
+					<th>Annual Leave Balance</th>
+					<td th:utext="${session.emObj.leaveAnnualLeft}"></td>
+				</tr> 
+				<tr>
+					<th>Medical Leave Balance</th>
+					<td th:utext="${session.emObj.leaveMedicalLeft}"></td>
+				</tr> 
+				<tr>
+					<th>Overtime Hours</th>
+					<td th:utext="${session.emObj.otHours}"></td>
+				</tr> 
+			</table>
+		</div>
+	</div >
+
+<style>
+	.leaves-bal {
+		margin-top: 5%;
+	}
+</style>
 </body>
 
 </html>
