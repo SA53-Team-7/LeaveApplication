@@ -24,7 +24,7 @@
 				<td th:text="${leave.status}">Status</td>
 				<td>
 					<div>
-						<button><a th:href="@{/staff/leave/details/}+${leave.leaveId}">More Details</a></button>
+						<button><a class="leave-btn" th:href="@{/staff/leave/details/}+${leave.leaveId}">More Details</a ></button>
 					</div>
 				</td>
 		</table>
@@ -33,15 +33,10 @@
 	<style>
 		td {text-align: left;}
 		
-		a:link { 
+		.leave-btn {
 			text-decoration: none; 
 			color:white;
 		}
-		a:visited {
-			text-decoration: none;
-			color:white;
-		}
-
 		.content {
 			top: 10%;
 			padding: 10px;
