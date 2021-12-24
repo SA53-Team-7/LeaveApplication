@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.team7.leave.helper.EmployeeSession;
 import com.team7.leave.model.Employee;
@@ -43,7 +44,7 @@ public class CommonController {
 		return "login";
 	}
 
-	@RequestMapping("/home/authenticate")
+	@RequestMapping(value = "/home/authenticate", method = RequestMethod.POST)
 	public String authenticate(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult,
 			Model model, HttpSession session) {
 
