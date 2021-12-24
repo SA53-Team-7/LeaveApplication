@@ -85,7 +85,7 @@ public class ManagerController {
 	// Link to accept and approve page for annual leave and medical leave
 	@RequestMapping(value = "/leave/display/{id}", method = RequestMethod.GET)
 	public String updateStatus(@PathVariable Integer id, Model model, HttpSession session) {
-		Employee emp = (Employee) session.getAttribute("emObj");
+		Employee emp = eService.findEmployeeById((Integer) session.getAttribute("emId"));
 		
 		if (emp != null) {
 			com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
@@ -98,7 +98,7 @@ public class ManagerController {
 	// Update status and comment for approval of annual leave, medical leave and compensation leave
 	@RequestMapping(value = "/leave/update/{id}", method = RequestMethod.POST)
 	public String changeStatus(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision, @RequestParam(value="comment") String comment, HttpSession session) {
-		Employee emp = (Employee) session.getAttribute("emObj");		
+		Employee emp = eService.findEmployeeById((Integer) session.getAttribute("emId"));		
 		if (emp != null) {
 			com.team7.leave.model.LeaveApplication la = lService.findLeaveApplicationById(id);
 			la.setManagerComments(comment);
