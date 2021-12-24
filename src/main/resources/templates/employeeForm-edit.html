@@ -36,7 +36,7 @@
 					<td ><span th:text="#{fieldLabel.managedBy}"></span></td>
 					<td >
 						<select class="form-control" th:field="*{managedBy}">
-							<option selected="selected" th:value="#{fieldLabel.managedBy}"></option>
+							<option selected="selected" th:value=null></option>
 							<option th:each="manager : ${eManagerList}" th:value="${manager}" th:text="${manager}">
 							</option>
 						</select >
