@@ -10,54 +10,57 @@
 		<h2 th:utext="${session.usession.name}"> Hello </h2>
 	</span>
 	<form th:object="${employee}" th:action="@{/admin/employee/add}" method="POST">
-        <fieldset>
-			User Name
-			&nbsp;&nbsp;&nbsp;
-			<input type="text" th:field="*{username}" />
-			<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
-		</fieldset>
-		<fieldset>
-			Password
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="text" th:field="*{password}" />
-			<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-		</fieldset>
-		<fieldset>
-			Name
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="text" th:field="*{name}" />
-			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-		</fieldset>
-		<fieldset>
-			Managed by
-			&nbsp;&nbsp;
-			<select th:field="*{managedBy}">
-				<option selected="selected" th:value=null></option>
-				<option th:each="manager : ${eManagerList}" th:value="${manager}" th:text="${manager}">List
-				</option>
-			</select>
-			<p th:if="${#fields.hasErrors('managedBy')}" th:errors="*{managedBy}"></p>
-		</fieldset>
-		<fieldset>
-			User Type
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<select class="form-control" th:field="*{usertype}">
-				<option th:each="type : ${usertypes}" th:value="${type.typeId}" th:text="${type.type}">
-				</option>
-			</select >
-		</fieldset>
-		<fieldset>
-			Email
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
-			<input type="text" th:field="*{email}" />
-			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-		</fieldset>
-		<fieldset>
-			<input type="submit" value="Create" />
-			&nbsp;
-			<input type="reset" value="Reset" />
-		</fieldset>
-		
+		<table style="margin-left:auto; margin-right:auto;">
+			<tbody>
+				<tr>
+					<td ><span th:text="#{fieldLabel.username}"></span></td>
+					<td ><input type="text" th:placeholder="#{fieldLabel.username}" th:field="*{username}" /></td>
+					<td th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></td>
+				</tr>
+				<tr>
+					<td ><span th:text="#{fieldLabel.password}"></span></td>
+					<td ><input type="text" th:placeholder="#{fieldLabel.password}" th:field="*{password}" /></td>
+					<td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+				</tr>
+				<tr>
+					<td ><span th:text="#{fieldLabel.name}"></span></td>
+					<td ><input type="text" th:placeholder="#{fieldLabel.name}" th:field="*{name}" /></td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+				</tr>
+				<tr>
+					<td ><span th:text="#{fieldLabel.managedBy}"></span></td>
+					<td >
+						<select class="form-control" th:field="*{managedBy}">
+							<option selected="selected" th:value="#{fieldLabel.managedBy}"></option>
+							<option th:each="manager : ${eManagerList}" th:value="${manager}" th:text="${manager}">
+							</option>
+						</select >
+					</td>
+					<td th:if="${#fields.hasErrors('managedBy')}" th:errors="*{managedBy}"></td>
+				</tr>
+				<tr>
+					<td ><span th:text="#{fieldLabel.usertype}"></span></td>
+					<td >
+						<select class="form-control" th:field="*{usertype}">
+							<option th:each="type : ${usertypes}" th:value="${type.typeId}" th:text="${type.type}">
+							</option>
+						</select >
+					</td>
+					<td th:if="${#fields.hasErrors('usertype')}" th:errors="*{usertype}"></td>
+				</tr>
+				<tr>
+					<td ><span th:text="#{fieldLabel.email}"></span></td>
+					<td ><input type="text" th:placeholder="#{fieldLabel.email}" th:field="*{email}" /></td>
+					<td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+				</tr>
+				<tr>
+				    <td></td>
+					<td><input type="submit" value="Create" style="float:left"/>
+					<input type="reset" value="Reset" style="float:right"/></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
 	</form>
 
 </body>
