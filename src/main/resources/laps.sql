@@ -26,13 +26,6 @@ VALUES
 ("2021-11-04", "Deepavali"),
 ("2021-12-25", "Christmas Day");
 
-INSERT INTO laps.leave_type
-(leave_type_id, description, type)
-VALUES
-(1,"An employee has to take full day leave","Annual Leave"),
-(2,"An employee has to take full day leave","Medical Leave"),
-(3,"For compensation leave the granularity is half a day. Every four hours of overtime work makes an employee eligible for half-a day compensation.","Compensation Leave");
-
 INSERT INTO laps.leave_application
 (leave_id, date_from, date_to, memo, reason, status, employee_employee_id, leavetype_leave_type_id)
 VALUES
