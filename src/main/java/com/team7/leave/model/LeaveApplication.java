@@ -141,12 +141,12 @@ public class LeaveApplication {
 		this.leaveTime = leaveTime;
 	}
 	
-	@Override
-	public String toString() {
-		return "LeaveApplication [leaveId=" + leaveId + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", reason="
-				+ reason + ", memo=" + memo + ", status=" + status + ", managerComments=" + managerComments
-				+ ", employee=" + employee + ", leavetype=" + leavetype + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "LeaveApplication [leaveId=" + leaveId + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", reason="
+//				+ reason + ", memo=" + memo + ", status=" + status + ", managerComments=" + managerComments
+//				+ ", employee=" + employee + ", leavetype=" + leavetype + "]";
+//	}
 	
 	
 }
