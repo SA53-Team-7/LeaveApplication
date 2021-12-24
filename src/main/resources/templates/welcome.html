@@ -43,15 +43,15 @@
 			<table>
 				<tr>
 					<th>Annual Leave Balance</th>
-					<td th:utext="${session.emObj.leaveAnnualLeft}"></td>
+					<td th:text="${emp.leaveAnnualLeft}"></td>
 				</tr>
 				<tr>
 					<th>Medical Leave Balance</th>
-					<td th:utext="${session.emObj.leaveMedicalLeft}"></td>
+					<td th:text="${emp.leaveMedicalLeft}"></td>
 				</tr>
 				<tr>
 					<th>Overtime Hours</th>
-					<td th:utext="${session.emObj.otHours}"></td>
+					<td th:text="${emp.otHours}"></td>
 				</tr>
 			</table>
 		</div>

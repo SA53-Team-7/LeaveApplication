@@ -95,7 +95,10 @@ public class CommonController {
 	}
 
 	@RequestMapping(value = "/welcome")
-	public String welcome() {
+	public String welcome(Model model, HttpSession session) {
+		Employee e = (Employee) session.getAttribute("emObj");
+		Employee emp = emService.findEmployeeById(e.getEmployeeId());
+		model.addAttribute("emp", emp);
 		return "welcome";
 	}
 }
