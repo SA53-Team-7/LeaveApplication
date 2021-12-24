@@ -26,6 +26,12 @@ VALUES
 ("2021-11-04", "Deepavali"),
 ("2021-12-25", "Christmas Day");
 
+INSERT INTO laps.leave_type
+VALUES
+(1, "for annual leave", "annual leave"),
+(2, "for medical leave", "medical leave"),
+(3, "for compensation leave", "compensation leave");
+
 INSERT INTO laps.leave_application
 (leave_id, date_from, date_to, memo, reason, status, employee_employee_id, leavetype_leave_type_id)
 VALUES
@@ -36,15 +42,9 @@ VALUES
 (5, '2021-12-18', '2021-12-22', "nil", "Personal", "APPLIED", 3, 1 ),
 (6, '2021-10-22', '2021-10-26', "nil", "Vacation", "APPLIED", 2, 1 );
 
-INSERT INTO leave_type
-VALUES
-(1, "for annual leave", "annual leave"),
-(2, "for medical leave", "medical leave"),
-(3, "for compensation leave", "compensation leave");
-
 INSERT INTO `leave_application` (`leave_id`, `date_from`, `date_to`, `manager_comments`, `memo`, `reason`, `status`, `employee_employee_id`, `leavetype_leave_type_id`) VALUES
-(1, '1998-12-31', '1998-12-31', '', 'test', 'test', 'APPLIED', 3, 1),
-(2, '1998-12-31', '1998-12-31', '', 'ttest', 'tes', 'APPROVED', 3, 1),
-(3, '2021-12-01', '2021-12-02', NULL, 'test', 'test', 'APPLIED', 3, 1),
-(4, '2021-12-01', '2021-12-02', '', 'test', 'test', 'REJECTED', 3, 1);
+(1, '2021-12-02', '1998-12-04', '', 'test memo 1', 'test reason 1', 'APPLIED', 3, 1),
+(2, '2021-12-05', '1998-12-05', '', 'ttest memo 2', 'test reason 2', 'APPROVED', 3, 1),
+(3, '2021-12-12', '2021-12-19', NULL, 'test memo 3', 'test reason 3', 'APPLIED', 3, 1),
+(4, '2021-12-25', '2021-12-31', '', 'test memo 4', 'test reason 4', 'REJECTED', 3, 1);
 
