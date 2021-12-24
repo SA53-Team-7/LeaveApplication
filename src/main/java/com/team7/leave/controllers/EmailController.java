@@ -26,10 +26,4 @@ public class EmailController {
         service.sendMail(mail);
         return new ResponseEntity<>("Email Sent successfully", HttpStatus.OK);
     }
-
-    @PostMapping("/attachment")
-    public ResponseEntity<String> sendAttachmentEmail(@RequestBody Email mail) throws MessagingException {
-        service.sendMailWithAttachments(mail);
-        return new ResponseEntity<>("Attachment mail sent successfully", HttpStatus.OK);
-    }
 }
