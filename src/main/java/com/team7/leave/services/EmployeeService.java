@@ -30,6 +30,7 @@ public interface EmployeeService {
 
 	Employee findEmployeeById(Integer id);
 	
+	Employee findManagerByUsername(String managerUsername);
 
 
 }

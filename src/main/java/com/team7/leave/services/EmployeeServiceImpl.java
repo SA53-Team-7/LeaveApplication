@@ -77,6 +77,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return emRepo.findEmployeeById(id);
 	}
 	
+	@Override
+	@Transactional
+	public Employee findManagerByUsername (String managerUsername) {
+		return emRepo.findManagerByUsername(managerUsername);
+	}
 	
 	@Override
 	@Transactional
