@@ -73,7 +73,9 @@ public class StaffController {
 			BindingResult bResult, HttpSession session) {
 		boolean sufficientLeave = false;
 		int existingLeaveCount = 0;
-		Employee emp = (Employee) session.getAttribute("emObj");
+		
+		Employee e = (Employee) session.getAttribute("emObj");
+		Employee emp = eService.findEmployeeById(e.getEmployeeId());
 				
 		if (leave.getDateFrom() != null && leave.getDateTo() != null && (leave.getDateTo().isAfter(leave.getDateFrom()) || leave.getDateFrom().isEqual(leave.getDateTo()))) {			
 			if (leave.getLeavetype().getType().equalsIgnoreCase("Annual Leave")) {
@@ -168,7 +170,9 @@ public class StaffController {
 	public ModelAndView updateLeaveApplication(@Valid @ModelAttribute("leave") LeaveApplication leave,
 			BindingResult bResult, HttpSession session, @PathVariable Integer id) {
 		
-		Employee emp = (Employee) session.getAttribute("emObj");
+		Employee e = (Employee) session.getAttribute("emObj");
+		Employee emp = eService.findEmployeeById(e.getEmployeeId());
+		
 		boolean sufficientLeave = true;
 		int existingLeaveCount = 0;
 		
