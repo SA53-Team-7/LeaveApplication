@@ -13,20 +13,20 @@
 
 	<div class="dropdown">
 		<div th:if="${session.emType == 'manager'}">
-			<a th:href="@{/manager/leave}" th:utext="#{manager.subnav.viewApplivation}">View Applications for
-				Approval</a>
-			<a th:href="@{/}" th:utext="#{manager.subnav.processCompensation}">Approve/Reject Compensation Claim</a>
-			<a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
+			<div><a th:href="@{/manager/leave}" th:utext="#{manager.subnav.viewApplivation}">View Applications for
+				Approval</a></div>
+			<div><a th:href="@{/}" th:utext="#{manager.subnav.processCompensation}">Approve/Reject Compensation Claim</a></div>
+			<div><a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a></div>
 		</div>
 
 		<div th:if="${session.emType == 'admin'}">
-			<a th:href="@{/admin/employee/list}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a>
-			<a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
+			<div><a th:href="@{/admin/employee/list}" th:utext="#{manager.subnav.manageStaff}">Manage Staff</a></div>
+			<div><a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a></div>
 		</div>
 
 		<div th:if="${session.emType == 'staff'}">
-			<a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a>
-			<a th:href="@{/}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit Leave Application</a>
+			<div><a th:href="@{/}" th:utext="#{staff.subnav.claimCompensation}">Claim Compensation</a></div>
+			<div><a th:href="@{/}" th:utext="#{staff.subnav.submitLeaveApplication}">Submit Leave Application</a></div>
 		</div>
 	</div  >
 </body>
