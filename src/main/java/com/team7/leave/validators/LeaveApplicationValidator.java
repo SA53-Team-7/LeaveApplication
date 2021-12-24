@@ -58,7 +58,20 @@ public class LeaveApplicationValidator implements Validator {
 
 			if (!phService.isWorkingDay(la.getDateTo())) {
 				errors.rejectValue("dateTo", "error.dates", "End date has to be a working day");
-			}		
+			}	
+			
+			// Checks that only FULL can be selected for annual and medical leave
+			if ((la.getLeavetype().getType().equalsIgnoreCase("Annual Leave") || la.getLeavetype().getType().equalsIgnoreCase("Medical Leave")) &&
+					!la.getLeaveTime().equalsIgnoreCase("FULL")) {
+					errors.rejectValue("leaveTime", "error.leaveTime", "FULL has to be selected for Annual and Medical Leave");
+			}
+			
+			// Checks that only FULL can be selected if duration taken for compensation leave is beyond 1 day
+			if (la.getLeavetype().getType().equalsIgnoreCase("Compensation Leave") && 
+				laService.getNumberOfDaysDeducted(la.getDateFrom(), la.getDateTo()) > 1 &&
+				!la.getLeaveTime().equalsIgnoreCase("FULL")) {
+				errors.rejectValue("leaveTime", "error.leaveTime", "Duration beyond 1 days requires FULL to be selected");
+			}
 		}
 	}
 }

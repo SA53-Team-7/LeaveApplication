@@ -33,6 +33,7 @@ public class LeaveApplication {
 	@Enumerated(EnumType.STRING)
 	private LeaveApplicationStatusEnum status;
 	private String managerComments;
+	private String leaveTime;
 	
 	@ManyToOne
 	private Employee employee;
@@ -40,15 +41,18 @@ public class LeaveApplication {
 	@ManyToOne
 	private LeaveType leavetype;
 
-	public LeaveApplication(LocalDate dateFrom, LocalDate dateTo, String reason, String memo, LeaveApplicationStatusEnum status,
-			String managerComments, Employee employee, LeaveType leavetype) {
+	public LeaveApplication(Integer leaveId, LocalDate dateFrom, LocalDate dateTo, String reason, String memo,
+			LeaveApplicationStatusEnum status, String managerComments, String leaveTime, Employee employee,
+			LeaveType leavetype) {
 		super();
+		this.leaveId = leaveId;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
 		this.reason = reason;
 		this.memo = memo;
 		this.status = status;
 		this.managerComments = managerComments;
+		this.leaveTime = leaveTime;
 		this.employee = employee;
 		this.leavetype = leavetype;
 	}
@@ -129,12 +133,20 @@ public class LeaveApplication {
 		this.leavetype = leavetype;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "LeaveApplication [leaveId=" + leaveId + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", reason="
-//				+ reason + ", memo=" + memo + ", status=" + status + ", managerComments=" + managerComments
-//				+ ", employee=" + employee + ", leavetype=" + leavetype + "]";
-//	}
+	public String getLeaveTime() {
+		return leaveTime;
+	}
+
+	public void setLeaveTime(String leaveTime) {
+		this.leaveTime = leaveTime;
+	}
+	
+	@Override
+	public String toString() {
+		return "LeaveApplication [leaveId=" + leaveId + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", reason="
+				+ reason + ", memo=" + memo + ", status=" + status + ", managerComments=" + managerComments
+				+ ", employee=" + employee + ", leavetype=" + leavetype + "]";
+	}
 	
 	
 }

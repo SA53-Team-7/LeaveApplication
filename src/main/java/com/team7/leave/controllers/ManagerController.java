@@ -95,7 +95,7 @@ public class ManagerController {
 		return "forward:/login";
 	}
 	
-	// Update status and comment for approval of annual leave and medical leave
+	// Update status and comment for approval of annual leave, medical leave and compensation leave
 	@RequestMapping(value = "/leave/update/{id}", method = RequestMethod.POST)
 	public String changeStatus(@ModelAttribute("approve") Approve approve, @PathVariable Integer id, @RequestParam(value="decision") String decision, @RequestParam(value="comment") String comment, HttpSession session) {
 		Employee emp = (Employee) session.getAttribute("emObj");		
@@ -104,25 +104,52 @@ public class ManagerController {
 			la.setManagerComments(comment);
 			if(decision.equalsIgnoreCase(LeaveApplicationStatusEnum.APPROVED.toString())) {
 				Integer days = lService.getNumberOfDaysDeducted(la.getDateFrom(), la.getDateTo());
+				
 				if(la.getLeavetype().getType().equalsIgnoreCase("annual leave")) {
-					Integer remaining = la.getEmployee().getLeaveAnnualLeft() - days;
-					la.getEmployee().setLeaveAnnualLeft(remaining);
-					if(remaining<0) {
+					//Integer remaining = la.getEmployee().getLeaveAnnualLeft() - days;
+					//la.getEmployee().setLeaveAnnualLeft(remaining);
+					Integer remaining = la.getEmployee().getLeaveAnnualLeft();
+					if(remaining < days) {
 						la.setStatus(LeaveApplicationStatusEnum.REJECTED);
 						la.setManagerComments("Rejected. The number of days applied exceeded the balance annual leave.");
 					}
 					else {
+						remaining = la.getEmployee().getLeaveAnnualLeft() - days;
+						la.getEmployee().setLeaveAnnualLeft(remaining);
 						la.setStatus(LeaveApplicationStatusEnum.APPROVED);
 					}
 				}
+				else if (la.getLeavetype().getType().equalsIgnoreCase("compensation leave")) {
+					if (la.getLeaveTime().equalsIgnoreCase("AM") || la.getLeaveTime().equalsIgnoreCase("PM")) {
+						if (la.getEmployee().getOtHours() >= 4) {
+							la.setStatus(LeaveApplicationStatusEnum.APPROVED);
+							la.getEmployee().setOtHours(la.getEmployee().getOtHours() - 4.0);
+						} else {
+							la.setStatus(LeaveApplicationStatusEnum.REJECTED);
+							la.setManagerComments("Rejected. The number of days applied exceeded the balance overtime hours.");
+						}
+					} else {
+						if (la.getEmployee().getOtHours() >= days * 8) {
+							la.setStatus(LeaveApplicationStatusEnum.APPROVED);
+							la.getEmployee().setOtHours(la.getEmployee().getOtHours() - (days * 8));
+						}
+						else {
+							la.setStatus(LeaveApplicationStatusEnum.REJECTED);
+							la.setManagerComments("Rejected. The number of days applied exceeded the balance overtime hours.");
+						}
+					}
+				}
 				else {
-					Integer remaining = la.getEmployee().getLeaveMedicalLeft() - days;
-					la.getEmployee().setLeaveMedicalLeft(remaining);
-					if(remaining<0) {
+//					Integer remaining = la.getEmployee().getLeaveMedicalLeft() - days;
+//					la.getEmployee().setLeaveMedicalLeft(remaining);
+					Integer remaining = la.getEmployee().getLeaveMedicalLeft();
+					if(remaining < days) {
 						la.setStatus(LeaveApplicationStatusEnum.REJECTED);
 						la.setManagerComments("Rejected. The number of days applied exceeded the balance medical leave.");
 					}
 					else {
+						remaining = la.getEmployee().getLeaveMedicalLeft() - days;
+						la.getEmployee().setLeaveMedicalLeft(remaining);
 						la.setStatus(LeaveApplicationStatusEnum.APPROVED);
 					}
 				}
