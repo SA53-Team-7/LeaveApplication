@@ -87,7 +87,9 @@ public class AdminEmployeeController {
 			model.addAttribute("eManagerList", eManagerList);
 			return "employeeForm-new";
 		}
-		
+		employee.setLeaveAnnualLeft(employee.getUsertype().getLeaveAnnualTotal());
+		employee.setLeaveMedicalLeft(60);
+		employee.setOtHours(0.0);
 		eService.save(employee);
 		return "forward:/admin/employee/list";
 	}
@@ -113,7 +115,6 @@ public class AdminEmployeeController {
 			model.addAttribute("eManagerList", eManagerList);
 			return "employeeForm-edit";
 		}
-		
 		eService.save(employee);
 		return "forward:/admin/employee/list";
 	}
